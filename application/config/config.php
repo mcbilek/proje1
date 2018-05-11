@@ -13,9 +13,6 @@ $config['base_url'] = $sq_base_url;
 $config['telefon_no']="5058942757";
 
 
-
-
-
 // enable webcam js ( true or false )
 $config['webcam']=false;
 
