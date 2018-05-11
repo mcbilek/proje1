@@ -14,6 +14,8 @@ $config['telefon_no']="5058942757";
 
 
 
+
+
 // enable webcam js ( true or false )
 $config['webcam']=false;
 
