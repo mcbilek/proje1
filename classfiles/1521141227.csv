@@ -1,0 +1,12 @@
+Result ID,Email,First Name,Last Name,Group name,Quiz Name,Score,Percentage,Status
+11,,,,Free,deneme manuel,1,25,Pending
+10,user@example.com,User,User,Free,ANAYASA SINAVI,2,66.6667,Fail
+9,admin@example.com,Admin,Admin,Free,Deneme Sınavı,0,0,Open
+8,admin@example.com,Admin,Admin,Free,deneme manuel,2,50,Pass
+7,user@example.com,User,User,Free,Sample Quiz,2,50,Pass
+6,user@example.com,User,User,Free,Quiz with advance template,0,0,Fail
+5,user@example.com,User,User,Free,Sample Quiz 2,1,20,Pending
+4,admin@example.com,Admin,Admin,Free,Quiz with advance template,0.67,16.75,Fail
+3,admin@example.com,Admin,Admin,Free,Sample Quiz,0,0,Fail
+2,admin@example.com,Admin,Admin,Free,Sample Quiz 2,1,20,Pending
+1,admin@example.com,Admin,Admin,Free,Quiz with advance template,2.67,66.75,Pass
