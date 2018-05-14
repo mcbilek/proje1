@@ -307,7 +307,7 @@ $("#hataBildirForm").submit(function(event) {
         url = $form.attr( 'action' );
 
     /* Send the data using post with element id name and name2*/
-    alert($("#hataBildirForm").serialize());
+    //alert($("#hataBildirForm").serialize());
     var posting = $.post( url, $("#hataBildirForm").serialize());
 
     /* Alerts the results */

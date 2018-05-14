@@ -243,6 +243,7 @@ $cia_tim_cate=cia_tim_cate($correct_incorrect_unattempted,explode(",",$result['i
 <?php echo $this->lang->line('hello');?> <?php echo $result['first_name'];?> 
 <?php echo $result['last_name'];?>!</span>  <?php echo str_replace('{attempt_no}',$attempt,$this->lang->line('title_result'));?> </h3></center>
 </div>
+<div class="col-lg-12" >
 <center>
 <h2><span style="color:#e39500;"><?php echo $result['quiz_name'];?>   </span></h2>
 </center>
@@ -315,7 +316,7 @@ if($result['gen_certificate']=='1'){
 		 
 		 <center>
 		 <?php echo $this->lang->line('result_id');?> <?php echo $result['rid'];?> &nbsp;&nbsp;&nbsp;
-		<?php echo $this->lang->line('user_id');?> <?php echo $result['uid'];?>&nbsp;&nbsp;&nbsp;
+		<?php //echo $this->lang->line('user_id');?> <?php //echo $result['uid'];?>
 		<?php echo $this->lang->line('email');?>: <?php echo $result['email'];?>
 		 </center>
 		
@@ -431,164 +432,6 @@ if($result['camera_req']=='1'){
 		
 	</div>
 	
-	<div class="col-lg-12 noprint">
-	<h3><?php echo $this->lang->line('comparison_other');?></h3>
-	</div>
-	
-<div class="col-lg-12 noprint" style="margin-top:50px;"> 
-<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('rank').': '.$rank;?> </button> 
-<div class="td_line" style="float:left;width:700px;height:70px;">
-<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>1</div>
-<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>2</div>
-<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>3</div>
-  <?php 
-  if($rank > 3 ){
-  ?>
-<div class="circle_ur s_title"  data-toggle="tooltip"  title="Sıranız" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%"><?php echo $rank;?></div>	  
-  <?php 
-  }
-  ?>
-
-    <?php 
-  if($rank != $last_rank ){
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıra"><?php echo $last_rank;?></div>	  
-  <?php 
-  }else{
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="Sıranız"><?php echo $last_rank;?></div>	  
-
-  <?php
-  }
-  ?>
-</div>
- </div>
- 
- 
- 
- 
- 
-<div class="col-lg-12 noprint" style="margin-top:50px;">
-<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('score_obtained').': '.$result['score_obtained'];?> </button> 
-<div class="td_line" style="float:left;width:700px;height:70px;">
-<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[0]['score_obtained'];?></div>
-<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[1]['score_obtained'];?></div>
-<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[2]['score_obtained'];?></div>
-  <?php 
-  if($rank > 3 ){
-  ?>
-<div class="circle_ur s_title"  data-toggle="tooltip"  title="Puanınız" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%"><?php echo $result['score_obtained'];?></div>	  
-  <?php 
-  }
-  ?>
-
-    <?php 
-  if($rank != $last_rank ){
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="En Düşük Puan"><?php echo $looser['score_obtained'];?></div>	  
-  <?php 
-  }else{
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="En Düşük Puanınız"><?php echo $looser['score_obtained'];?></div>	  
-
-  <?php
-  }
-  ?>
-</div>
- </div>
- 
- 
- 
- 
- <div class="col-lg-12 noprint" style="margin-top:50px;margin-bottom:50px;">
-<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('time').': '.secintomin($result['total_time']).' Min.';?>   </button> 
-<div class="td_line" style="float:left;width:700px;height:70px;">
-<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[0]['total_time']);?></div>
-<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"   title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[1]['total_time']);?></div>
-<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"   title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[2]['total_time']);?></div>
-  <?php 
-  if($rank > 3 ){
-  ?>
-<div class="circle_ur s_title"  data-toggle="tooltip"  title="Süreniz" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%" style="font-size:12px;padding-top:10px;"><?php echo secintomin($result['total_time']);?></div>	  
-  <?php 
-  }
-  ?>
-
-    <?php 
-  if($rank != $last_rank ){
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıralamanızın Süresi" style="font-size:12px;padding-top:10px;"><?php echo secintomin($looser['total_time']);?></div>	  
-  <?php 
-  }else{
-  ?>
-<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıralamanızın Süresi" style="font-size:12px;padding-top:10px;"><?php echo secintomin($looser['total_time']);?></div>	  
-
-  <?php
-  }
-  ?>
-</div>
- </div>
- 
- 
-	 <div id="page_break"></div>
- <div class="col-md-12">
-<?php
- 
- 
-  
-if($this->config->item('google_chart') == true ){ 
-?> 
-
-
-<!-- google chart starts--> 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    
- 
-<script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(<?php echo $value;?>);
-
-        var options = {
-          title: '<?php echo $this->lang->line('top_10_result');?> <?php echo $result['quiz_name'];?>',
-          hAxis: {title: '<?php echo $this->lang->line('quiz');?>(<?php echo $this->lang->line('user');?>)', titleTextStyle: {color: 'red'}}
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-		 <div id="chart_div" style="width: 800px; height: 500px;"></div>
-  
-
-<!-- google chart starts -->
-
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(<?php echo $qtime;?>);
-
-        var options = {
-          title: '<?php echo $this->lang->line('time_spent_on_ind');?>'
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-      }
-    </script>
-		 <div id="chart_div2" style="width:800px; height: 500px;"></div>
-<!-- google chart ends -->
-
-
-
-
- 
-
-<?php 
-}
-?>
 
 <?php
 $ind_score=explode(',',$result['score_individual']); 
@@ -916,13 +759,173 @@ if(in_array($option['oid'],$save_ans)){   echo  trim($option['q_option']).', '; 
 
 
 
+	<div class="col-lg-12 noprint">
+	<h3><?php echo $this->lang->line('comparison_other');?></h3>
+	</div>
+	
+<div class="col-lg-12 noprint" style="margin-top:50px;"> 
+<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('rank').': '.$rank;?> </button> 
+<div class="td_line" style="float:left;width:700px;height:70px;">
+<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>1</div>
+<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>2</div>
+<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Sıranız"<?php }else{ ?>class="circle_result"<?php } ?>>3</div>
+  <?php 
+  if($rank > 3 ){
+  ?>
+<div class="circle_ur s_title"  data-toggle="tooltip"  title="Sıranız" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%"><?php echo $rank;?></div>	  
+  <?php 
+  }
+  ?>
+
+    <?php 
+  if($rank != $last_rank ){
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıra"><?php echo $last_rank;?></div>	  
+  <?php 
+  }else{
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="Sıranız"><?php echo $last_rank;?></div>	  
+
+  <?php
+  }
+  ?>
+</div>
+ </div>
+ 
+ 
+ 
+ 
+ 
+<div class="col-lg-12 noprint" style="margin-top:50px;">
+<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('score_obtained').': '.$result['score_obtained'];?> </button> 
+<div class="td_line" style="float:left;width:700px;height:70px;">
+<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[0]['score_obtained'];?></div>
+<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[1]['score_obtained'];?></div>
+<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Your Score"<?php }else{ ?>class="circle_result"<?php } ?>><?php echo $toppers[2]['score_obtained'];?></div>
+  <?php 
+  if($rank > 3 ){
+  ?>
+<div class="circle_ur s_title"  data-toggle="tooltip"  title="Puanınız" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%"><?php echo $result['score_obtained'];?></div>	  
+  <?php 
+  }
+  ?>
+
+    <?php 
+  if($rank != $last_rank ){
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="En Düşük Puan"><?php echo $looser['score_obtained'];?></div>	  
+  <?php 
+  }else{
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="En Düşük Puanınız"><?php echo $looser['score_obtained'];?></div>	  
+
+  <?php
+  }
+  ?>
+</div>
+ </div>
+ 
+ 
+ 
+ 
+ <div class="col-lg-12 noprint" style="margin-top:50px;margin-bottom:50px;">
+<button class="btn btn-default" style="margin-right:20px;width:141px;	float:left;"> <?php echo $this->lang->line('time').': '.secintomin($result['total_time']).' Min.';?>   </button> 
+<div class="td_line" style="float:left;width:700px;height:70px;">
+<div <?php if($rank=='1'){?>class="circle_ur s_title" data-toggle="tooltip"  title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[0]['total_time']);?></div>
+<div <?php if($rank=='2'){?>class="circle_ur s_title" data-toggle="tooltip"   title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[1]['total_time']);?></div>
+<div <?php if($rank=='3'){?>class="circle_ur s_title" data-toggle="tooltip"   title="Süreniz"<?php }else{ ?>class="circle_result"<?php } ?> style="font-size:12px;padding-top:10px;"><?php echo secintomin($toppers[2]['total_time']);?></div>
+  <?php 
+  if($rank > 3 ){
+  ?>
+<div class="circle_ur s_title"  data-toggle="tooltip"  title="Süreniz" style="margin-left:<?php echo intval(($rank/$last_rank)*100);?>%" style="font-size:12px;padding-top:10px;"><?php echo secintomin($result['total_time']);?></div>	  
+  <?php 
+  }
+  ?>
+
+    <?php 
+  if($rank != $last_rank ){
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıralamanızın Süresi" style="font-size:12px;padding-top:10px;"><?php echo secintomin($looser['total_time']);?></div>	  
+  <?php 
+  }else{
+  ?>
+<div class="circle_l s_title"  data-toggle="tooltip"  title="Son Sıralamanızın Süresi" style="font-size:12px;padding-top:10px;"><?php echo secintomin($looser['total_time']);?></div>	  
+
+  <?php
+  }
+  ?>
+</div>
+ </div>
+ 
+ 
+	 <div id="page_break"></div>
+ <div class="col-md-12">
+<?php
+ 
+ 
+  
+if($this->config->item('google_chart') == true ){ 
+?> 
+
+
+<!-- google chart starts--> 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
+ 
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<?php echo $value;?>);
+
+        var options = {
+          title: '<?php echo $this->lang->line('top_10_result');?> <?php echo $result['quiz_name'];?>',
+          hAxis: {title: '<?php echo $this->lang->line('quiz');?>(<?php echo $this->lang->line('user');?>)', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+		 <div id="chart_div" style="width: 800px; height: 500px;"></div>
+  
+
+<!-- google chart starts -->
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<?php echo $qtime;?>);
+
+        var options = {
+          title: '<?php echo $this->lang->line('time_spent_on_ind');?>'
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+      }
+    </script>
+		 <div id="chart_div2" style="width:800px; height: 500px;"></div>
+<!-- google chart ends -->
+
+
+
+
+ 
+
+<?php 
+}
+?>
 
  
  
  
  
 </div>
-      
+
+
+
 </div>
 
  
@@ -930,6 +933,9 @@ if(in_array($option['oid'],$save_ans)){   echo  trim($option['q_option']).', '; 
 
 
 </div>
+
+
+
 
 <input type="hidden" id="evaluate_warning" value="<?php echo $this->lang->line('evaluate_warning');?>">
  

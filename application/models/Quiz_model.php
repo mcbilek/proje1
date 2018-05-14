@@ -967,6 +967,32 @@ if($this->config->item('allow_result_email')){
      
  }
  
+ function calisma_list(){
+     
+     $logged_in=$this->session->userdata('logged_in');
+//      if($logged_in['su']=='0'){
+//          $gid=$logged_in['gid'];
+//          $where="FIND_IN_SET('".$gid."', gids)";
+//          $this->db->where($where);
+//      }
+     
+     
+//      if($this->input->post('search') && $logged_in['su']=='1'){
+//          $search=$this->input->post('search');
+//          $this->db->or_where('quid',$search);
+//          $this->db->or_like('quiz_name',$search);
+//          $this->db->or_like('description',$search);
+         
+//      }
+     $uid=$logged_in['uid'];
+     $query=$this->db->query("select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=$uid 
+                              and u.kadro_id=ck.kadro_id and c.cid=ck.kategori_id order by c.category_name asc");
+//      log_message("debug", "calisma_list size:".count($query->result_array()));
+     return $query->result_array();
+     
+     
+ }
+ 
  
  
 }

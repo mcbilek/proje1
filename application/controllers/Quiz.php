@@ -47,6 +47,7 @@ class Quiz extends CI_Controller {
 		$data['title']=$this->lang->line('quiz');
 		// fetching quiz list
 		$data['result']=$this->quiz_model->quiz_list($limit);
+		$data['calisma_result']=$this->quiz_model->calisma_list();
 		$this->load->view('headerForTable',$data);
 		$this->load->view('quiz_list',$data);
 		$this->load->view('footer',$data);

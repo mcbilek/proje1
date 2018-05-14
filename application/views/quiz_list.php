@@ -5,7 +5,7 @@ $logged_in=$this->session->userdata('logged_in');
 			
 			?>
    
- <h3><?php echo $title;?></h3>
+ <h3>Deneme Sınavları</h3>
     <?php 
 	if($logged_in['su']=='1'){
 		?>
@@ -142,6 +142,64 @@ foreach($result as $key => $val){
                          
 						 
 <a href="<?php echo site_url('quiz/quiz_detail/'.$val['quid']);?>" class="btn btn-success"  ><?php echo $this->lang->line('attempt');?> </a>
+
+<?php 
+if($logged_in['su']=='1'){
+	?>
+			
+<a href="<?php echo site_url('quiz/edit_quiz/'.$val['quid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
+<a href="javascript:remove_entry('quiz/remove_quiz/<?php echo $val['quid'];?>');"><img src="<?php echo base_url('images/cross.png');?>"></a>
+<?php 
+}
+?>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /item --> 
+	  
+	  
+	  <?php 
+	  if($cc >= 4){
+	  $cc=0;
+	  }else{
+	  $cc+=1;
+	  }
+	  
+}?>
+
+</div>
+<div class="col-md-12">
+<br> 
+<hr><br>
+<h3>Konulara Göre Soru Çözümü</h3>
+<br><br>
+<?php 
+foreach($calisma_result as $key => $val){
+    ?>
+	  
+	                <!-- item -->
+                <div class="col-md-4 text-center">
+                    <div class="panel panel-<?php echo $colorcode[$cc];?> panel-pricing">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop"></i>
+                            <h3><?php echo $val['category_name'];?></h3>
+                        </div>
+                        <form method="post" action="<?php echo site_url('quiz/ders_calis');?>" style="margin-bottom: 0px;">
+                        <input id="cat_id" type="hidden" name="kategori_id" value="<?php echo $val['cid'];?>">
+                            <h4><?php echo $this->lang->line('noq');?></h4>
+                            <select class="selectpicker" name="soruAdet">
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            </select><p><p>
+                        <div class="panel-footer">
+                         
+						 <button type="submit" class="btn btn-success">Soru Çöz</button>
+						 </form>
+<a href="<?php echo site_url('quiz/quiz_detail/'.$val['quid']);?>" class="btn btn-primary"  >Kaynak Oku </a>
 
 <?php 
 if($logged_in['su']=='1'){
