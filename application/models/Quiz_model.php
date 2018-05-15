@@ -985,15 +985,59 @@ if($this->config->item('allow_result_email')){
          
 //      }
      $uid=$logged_in['uid'];
+     if($logged_in['su']=='0'){
      $query=$this->db->query("select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=$uid 
                               and u.kadro_id=ck.kadro_id and c.cid=ck.kategori_id order by c.category_name asc");
+     } else {
+         $query=$this->db->query("select * from savsoft_category order by category_name asc");
+     }
+//      log_message("debug", "calisma_list size:".count($query->result_array()));
+     return $query->result_array();
+     
+     
+ }
+ function kaynak_list(){
+     
+     $logged_in=$this->session->userdata('logged_in');
+//      if($logged_in['su']=='0'){
+//          $gid=$logged_in['gid'];
+//          $where="FIND_IN_SET('".$gid."', gids)";
+//          $this->db->where($where);
+//      }
+     
+     
+//      if($this->input->post('search') && $logged_in['su']=='1'){
+//          $search=$this->input->post('search');
+//          $this->db->or_where('quid',$search);
+//          $this->db->or_like('quiz_name',$search);
+//          $this->db->or_like('description',$search);
+         
+//      }
+     $uid=$logged_in['uid'];
+     if($logged_in['su']=='0'){
+     $query=$this->db->query("select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=$uid and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id");
+     } else {
+         $query=$this->db->query("select * from savsoft_category_kaynak");
+     }
 //      log_message("debug", "calisma_list size:".count($query->result_array()));
      return $query->result_array();
      
      
  }
  
- 
+ function dosya_yukle($dosya_adi){
+     log_message("debug", "dosya_yukle" . $_POST);
+     $logged_in = $this->session->userdata('logged_in');
+     $uid = $logged_in['uid'];
+     
+     $userdata = array(
+         'kategori_id' => $_POST['kategori_id'],
+         'kaynak_tur' => $_POST['kaynak_tur'],
+         'dosya_adi' => $dosya_adi,
+         'dosya_aciklama' => $_POST['dosya_aciklama']
+     );
+     return $this->db->insert('savsoft_category_kaynak', $userdata);
+ }
  
 }
 ?>

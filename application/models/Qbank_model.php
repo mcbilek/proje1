@@ -411,7 +411,7 @@ Class Qbank_model extends CI_Model
  
  // category function start
  function category_list(){
-	 $this->db->order_by('cid','desc');
+	 $this->db->order_by('category_name','asc');
 	 $query=$this->db->get('savsoft_category');
 	 return $query->result_array();
 	 

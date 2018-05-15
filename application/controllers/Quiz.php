@@ -48,6 +48,7 @@ class Quiz extends CI_Controller {
 		// fetching quiz list
 		$data['result']=$this->quiz_model->quiz_list($limit);
 		$data['calisma_result']=$this->quiz_model->calisma_list();
+		$data['calisma_kaynak']=$this->quiz_model->kaynak_list();
 		$this->load->view('headerForTable',$data);
 		$this->load->view('quiz_list',$data);
 		$this->load->view('footer',$data);
@@ -877,7 +878,8 @@ if(isset($_FILES['webcam'])){
          $qids=$qids.$val['qid'].",";
      }
      // get options
-     $data['options']=$this->quiz_model->get_options(trim($qids,","));
+     if (count($data['questions'])>0)
+        $data['options']=$this->quiz_model->get_options(trim($qids,","));
     // print_r($data['options']); exit();
      $data['title']="Ders Çalışma Modu";
      $this->load->view('header',$data);
@@ -886,7 +888,6 @@ if(isset($_FILES['webcam'])){
      $this->load->view('footer',$data);
      
  }
- 
  
 	
 }

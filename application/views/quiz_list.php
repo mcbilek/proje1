@@ -121,6 +121,18 @@ $colorcode=array(
 'info',
 'danger'
 );
+$colorcode2=array(
+'success',
+'warning',
+'info',
+'#e0c3c3'
+);
+$colorcode3=array(
+'success',
+'warning',
+'info',
+'#edcbcb'
+);
 foreach($result as $key => $val){
 ?>
 	  
@@ -184,8 +196,66 @@ foreach($calisma_result as $key => $val){
                     <div class="panel panel-<?php echo $colorcode[$cc];?> panel-pricing">
                         <div class="panel-heading">
                             <i class="fa fa-desktop"></i>
-                            <h3><?php echo $val['category_name'];?></h3>
+                            <h5><?php echo $val['category_name'];?></h5>
                         </div>
+                        <div style="height: 30px;padding:0" class="panel-heading"><h4 style="padding-top: 6px">Kaynaklar</h4></div>
+                        <?php
+                        //kaynakları ekliyoruz
+                        $notvar = false;
+                        foreach ($calisma_kaynak as $anahtar => $deger) {
+                            if ($deger['kategori_id'] == $val['cid']) {
+                                $notvar = true;
+                                $tur = $deger['kaynak_tur'];
+                                if ($tur == 0) {
+                                    $i ++;
+                                    $anan = $deger['dosya_adi'];
+                                    $baban = $deger['dosya_aciklama'];
+                                    echo $i . "-";
+                      ?>
+    					<a target="_blank" href="<?php echo base_url("upload/$anan");?>"><?php echo $baban;?></a>
+    					<?php if($logged_in['su']=='1') {?>
+    					<a title="Sil" href="<?php echo base_url('index.php/qbank/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
+    					<p>
+                       <?php
+                       }
+                                }
+                            }
+                        }
+                        if (! $notvar)
+                            echo "Kaynak Eklenmemiş";
+                        $i = 0;
+                        ?>
+                        
+					<div style="height: 30px;padding:0" class="panel-heading"><strong><h4 style="padding-top: 6px">Ders Notları</h4></strong></div>
+                        <?php
+                        //ders notlarını ekliyoruz
+                        $dersnotuvar=false;
+                        foreach ($calisma_kaynak as $anahtar => $deger) {
+                            if ($deger['kategori_id'] == $val['cid']) {
+                                $dersnotuvar=true;
+                                $tur = $deger['kaynak_tur'];
+                                $kay_id=$deger['kaynak_id'];
+                                if ($tur == 1) {
+                                    $i ++;
+                                    $anan = $deger['dosya_adi'];
+                                    $baban = $deger['dosya_aciklama'];
+                                    echo $i . "-";
+                       ?>
+    					<a target="_blank" href="<?php echo base_url("upload/$anan");?>"><?php echo $baban;?></a>
+    					<?php if($logged_in['su']=='1') {?>
+    					<a title="Sil" href="<?php echo base_url('index.php/qbank/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
+    					<p>
+                       <?php
+                       }
+                                }
+                            }
+                        }
+                        if (! $dersnotuvar)
+                            echo "Ders Notu Eklenmemiş";
+                        $i = 0;
+                        ?>
+                        
+					<hr>
                         <form method="post" action="<?php echo site_url('quiz/ders_calis');?>" style="margin-bottom: 0px;">
                         <input id="cat_id" type="hidden" name="kategori_id" value="<?php echo $val['cid'];?>">
                             <h4><?php echo $this->lang->line('noq');?></h4>
@@ -199,18 +269,17 @@ foreach($calisma_result as $key => $val){
                          
 						 <button type="submit" class="btn btn-success">Soru Çöz</button>
 						 </form>
-<a href="<?php echo site_url('quiz/quiz_detail/'.$val['quid']);?>" class="btn btn-primary"  >Kaynak Oku </a>
 
 <?php 
 if($logged_in['su']=='1'){
 	?>
-			
+<!-- 
 <a href="<?php echo site_url('quiz/edit_quiz/'.$val['quid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
 <a href="javascript:remove_entry('quiz/remove_quiz/<?php echo $val['quid'];?>');"><img src="<?php echo base_url('images/cross.png');?>"></a>
-<?php 
+ -->
+	<?php 
 }
 ?>
-
 
                         </div>
                     </div>

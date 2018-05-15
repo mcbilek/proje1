@@ -6,8 +6,9 @@ class Qbank extends CI_Controller {
 	 function __construct()
 	 {
 	   parent::__construct();
+	   $this->load->helper(array('form', 'url'));
 	   $this->load->database();
-	   $this->load->helper('url');
+	 //  $this->load->helper('url');
 	   $this->load->model("qbank_model");
 	   $this->load->model("user_model");
 	   $this->lang->load('basic', $this->config->item('language'));
@@ -805,9 +806,70 @@ $this->qbank_model->import_question($allxlsdata);
 	
 	
 	
+	public function do_upload()
+	{
+	    
+	  //  log_message("debug", "do_upload kaynakTur:".$_POST['kaynakTur']);
+	    $config['upload_path']          = './upload/';
+	    $config['allowed_types']        = 'pdf';
+	    $config['max_size']             = 10000; 
+	    $config['encrypt_name']         = TRUE; 
+	    
+	    $this->load->library('upload', $config);
+	    
+	    $test=$this->upload->do_upload('dosya');
+	    log_message("debug", "upload bitti1:".$test);
+	    if ( !$test )
+	    {
+	        $error = array('error' => $this->upload->display_errors());
+	        log_message("debug", "upload hata:".print_r($error));
+	        //          $this->load->view('upload_form', $error);
+	    }
+	    else
+	    {
+	        $this->load->model("quiz_model");
+	        $data = array('upload_data' => $this->upload->data());
+	        log_message("debug", "upload bitti2, file name:".$data['upload_data']['file_name']);
+    	    $this->quiz_model->dosya_yukle($data['upload_data']['file_name']);
+	        
+    	    $this->session->set_flashdata('showmodal', "Dosya Başarıyla Eklenmiştir.");
+	        
+	        //          $this->load->view('upload_success', $data);
+	    }
+	    
+	    $data['category_list']=$this->qbank_model->category_list();
+	    $data['title']=$this->lang->line('category_list');
+	    $this->load->view('header',$data);
+	    $this->load->view('category_list',$data);
+	    $this->load->view('footer',$data);
+	    
+	}
 	
-	
-	
+	public function kaynak_sil($fileName,$kaynak_id){
+	    
+	    $logged_in=$this->session->userdata('logged_in');
+	    if($logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
+	    $mcid=$this->input->post('mcid');
+	    $this->db->query(" delete from savsoft_category_kaynak where kaynak_id=$kaynak_id ");
+	    
+	    unlink("./upload/".$fileName);
+	    
+// 	    if($this->qbank_model->remove_category($cid)){
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-success'>Kaynak/Ders Notu Başarıyla Silindi </div>");
+// 	    }else{
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir Hata Oluştu</div>");
+	        
+// 	    }
+
+	    $this->session->set_flashdata('message', "<div class='alert alert-success'>Kaynak/Ders Notu Başarıyla Silindi </div>");
+	    
+	    redirect('quiz');
+	    
+	    
+	}
 	
 	
 	
