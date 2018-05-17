@@ -44,8 +44,10 @@ foreach($group_list as $key => $val){
   <?php echo $this->config->item('base_currency_sufix');?>  </td>
  <td><?php echo $val['valid_for_days'];?></td>
 <td>
+<!-- 
 <a href="<?php echo site_url('user/edit_group/'.$val['gid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
 <a href="<?php echo site_url('user/pre_remove_group/'.$val['gid']);?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
+ -->
 
 </td>
 </tr>

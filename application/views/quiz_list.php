@@ -206,6 +206,7 @@ foreach($calisma_result as $key => $val){
                             if ($deger['kategori_id'] == $val['cid']) {
                                 $notvar = true;
                                 $tur = $deger['kaynak_tur'];
+                                $kay_id=$deger['kaynak_id'];
                                 if ($tur == 0) {
                                     $i ++;
                                     $anan = $deger['dosya_adi'];
@@ -214,7 +215,7 @@ foreach($calisma_result as $key => $val){
                       ?>
     					<a target="_blank" href="<?php echo base_url("upload/$anan");?>"><?php echo $baban;?></a>
     					<?php if($logged_in['su']=='1') {?>
-    					<a title="Sil" href="<?php echo base_url('index.php/qbank/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
+    					<a title="Sil" href="<?php echo base_url('index.php/genel/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
     					<p>
                        <?php
                        }
@@ -237,13 +238,13 @@ foreach($calisma_result as $key => $val){
                                 $kay_id=$deger['kaynak_id'];
                                 if ($tur == 1) {
                                     $i ++;
-                                    $anan = $deger['dosya_adi'];
+                                    $dosya_adi = $deger['dosya_adi'];
                                     $baban = $deger['dosya_aciklama'];
                                     echo $i . "-";
                        ?>
     					<a target="_blank" href="<?php echo base_url("upload/$anan");?>"><?php echo $baban;?></a>
     					<?php if($logged_in['su']=='1') {?>
-    					<a title="Sil" href="<?php echo base_url('index.php/qbank/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
+    					<a title="Sil" href="<?php echo base_url('index.php/genel/kaynak_sil/')."/".$dosya_adi."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
     					<p>
                        <?php
                        }

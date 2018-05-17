@@ -151,7 +151,8 @@
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo site_url('notification');?>"><?php echo $this->lang->line('notification');?></a></li>
                   <li><a href="<?php echo site_url('user/group_list');?>"><?php echo $this->lang->line('group_list');?></a></li>
-                  <li><a href="<?php echo site_url('qbank/category_list');?>"><?php echo $this->lang->line('category_list');?></a></li>
+                  <li><a href="<?php echo site_url('qbank/category_list');?>">Kategori/Ders Notu İşlemleri</a></li>
+                  <li><a href="<?php echo site_url('genel/kurum_kardo_kategori');?>">Kurum/Kadro/Kategori Ayarları</a></li>
                   <li><a href="<?php echo site_url('qbank/level_list');?>"><?php echo $this->lang->line('level_list');?></a></li>
                   
 					<li><a href="<?php echo site_url('dashboard/config');?>"><?php echo $this->lang->line('config');?></a></li>

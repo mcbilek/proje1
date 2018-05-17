@@ -38,20 +38,23 @@ window.location="<?php echo site_url('quiz/submit_quiz/');?>";
 <!-- Category button -->
 
  <div class="row"  >
-<?php
-
-function getfirstqn($cat_keys = '0', $category_range)
-{
-    if ($cat_keys == 0) {
-        return 0;
-    } else {
-        $r = 0;
-        for ($g = 0; $g < $cat_keys; $g ++) {
-            $r += $category_range[$g];
-        }
-        return $r;
+ 			<?php
+    if ($this->session->flashdata('message')) {
+        echo $this->session->flashdata('message');
     }
-}
+
+    function getfirstqn($cat_keys = '0', $category_range)
+    {
+        if ($cat_keys == 0) {
+            return 0;
+        } else {
+            $r = 0;
+            for ($g = 0; $g < $cat_keys; $g ++) {
+                $r += $category_range[$g];
+            }
+            return $r;
+        }
+    }
 
 ?>
 </div> 

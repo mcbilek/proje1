@@ -868,6 +868,22 @@ if(isset($_FILES['webcam'])){
      }
      
      
+     if($logged_in['su']=='0' && $gid!=3){
+         $demoCozdu = $this->quiz_model->get_questions_demo_kontrol();
+         //bugünlik limit demo soruları çözmüş.
+         if ($demoCozdu==1) {
+             $url=site_url('quiz/index.php/user/switch_group');
+             $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bugünlük Demo Soru Hakkınız Dolmuştur, daha fazlası için lütfen <a href='$url'>Özel Üyeliğe</a> Geçiniz.</div>");
+             redirect('quiz');
+             
+//              $data['title']="Ders Çalışma Modu";
+//              $data['demo_cozdu']="1";
+//              $this->load->view('header',$data);
+             
+//              $this->load->view('ders_calis',$data);
+//              $this->load->view('footer',$data);
+         }
+     }
      // get questions
      $data['questions']=$this->quiz_model->get_questions_ders_calis();
      $data['noq']=$_POST['soruAdet'];

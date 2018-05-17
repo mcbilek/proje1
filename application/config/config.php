@@ -7,10 +7,14 @@ include('sq_config.php');
 |--------------------------------------------------------------------------
 | 
 */
-$config['base_url'] = $sq_base_url;
-
 
 $config['telefon_no']="5058942757";
+
+$config['demo_soru']=5;
+
+
+
+$config['base_url'] = $sq_base_url;
 
 
 // enable webcam js ( true or false )

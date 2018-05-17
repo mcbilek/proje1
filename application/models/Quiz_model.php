@@ -950,11 +950,49 @@ if($this->config->item('allow_result_email')){
 	 return true;
  }
  
+ 
+ 
+ function get_questions_demo_kontrol(){
+     $logged_in=$this->session->userdata('logged_in');
+     $gid=$logged_in['gid'];
+     $uid=$logged_in['uid'];
+     //admin yada özel üye değilse demo soru çekildiğine dair kayıt atıyoruz.
+     if($logged_in['su']=='0' && $gid!=3){
+         //daha önce soru çekilmiş mi bakıyoruz
+         $bugun_cozdu="bugun_cozdu";
+         $query=$this->db->query("select * from savsoft_settings where uid=$uid and anahtar='$bugun_cozdu'");
+         if ($query->num_rows()>0) {
+             return 1;
+         } else {
+             return 0;
+         }
+     }
+    
+ }
+ 
+ 
  function get_questions_ders_calis(){
+     $logged_in=$this->session->userdata('logged_in');
+     $gid=$logged_in['gid'];
+     $uid=$logged_in['uid'];
+     $soruAdet = $_POST['soruAdet'];
+     //admin yada özel üye değilse demo soru çekildiğine dair kayıt atıyoruz.
+     if($logged_in['su']=='0' && $gid!=3){
+
+              $userdata = array(
+                  'uid' => $uid,
+                  'anahtar' => "bugun_cozdu",
+                  'value' => "1",
+              );
+              $this->db->insert('savsoft_settings', $userdata);
+              //soru adedini sınırlıyoruz.
+              $soruAdet=$this->config->item('demo_soru');
+          }
      
+     log_message("debug", "grup_id:".$gid);
+     log_message("debug", "uid:".$uid);
      log_message("debug", "kategori_id:".$_POST['kategori_id']);
      log_message("debug", "soru adet:".$_POST['soruAdet']);
-     $soruAdet = $_POST['soruAdet'];
      $cat_id = $_POST['kategori_id'];
      if ($cat_id=="-1")
         $query=$this->db->query("select q.*,cat.category_name,lvl.level_name from savsoft_qbank q, savsoft_category cat, savsoft_level lvl 
@@ -987,7 +1025,7 @@ if($this->config->item('allow_result_email')){
      $uid=$logged_in['uid'];
      if($logged_in['su']=='0'){
      $query=$this->db->query("select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=$uid 
-                              and u.kadro_id=ck.kadro_id and c.cid=ck.kategori_id order by c.category_name asc");
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc");
      } else {
          $query=$this->db->query("select * from savsoft_category order by category_name asc");
      }
@@ -1015,7 +1053,7 @@ if($this->config->item('allow_result_email')){
 //      }
      $uid=$logged_in['uid'];
      if($logged_in['su']=='0'){
-     $query=$this->db->query("select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=$uid and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id");
+     $query=$this->db->query("select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=$uid and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id");
      } else {
          $query=$this->db->query("select * from savsoft_category_kaynak");
      }
@@ -1023,20 +1061,6 @@ if($this->config->item('allow_result_email')){
      return $query->result_array();
      
      
- }
- 
- function dosya_yukle($dosya_adi){
-     log_message("debug", "dosya_yukle" . $_POST);
-     $logged_in = $this->session->userdata('logged_in');
-     $uid = $logged_in['uid'];
-     
-     $userdata = array(
-         'kategori_id' => $_POST['kategori_id'],
-         'kaynak_tur' => $_POST['kaynak_tur'],
-         'dosya_adi' => $dosya_adi,
-         'dosya_aciklama' => $_POST['dosya_aciklama']
-     );
-     return $this->db->insert('savsoft_category_kaynak', $userdata);
  }
  
 }
