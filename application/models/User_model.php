@@ -384,11 +384,11 @@ return $revenue;
   function insert_user_2(){
       log_message('debug','insert_user_2->il_id:'.$this->input->post('sehir'));
 		$userdata=array(
-		'email'=>$this->input->post('email'),
+		'email'=>$this->session->eposta,
 		'password'=>md5($this->input->post('password')),
 		'first_name'=>$this->input->post('first_name'),
 		'last_name'=>$this->input->post('last_name'),
-		'contact_no'=>$this->input->post('contact_no'),
+		'contact_no'=>$this->session->telefon,
 		'gid'=>$this->input->post('gid'),
 		'kurum_id'=>$this->input->post('kurum_id'),
 		'kadro_id'=>$this->input->post('kadro_id'),

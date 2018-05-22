@@ -62,7 +62,7 @@ window.location="<?php echo site_url('quiz/submit_quiz/');?>";
    
  
  <div class="row"  style="margin-top:5px;">
- <div class="col-md-8">
+ <div class="col-md-12">
  <form method="post" action="<?php echo site_url('quiz/submit_quiz/'.$quiz['rid']);?>" id="quiz_form" >
  
 <input id="noq" type="hidden" name="noq" value="">
@@ -88,7 +88,7 @@ foreach($questions as $qk => $question){
  <div id="q<?php echo $qk;?>" class="question_div" style="display: block;">
  		<div id="soru<?php echo $qk;?>" class="panel panel-info question_container" >
  		 	<div class="panel-heading"><h4><?php echo $this->lang->line('question');?> <?php echo $qk+1;?></h4></div>
-		 <div class="op"><?php echo $question['question'];?></div><hr />
+		 <div class="op"><?php echo $question['question']." ";?></div><hr />
 		 
 
 
@@ -167,7 +167,6 @@ foreach($questions as $qk => $question){
  }
 }
 ?>
- </div>
   <div class="col-md-4" style="padding-bottom:80px; display:none">
  <div class="affix">
 

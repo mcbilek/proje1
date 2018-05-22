@@ -30,6 +30,11 @@
 		<?php	
 		}
 		?>	
+		<?php 
+		if($this->session->flashdata('success')){
+			echo $this->session->flashdata('success');
+		}
+		?>	
 		
 		<label for="inputEmail" class="sr-only"><?php echo $this->lang->line('email_address');?></label> 
 		<fieldset class="page-signin-form-group form-group form-group-lg">

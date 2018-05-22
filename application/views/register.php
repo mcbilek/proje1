@@ -38,9 +38,13 @@
 		
 		
 				<div class="form-group">	 
-					<label for="inputEmail" class="control-label"><?php echo $this->lang->line('email_address');?></label> 
-					<input type="email" id="inputEmail" name="email" class="form-control" placeholder="<?php echo $this->lang->line('email_address');?>" data-error="E-Mail adresi hatalı görünüyor" required autofocus>
+					<label for="inputEmail" class="control-label"><?php echo $this->lang->line('email_address');?></label> <p>
+					<?php echo $email;?>
 			<div class="help-block with-errors"></div>
+			</div>
+			<div class="form-group">	 
+					<label for="inputEmail"><?php echo $this->lang->line('contact_no');?></label> <p>
+					<?php echo $contact_no;?>
 			</div>
 			<div class="form-group">	  
 					<label for="inputPassword" class="sr-only"><?php echo $this->lang->line('password');?></label>
@@ -60,10 +64,7 @@
 					<label for="inputEmail" class="sr-only"><?php echo $this->lang->line('last_name');?></label> 
 					<input type="text"   name="last_name"  class="form-control" placeholder="<?php echo $this->lang->line('last_name');?>" required  autofocus>
 			</div>
-			<div class="form-group">	 
-					<label for="inputEmail"><?php echo $this->lang->line('contact_no');?></label> 
-					<input type="text" name="contact_no" class="form-control input-medium bfh-phone" data-format="5dd ddddddd" placeholder="<?php echo $this->lang->line('contact_no');?>"  required autofocus>
-			</div>
+
 			
 						<div class="form-group">
 							<label>Çalıştığınız Kurum</label> <p><select

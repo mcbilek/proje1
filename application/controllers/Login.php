@@ -7,8 +7,10 @@ class Login extends CI_Controller {
 	 {
 	   parent::__construct();
 	   $this->load->database();
+	   $this->load->helper(array('form', 'url'));
 	   $this->load->model("user_model");
 	    $this->load->model("quiz_model");
+	    $this->load->model("sms_model");
 	   $this->lang->load('basic', $this->config->item('language'));
 		if($this->db->database ==''){
 		redirect('install');	
@@ -81,22 +83,106 @@ class Login extends CI_Controller {
 		$this->load->view('footer',$data);
 	}
 
-	
-		public function registration($gid='0')
-	{
-	$this->load->helper('url');
-		$data['gid']=$gid;
-		$data['title']=$this->lang->line('register_new_account');
-		// fetching group list
-		$data['group_list']=$this->user_model->group_list();
-		// fetching kurum list
-		$data['kurum_list']=$this->user_model->kurum_list();
-		// fetching kadro list
-		$data['kadro_list']=$this->user_model->kadro_list();
-		$this->load->view('header',$data);
-		$this->load->view('register',$data);
-		$this->load->view('footer',$data);
-	}
+		public function registration($gid='0') {
+		    if ($this->input->post('email') == "" && $this->input->post('contact_no') == "" && $this->input->post('sms_onay_kodu') == "") {
+            
+                $this->load->helper('url');
+                $data['title']="Yeni Üye İşlemleri";
+                $this->load->view('header', $data);
+                $this->load->view('register_pre', $data);
+                $this->load->view('footer', $data);
+		    } else if ($this->input->post('email') != "" && $this->input->post('contact_no') != "" && $this->input->post('sms_onay_kodu') == "") {
+            $this->load->helper('url');
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[savsoft_users.email]');
+            $this->form_validation->set_rules('contact_no', 'İletişim Numarası', 'required|is_unique[savsoft_users.contact_no]');
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->helper('url');
+                //hatalar var, geri gönderiyoruz
+                $this->session->set_flashdata('message', "<div class='alert alert-danger'>" . validation_errors() . " </div>");
+                $test['title']="Yeni Üye İşlemleri";
+                $test['contact_no']=$this->input->post('contact_no');
+                $test['email']=$this->input->post('email');
+                log_message("debug", "register, tel no:".$this->input->post('contact_no'));
+                $this->load->view('header', $test);
+                $this->load->view('register_pre', $test);
+                $this->load->view('footer', $test);
+            } else {
+                if (strlen(str_replace(' ', '', $this->input->post('contact_no'))) != 10) {
+                    $this->session->set_flashdata('message', "<div class='alert alert-danger'>Telefon Numarası Hatalı</div>");
+                    $test['title']="Yeni Üye İşlemleri";
+                    $test['contact_no']=$this->input->post('contact_no');
+                    $test['email']=$this->input->post('email');
+                    log_message("debug", "register, tel no:".$this->input->post('contact_no'));
+                    $this->load->view('header', $test);
+                    $this->load->view('register_pre', $test);
+                    $this->load->view('footer', $test);
+                }
+                $smsKodu = rand('11111', '99999');
+                $this->session->set_userdata('onayKodu', $smsKodu);
+                $smsText = "Bakanliksinav.com sms onay kodunuz:".$smsKodu;
+                $result = $this->sms_model->send_sms($smsText, $this->input->post('contact_no'));
+                if (substr($result, 0, 2) == "00") {
+                    $this->session->set_flashdata('message', "<div class='alert alert-success'> SMS Gönderilmiştir, Lütfen onay kodunu giriniz </div>");
+                    $this->session->set_userdata('eposta', $this->input->post('email'));
+                    $this->session->set_userdata('telefon', $this->input->post('contact_no'));
+                    $data=null;
+                    $data['sms_onay_iste']="1";
+                    $data['contact_no']=$this->session->telefon;
+                    $data['email']=$this->session->eposta;
+                    $this->load->helper('url');
+                    $this->load->view('header', $data);
+                    $this->load->view('register_pre', $data);
+                    $this->load->view('footer', $data);
+                } else {
+                    $this->session->set_flashdata('message', "<div class='alert alert-danger'>" . $this->lang->line('sms_error') . ", Hata Mesajı:" . $result . "</div>");
+                    $test['title']="Yeni Üye İşlemleri";
+                    $test['contact_no']=$this->input->post('contact_no');
+                    $test['email']=$this->input->post('email');
+                    log_message("debug", "register, tel no:".$this->input->post('contact_no'));
+                    $this->load->view('header', $test);
+                    $this->load->view('register_pre', $test);
+                    $this->load->view('footer', $test);
+                }
+
+            }
+            
+        }
+        if ($this->input->post('sms_onay_kodu') != "") {
+            $gercekOnayKodu = $this->session->onayKodu;
+            //sms onay kodu girilmiş olmalı.
+            log_message("debug", "sms onay kodu girildi:".$this->input->post('sms_onay_kodu'));
+            if ($gercekOnayKodu==$this->input->post('sms_onay_kodu')) {
+                //sms onay kodu geçerli.
+                log_message("debug", "sms onay kodu geçerli:".$this->input->post('sms_onay_kodu'));
+                $this->session->set_flashdata('message', "<div class='alert alert-success'> SMS Onay kodu geçerli, kayda devam edebilirsiniz. </div>");
+                $data=null;
+                $data['contact_no']=$this->session->telefon;
+                $data['email']=$this->session->eposta;
+                $data['gid']=$gid;
+                $data['title']=$this->lang->line('register_new_account');
+                // fetching group list
+                $data['group_list']=$this->user_model->group_list();
+                // fetching kurum list
+                $data['kurum_list']=$this->user_model->kurum_list();
+                // fetching kadro list
+                $data['kadro_list']=$this->user_model->kadro_list();
+                $this->load->view('header',$data);
+                $this->load->view('register',$data);
+                $this->load->view('footer',$data);
+            } else {
+                //onay kodu geçersiz.
+                $this->session->set_flashdata('message', "<div class='alert alert-danger'>SMS Onay kodunu hatalı girdiniz.</div>");
+                $test['title']="Yeni Üye İşlemleri";
+                $test['contact_no']=$this->input->post('contact_no');
+                $test['email']=$this->input->post('email');
+                log_message("debug", "sms onay kodu hatası, tel no:".$this->input->post('contact_no'));
+                $this->load->view('header', $test);
+                $this->load->view('register_pre', $test);
+                $this->load->view('footer', $test);
+            }
+        }
+    }
 
 	
 	public function verifylogin($p1='',$p2=''){
@@ -238,27 +324,29 @@ class Login extends CI_Controller {
 		
 		 $this->load->helper('url');
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[savsoft_users.email]');
+// 		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[savsoft_users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('contact_no', 'İletişim Numarası', 'required');
+//         $this->form_validation->set_rules('contact_no', 'İletişim Numarası', 'required|is_unique[savsoft_users.contact_no]');
           if ($this->form_validation->run() == FALSE)
                 {
+                    log_message("debug", "validationdan geçemedi... contact_no:".$this->input->post('contact_no').", email:".$this->input->post('email').", password:".$this->input->post('password'));
                      $this->session->set_flashdata('message', "<div class='alert alert-danger'>".validation_errors()." </div>");
+                     
 					redirect('login/registration/');
                 }
                 else
                 {
 					if($this->user_model->insert_user_2()){
                         if($this->config->item('verify_email')){
-						$this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('account_registered_email_sent')." </div>");
+						$this->session->set_flashdata('success', "<div class='alert alert-success'>".$this->lang->line('account_registered_email_sent')." </div>");
 						}else{
-							$this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('account_registered')." </div>");
+							$this->session->set_flashdata('success', "<div class='alert alert-success'>".$this->lang->line('account_registered')." </div>");
 						}
 						}else{
-						    $this->session->set_flashdata('message', "<div class='alert alert-danger'>".$this->lang->line('error_to_add_data')." </div>");
+						    $this->session->set_flashdata('success', "<div class='alert alert-danger'>".$this->lang->line('error_to_add_data')." </div>");
 						
 					}
-					redirect('login/registration/');
+					redirect('login');
                 }       
 
 	}

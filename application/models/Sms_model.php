@@ -41,6 +41,7 @@ Class Sms_model extends CI_Model
      */private function sendSMS($msg, $telno, $header, $username, $pass, $startdate, $stopdate,$uid="0")
     {
         $msg=urlencode($msg);
+        $telno = str_replace(' ', '', $telno);
         $url="http://api.netgsm.com.tr/bulkhttppost.asp?usercode=$username&password=$pass&gsmno=$telno&message=$msg&msgheader=$header&startdate=$startdate&stopdate=$stopdate";
         //echo $url;
         $ch = curl_init($url);
@@ -67,12 +68,15 @@ Class Sms_model extends CI_Model
     }
     
     function insert_sms($result,$nval){
+        $uid=$this->input->post('uid');
+        if ($uid==NULL)
+            $uid=-1;
         
         $userdata=array(
             'title'=>"sms",
             'message'=>$this->input->post('sms_text'),
             'click_action'=>"",
-            'uid'=>$this->input->post('uid'),
+            'uid'=>$uid,
             'notification_to'=>$nval,
             'response'=>$result,
             'mesaj_turu'=>1,
