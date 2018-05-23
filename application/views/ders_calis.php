@@ -146,7 +146,8 @@ foreach($questions as $qk => $question){
 		<img id="dogru<?php echo $qk;?>" style="display:none" src="<?php echo base_url('images/dogru.png');?>">
 		<img id="yanlis<?php echo $qk;?>" style="display:none" src="<?php echo base_url('images/yanlis.png');?>">
 		</center>
-		Cevap: <?php echo $dogruCevap;?></h4></div>
+		Cevap: <?php echo $dogruCevap.". Bu soruya Toplam <b>".$question['dogru_adet']." defa Doğru, ".$question['yanlis_adet']." defa Yanlış cevap verilmiştir.</b>"?></h4>
+		</div>
 		 <div class="op"><h4>Kaynak:</h4><br>
 		 <?php echo $question['description'];?>
 		</div>

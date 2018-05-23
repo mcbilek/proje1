@@ -872,7 +872,7 @@ if(isset($_FILES['webcam'])){
          $demoCozdu = $this->quiz_model->get_questions_demo_kontrol();
          //bugünlik limit demo soruları çözmüş.
          if ($demoCozdu==1) {
-             $url=site_url('quiz/index.php/user/switch_group');
+             $url=site_url('user/switch_group');
              $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bugünlük Demo Soru Hakkınız Dolmuştur, daha fazlası için lütfen <a href='$url'>Özel Üyeliğe</a> Geçiniz.</div>");
              redirect('quiz');
              

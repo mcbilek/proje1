@@ -960,8 +960,14 @@ if($this->config->item('allow_result_email')){
      if($logged_in['su']=='0' && $gid!=3){
          //daha önce soru çekilmiş mi bakıyoruz
          $bugun_cozdu="bugun_cozdu";
-         $query=$this->db->query("select * from savsoft_settings where uid=$uid and anahtar='$bugun_cozdu'");
-         if ($query->num_rows()>0) {
+         $query=$this->db->query("select DATE_FORMAT(date(max(tarih)), '%d.%m.%Y') tarih_formatted from savsoft_settings where uid=$uid and anahtar='$bugun_cozdu'");
+         $sonTarih="";
+         foreach ($query->result() as $row)
+         {
+             $sonTarih=$row->tarih_formatted;
+         }
+         
+         if ($sonTarih==date('d.m.Y')) {
              return 1;
          } else {
              return 0;
@@ -994,12 +1000,60 @@ if($this->config->item('allow_result_email')){
      log_message("debug", "kategori_id:".$_POST['kategori_id']);
      log_message("debug", "soru adet:".$_POST['soruAdet']);
      $cat_id = $_POST['kategori_id'];
-     if ($cat_id=="-1")
-        $query=$this->db->query("select q.*,cat.category_name,lvl.level_name from savsoft_qbank q, savsoft_category cat, savsoft_level lvl 
-                            where q.cid=cat.cid and lvl.lid=q.lid and q.aktifmi=1 ORDER BY RAND() limit $soruAdet");
-     else
-         $query=$this->db->query("select q.*,cat.category_name,lvl.level_name from savsoft_qbank q, savsoft_category cat, savsoft_level lvl
-                            where q.cid=cat.cid and lvl.lid=q.lid and q.aktifmi=1 and q.cid=$cat_id ORDER BY RAND() limit $soruAdet");
+     if ($cat_id=="-1") {
+         //eğer hiç bir kategori seçilmemişse
+         //ilk sql daha önce çözülmeyen sorulardan getiriyor
+         $sql = " SELECT q.*, cat.category_name, lvl.level_name,".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 1) dogru_adet,".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 0) yanlis_adet".
+         " WHERE     q.cid = cat.cid".
+         "       AND lvl.lid = q.lid".
+         "       AND q.aktifmi = 1".
+         "       and q.qid not in (select r.soru_id from savsoft_result2 r where r.uid=$uid)".
+         " ORDER BY RAND()".
+         " LIMIT $soruAdet";
+         //tüm sorulardan getiriyor
+         $sql2 = " SELECT q.*, cat.category_name, lvl.level_name,".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 1) dogru_adet,".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 0) yanlis_adet".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
+         " WHERE     q.cid = cat.cid".
+         "       AND lvl.lid = q.lid".
+         "       AND q.aktifmi = 1".
+         " ORDER BY RAND()".
+         " LIMIT $soruAdet";
+     } else {
+         //eğer kategori seçilmişse
+         //ilk sql daha önce çözülmeyen sorulardan getiriyor
+         $sql = " SELECT q.*, cat.category_name, lvl.level_name,".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 1) dogru_adet,".
+         " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 0) yanlis_adet".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
+         " WHERE     q.cid = cat.cid".
+         "       AND lvl.lid = q.lid".
+         "       AND q.aktifmi = 1".
+         "       AND q.cid=$cat_id".
+         "       and q.qid not in (select r.soru_id from savsoft_result2 r where r.uid=$uid)".
+         " ORDER BY RAND()".
+         " LIMIT $soruAdet";
+         //tüm sorulardan getiriyor
+         $sql2 = " SELECT q.*, cat.category_name, lvl.level_name,".
+             " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 1) dogru_adet,".
+             " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 0) yanlis_adet".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
+         " WHERE     q.cid = cat.cid".
+         "       AND lvl.lid = q.lid".
+         "       AND q.aktifmi = 1".
+         "       AND q.cid=$cat_id".
+         " ORDER BY RAND()".
+         " LIMIT $soruAdet";
+        }
+         $query=$this->db->query($sql);
+         //daha önce tüm sorular çözülmüş mü diye bakıyoruz
+         //çözüldüyse rasgele çözdüğü sorulardan getiriyoruz.
+         if ($query->num_rows()==0)
+             $query=$this->db->query($sql2);
      return $query->result_array();
      
      
