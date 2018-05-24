@@ -32,6 +32,7 @@ class DefaultHttpClient implements HttpClient
     public function post($url, $header, $content)
     {
         return $this->curl->exec($url, array(
+            CURLOPT_SSL_VERIFYPEER=>false,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $content,
