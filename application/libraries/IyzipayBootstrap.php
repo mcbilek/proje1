@@ -14,6 +14,7 @@ class IyzipayBootstrap
      */
     public static function init($includePath = "src")
     {
+       // echo "geldi";
         $loader = new SplClassLoader("Iyzipay", $includePath);
         $loader->register();
     }

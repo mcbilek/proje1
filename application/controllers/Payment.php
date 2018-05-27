@@ -1,7 +1,17 @@
-﻿<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Payment extends CI_Controller {
+    
+    var $iller = array('','Adana', 'Adıyaman', 'Afyon', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin',
+        'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale',
+        'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir',
+        'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkari', 'Hatay', 'Isparta', 'Mersin', 'İstanbul', 'İzmir',
+        'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya',
+        'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya',
+        'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak',
+        'Van', 'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kırıkkale', 'Batman', 'Şırnak',
+        'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce');
 
 	 function __construct()
 	 {
@@ -55,7 +65,11 @@ function subscription_expired($uid){
 	    log_message("debug", "tek_login_kontrolü yapıldı.");
 	    
 	    $logged_in=$this->session->userdata('logged_in');
-	    if($logged_in['su']!='1'){
+	   // print_r($logged_in);
+	   // exit();
+	    if($logged_in['gid']=='3'){
+	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Zaten Özel Üyelik Grubundasınız! </div>");
+	        redirect('quiz');
 	        //exit($this->lang->line('permission_denied'));
 	    }
 	    
@@ -101,6 +115,168 @@ function subscription_expired($uid){
 	        
 	    }
 	    redirect('payment/upgradeGroup');
+	    
+	}
+	
+	function krediKarti(){
+	    $logged_in=$this->session->userdata('logged_in');
+// 	    log_message('debug', '$groupId:'.$groupId);
+// 	    log_message('debug', '$odemeTuru:'.$odemeTuru);
+// 	    log_message('debug', 'user Base URL:'.$logged_in['base_url']);
+// 	    log_message('debug', 'userID:'.$logged_in['uid']);
+	    
+	    // redirect if not loggedin
+	    if(!$this->session->userdata('logged_in')){
+	        redirect('login');
+	        
+	    }
+	    if($logged_in['base_url'] != base_url()){
+	        $this->session->unset_userdata('logged_in');
+	        redirect('login');
+	    }
+	    
+	    $anaSayfa=site_url('login');
+	    //eğer adres alanı gelmişse, ödeme hazırlıyoruz demektir.
+	    if ($this->input->post('adres')!="") {
+	    log_message("debug", "adres:".$this->input->post('adres'));
+	    
+	    require_once('config_iyzico.php');
+	    
+	    # create request class
+	    $request = new \Iyzipay\Request\CreateCheckoutFormInitializeRequest();
+	    $request->setLocale(\Iyzipay\Model\Locale::TR);
+	    //$request->setConversationId("123456789");
+	    $request->setPrice("100");
+	    $request->setPaidPrice("100");
+	    $request->setCurrency(\Iyzipay\Model\Currency::TL);
+	    $request->setBasketId("1");
+	    $request->setPaymentGroup(\Iyzipay\Model\PaymentGroup::SUBSCRIPTION);
+	    $request->setCallbackUrl("http://localhost/sinav/payment/krediKartiReturn");
+	    $request->setEnabledInstallments(array(2, 3, 6, 9));
+	    
+	    $buyer = new \Iyzipay\Model\Buyer();
+	    $buyer->setId($logged_in['uid']);
+	    $buyer->setName($logged_in['first_name']);
+	    $buyer->setSurname($logged_in['last_name']);
+	    $buyer->setGsmNumber($logged_in['contact_no']);
+	    $buyer->setEmail($logged_in['email']);
+	    $buyer->setIdentityNumber($logged_in['uid']."0000");
+	   // $buyer->setLastLoginDate("2015-10-05 12:43:35");
+	    $buyer->setRegistrationDate($logged_in['registered_date']);
+	    $buyer->setRegistrationAddress($this->input->post('adres'));
+	    $buyer->setIp($this->input->ip_address());
+	    $buyer->setCity($this->iller[$logged_in['il']]);
+	    $buyer->setCountry("Turkey");
+	  //  $buyer->setZipCode("34732");
+	    $request->setBuyer($buyer);
+	    
+	    $shippingAddress = new \Iyzipay\Model\Address();
+	    $shippingAddress->setContactName($logged_in['first_name']." ".$logged_in['last_name']);
+	    $shippingAddress->setCity($this->iller[$logged_in['il']]);
+	    $shippingAddress->setCountry("Turkey");
+	    $shippingAddress->setAddress($this->input->post('adres'));
+	  //  $shippingAddress->setZipCode("34742");
+	    $request->setShippingAddress($shippingAddress);
+	    $request->setBillingAddress($shippingAddress);
+	    
+	    $secondBasketItem = new \Iyzipay\Model\BasketItem();
+	    $secondBasketItem->setId("1");
+	    $secondBasketItem->setName("Özel Üyelik");
+	    $secondBasketItem->setCategory1("Özel Üyelik");
+	    $secondBasketItem->setCategory2("Ücretli Üyelik");
+	    $secondBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
+	    $secondBasketItem->setPrice("100");
+	    $basketItems[0] = $secondBasketItem;
+	    
+	    $request->setBasketItems($basketItems);
+	    
+	    # make request
+	    $checkoutFormInitialize = Iyzipay\Model\CheckoutFormInitialize::create($request, Config::options());
+	    //print_r($checkoutFormInitialize);
+	    if ($checkoutFormInitialize->getStatus()=="success") {
+	        //odeme için kayıt atıyoruz.
+	        $this->ozeluyelik_model->insert_krediKartiOdeme($checkoutFormInitialize,3,100.00);
+            $data['islemHazir']="1";
+            $data['OdemeFormuScripti'] = $checkoutFormInitialize->getCheckoutFormContent();
+            $this->session->set_flashdata('iyzico', '<div id="iyzipay-checkout-form"  class="responsive"></div>');
+            } else {
+                $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz. Hata Mesajı: " . $checkoutFormInitialize->getErrorMessage() . "</div>");
+            }
+	    }
+	    $this->load->view('header',$data);
+	    $this->load->view('odemeBildirimi',$data);
+	    $this->load->view('footer',$data);
+	    
+	    
+	    
+// 	    if($this->ozeluyelik_model->insert_odemeBildirimi($groupId,$odemeTuru)){
+// 	        $this->sms_model->send_sms($logged_in[first_name]." ".$logged_in[last_name]." yeni bir ödeme bildiri yaptı.",$this->config->item('telefon_no'));
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödeme bildiriminiz alınmıştır, onaylandıktan sonra özel üyelik avantajlarından faydalanabilirsiniz.<a href='".$anaSayfa."'>  Ana Sayfa</a> </div>");
+// 	    }else{
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz. </div>");
+	        
+// 	    }
+// 	    redirect('payment/upgradeGroup');
+	    
+	}
+	function krediKartiReturn(){
+	    $logged_in=$this->session->userdata('logged_in');
+	    $token= $_POST['token'];
+	    //token geldiyse ödeme gerçekleşti demektir.
+	    if ($token!="") {
+	        require_once('config_iyzico.php');
+	        # create request class
+	        $request = new \Iyzipay\Request\RetrieveCheckoutFormRequest();
+	        $request->setLocale(\Iyzipay\Model\Locale::TR);
+	       // $request->setConversationId("123456789");
+	        $request->setToken($token);
+	        # make request
+	        $odemeSonuc = \Iyzipay\Model\CheckoutForm::retrieve($request, Config::options());
+	        # print result
+	        //print_r($odemeSonuc);
+	        //exit();
+	        if ($this->ozeluyelik_model->update_krediKartiOdeme($odemeSonuc)) {
+	            $gid = 3;
+	            $sure = strtotime('+1 month');
+	            $this->user_model->update_user_for_odeme($gid, $sure);
+	            $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödemeniz Başarıyla Gerçekleştirilmiştir. Özel Üyelik Avantajlarından Faydalanabilirsiniz. </div>");
+	        } else {
+	            $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz, alınan hata:".$odemeSonuc->getErrorMessage()."</div>");
+	        }
+            
+            redirect('quiz');
+        } else {
+	        
+	    }
+// 	    echo "<pre>";
+	    //print_r($_POST);
+	    //echo ("token:".$_POST['token']);
+// 	    echo "</pre>";
+// 	    log_message('debug', '$groupId:'.$groupId);
+// 	    log_message('debug', '$odemeTuru:'.$odemeTuru);
+// 	    log_message('debug', 'user Base URL:'.$logged_in['base_url']);
+// 	    log_message('debug', 'userID:'.$logged_in['uid']);
+	    
+	    // redirect if not loggedin
+// 	    if(!$this->session->userdata('logged_in')){
+// 	        redirect('login');
+	        
+// 	    }
+// 	    if($logged_in['base_url'] != base_url()){
+// 	        $this->session->unset_userdata('logged_in');
+// 	        redirect('login');
+// 	    }
+	    
+// 	    $anaSayfa=site_url('login');
+	    
+// 	    if($this->ozeluyelik_model->insert_odemeBildirimi($groupId,$odemeTuru)){
+// 	        $this->sms_model->send_sms($logged_in[first_name]." ".$logged_in[last_name]." yeni bir ödeme bildiri yaptı.",$this->config->item('telefon_no'));
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödeme bildiriminiz alınmıştır, onaylandıktan sonra özel üyelik avantajlarından faydalanabilirsiniz.<a href='".$anaSayfa."'>  Ana Sayfa</a> </div>");
+// 	    }else{
+// 	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz. </div>");
+	        
+// 	    }
+// 	    redirect('payment/upgradeGroup');
 	    
 	}
 	

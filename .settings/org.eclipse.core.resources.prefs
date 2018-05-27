@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//application/config/config.php=UTF-8
 encoding//application/controllers/Genel.php=UTF-8
+encoding//application/controllers/Payment.php=UTF-8
 encoding//application/controllers/Qbank.php=UTF-8
 encoding//application/controllers/Quiz.php=UTF-8
 encoding//application/controllers/Sendsms.php=UTF-8

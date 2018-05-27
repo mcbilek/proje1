@@ -529,15 +529,17 @@ $new_password=rand('1111','9999');
 		'contact_no'=>$this->input->post('contact_no')	
 		);
 		if($logged_in['su']=='1'){
-			$userdata['email']=$this->input->post('email');
-			$userdata['gid']=$this->input->post('gid');
-			if($this->input->post('subscription_expired') !='0'){
-			$userdata['subscription_expired']=strtotime($this->input->post('subscription_expired'));
-			}else{
-			$userdata['subscription_expired']='0';	
-			}
-			$userdata['su']=$this->input->post('su');
-			}
+            $userdata['email'] = $this->input->post('email');
+            $userdata['gid'] = $this->input->post('gid');
+            $c = $this->input->post('subscription_expired');
+            log_message("debug", "subscription_expired:" . $c);
+            if ($this->input->post('subscription_expired') != '0') {
+                $userdata['subscription_expired'] = strtotime(substr($this->input->post('subscription_expired'), 0, 10));
+            } else {
+                $userdata['subscription_expired'] = '0';
+            }
+            $userdata['su'] = $this->input->post('su');
+        }
 			
 		if($this->input->post('password')!=""){
 			$userdata['password']=md5($this->input->post('password'));
@@ -555,6 +557,21 @@ $new_password=rand('1111','9999');
 		}
 	 
  }
+ function update_user_for_odeme($gid,$sure){
+        $logged_in = $this->session->userdata('logged_in');
+        
+        $userdata = array(
+            'gid' => $gid,
+            'subscription_expired' => $sure
+        );
+        
+        $this->db->where('uid', $logged_in['uid']);
+        if ($this->db->update('savsoft_users', $userdata))
+            return true;
+        else
+            
+            return false;
+    }
  
  function update_groups($gid){
 	 

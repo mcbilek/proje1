@@ -1667,3 +1667,2804 @@ ORDER BY `kadro_adi` ASC
  SELECT kynk.*,        c.category_name,        krm.kurum_adi,        kdr.kadro_adi FROM savsoft_category_kaynak kynk,      savsoft_category c,      savsoft_kadro kdr,      savsoft_kurum krm WHERE     kynk.kadro_id = kdr.kadro_id       AND kynk.kurum_id = krm.kurum_id       AND c.cid = kynk.kategori_id
 ===[took:0]
 
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '0cb9442791fc972654f42d81fc81307aef3861ff'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Active'
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Inactive'
+SELECT *
+FROM `savsoft_payment`
+JOIN `savsoft_group` ON `savsoft_payment`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_users` ON `savsoft_payment`.`uid`=`savsoft_users`.`uid`
+ORDER BY `savsoft_payment`.`pid` DESC
+ LIMIT 10
+select * from savsoft_payment where paid_date >='2018-01-01' and paid_date <='2018-01-01'   
+select * from savsoft_payment where paid_date >='2018-02-01' and paid_date <='2018-02-01'   
+select * from savsoft_payment where paid_date >='2018-03-01' and paid_date <='2018-03-01'   
+select * from savsoft_payment where paid_date >='2018-04-01' and paid_date <='2018-04-01'   
+select * from savsoft_payment where paid_date >='2018-05-01' and paid_date <='2018-05-01'   
+select * from savsoft_payment where paid_date >='2018-06-01' and paid_date <='2018-06-01'   
+select * from savsoft_payment where paid_date >='2018-07-01' and paid_date <='2018-07-01'   
+select * from savsoft_payment where paid_date >='2018-08-01' and paid_date <='2018-08-01'   
+select * from savsoft_payment where paid_date >='2018-09-01' and paid_date <='2018-09-01'   
+select * from savsoft_payment where paid_date >='2018-10-01' and paid_date <='2018-10-01'   
+select * from savsoft_payment where paid_date >='2018-11-01' and paid_date <='2018-11-01'   
+select * from savsoft_payment where paid_date >='2018-12-01' and paid_date <='2018-12-01'   
+SELECT *
+FROM `savsoft_users`
+SELECT *
+FROM `savsoft_qbank`
+SELECT *
+FROM `savsoft_quiz`
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '0cb9442791fc972654f42d81fc81307aef3861ff'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_payment`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_payment`.`uid`
+ORDER BY `savsoft_payment`.`paid_date` DESC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+WHERE `savsoft_users`.`password` = 'e10adc3949ba59abbe56e057f20f883e'
+AND `savsoft_users`.`email` = 'user@example.com'
+ LIMIT 1
+DELETE FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+INSERT INTO `savsoft_giris_kontrol` (`uid`, `session_id`, `ip`) VALUES ('5', '313fe326a77a32262518e8d56808efe4968b4a12', '::1')
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_notification`
+LEFT JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_notification`.`uid`
+WHERE savsoft_notification.uid in (0,5) and savsoft_notification.mesaj_turu=0
+ORDER BY `nid` DESC
+===[took:0.003]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '313fe326a77a32262518e8d56808efe4968b4a12'
+AND `ip` = '::1'
+===[took:0.001]
+
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+WHERE `savsoft_users`.`password` = 'e10adc3949ba59abbe56e057f20f883e'
+AND `savsoft_users`.`email` = 'user@example.com'
+ LIMIT 1
+DELETE FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+INSERT INTO `savsoft_giris_kontrol` (`uid`, `session_id`, `ip`) VALUES ('5', 'e6ee134d5febe690492d8185d918fbf0e0462cc3', '::1')
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+no queries
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0.001]
+
+no queries
+no queries
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '43'
+AND `session_id` = '07f03d4b6cb556c7c5edee2ed017cc66f4bbc1dd'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('3', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=43 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=43 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Active'
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Inactive'
+SELECT *
+FROM `savsoft_payment`
+JOIN `savsoft_group` ON `savsoft_payment`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_users` ON `savsoft_payment`.`uid`=`savsoft_users`.`uid`
+ORDER BY `savsoft_payment`.`pid` DESC
+ LIMIT 10
+select * from savsoft_payment where paid_date >='2018-01-01' and paid_date <='2018-01-01'   
+select * from savsoft_payment where paid_date >='2018-02-01' and paid_date <='2018-02-01'   
+select * from savsoft_payment where paid_date >='2018-03-01' and paid_date <='2018-03-01'   
+select * from savsoft_payment where paid_date >='2018-04-01' and paid_date <='2018-04-01'   
+select * from savsoft_payment where paid_date >='2018-05-01' and paid_date <='2018-05-01'   
+select * from savsoft_payment where paid_date >='2018-06-01' and paid_date <='2018-06-01'   
+select * from savsoft_payment where paid_date >='2018-07-01' and paid_date <='2018-07-01'   
+select * from savsoft_payment where paid_date >='2018-08-01' and paid_date <='2018-08-01'   
+select * from savsoft_payment where paid_date >='2018-09-01' and paid_date <='2018-09-01'   
+select * from savsoft_payment where paid_date >='2018-10-01' and paid_date <='2018-10-01'   
+select * from savsoft_payment where paid_date >='2018-11-01' and paid_date <='2018-11-01'   
+select * from savsoft_payment where paid_date >='2018-12-01' and paid_date <='2018-12-01'   
+SELECT *
+FROM `savsoft_users`
+SELECT *
+FROM `savsoft_qbank`
+SELECT *
+FROM `savsoft_quiz`
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+===[took:0.003]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '43'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '43'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+===[took:0.002]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+WHERE `gid` = '3'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Active'
+SELECT *
+FROM `savsoft_users`
+WHERE `user_status` = 'Inactive'
+SELECT *
+FROM `savsoft_payment`
+JOIN `savsoft_group` ON `savsoft_payment`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_users` ON `savsoft_payment`.`uid`=`savsoft_users`.`uid`
+ORDER BY `savsoft_payment`.`pid` DESC
+ LIMIT 10
+select * from savsoft_payment where paid_date >='2018-01-01' and paid_date <='2018-01-01'   
+select * from savsoft_payment where paid_date >='2018-02-01' and paid_date <='2018-02-01'   
+select * from savsoft_payment where paid_date >='2018-03-01' and paid_date <='2018-03-01'   
+select * from savsoft_payment where paid_date >='2018-04-01' and paid_date <='2018-04-01'   
+select * from savsoft_payment where paid_date >='2018-05-01' and paid_date <='2018-05-01'   
+select * from savsoft_payment where paid_date >='2018-06-01' and paid_date <='2018-06-01'   
+select * from savsoft_payment where paid_date >='2018-07-01' and paid_date <='2018-07-01'   
+select * from savsoft_payment where paid_date >='2018-08-01' and paid_date <='2018-08-01'   
+select * from savsoft_payment where paid_date >='2018-09-01' and paid_date <='2018-09-01'   
+select * from savsoft_payment where paid_date >='2018-10-01' and paid_date <='2018-10-01'   
+select * from savsoft_payment where paid_date >='2018-11-01' and paid_date <='2018-11-01'   
+select * from savsoft_payment where paid_date >='2018-12-01' and paid_date <='2018-12-01'   
+SELECT *
+FROM `savsoft_users`
+SELECT *
+FROM `savsoft_qbank`
+SELECT *
+FROM `savsoft_quiz`
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+JOIN `iller` ON `savsoft_users`.`il`=`iller`.`il_id`
+ORDER BY `savsoft_users`.`uid` DESC
+===[took:0.002]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+WHERE `gid` = '1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+WHERE `gid` = '3'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+WHERE `gid` = '1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+WHERE `gid` = '3'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '4'
+AND `session_id` = '50729bb2c531af4f4c93c58c3d8694846fb24a57'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '40'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '40'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+no queries
+no queries
+no queries
+no queries
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+INSERT INTO `kredi_karti_islemleri` (`user_id`, `grup_id`, `token`, `price`) VALUES ('5', 3, 'a0b09ceb-60c9-4c57-8c8e-34fe916c3ba6', 100)
+===[took:0.004]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+WHERE `savsoft_users`.`password` = 'e10adc3949ba59abbe56e057f20f883e'
+AND `savsoft_users`.`email` = 'user@example.com'
+ LIMIT 1
+DELETE FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+INSERT INTO `savsoft_giris_kontrol` (`uid`, `session_id`, `ip`) VALUES ('5', 'e6ee134d5febe690492d8185d918fbf0e0462cc3', '::1')
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_notification`
+LEFT JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_notification`.`uid`
+WHERE savsoft_notification.uid in (0,5) and savsoft_notification.mesaj_turu=0
+ORDER BY `nid` DESC
+===[took:0.002]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+INSERT INTO `kredi_karti_islemleri` (`user_id`, `grup_id`, `token`, `price`) VALUES ('5', 3, '0bb70807-1ee3-4624-ada8-76ceceeca346', 100)
+===[took:0.01]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+INSERT INTO `kredi_karti_islemleri` (`user_id`, `grup_id`, `token`, `price`) VALUES ('5', 3, '00dfd091-3ce1-4116-8dae-e20de4dcf074', 100)
+===[took:0.003]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+INSERT INTO `kredi_karti_islemleri` (`user_id`, `grup_id`, `token`, `price`) VALUES ('5', 3, 'a70cb217-f379-4ea6-a276-58781efb5252', 100)
+===[took:0.016]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+INSERT INTO `kredi_karti_islemleri` (`user_id`, `grup_id`, `token`, `price`) VALUES ('5', 3, '43787a77-432e-4da4-ba82-ff2f16c914a2', 100)
+===[took:0.004]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('1', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = 'e6ee134d5febe690492d8185d918fbf0e0462cc3'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+ LIMIT 5
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+WHERE `savsoft_users`.`password` = 'e10adc3949ba59abbe56e057f20f883e'
+AND `savsoft_users`.`email` = 'user@example.com'
+ LIMIT 1
+DELETE FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+INSERT INTO `savsoft_giris_kontrol` (`uid`, `session_id`, `ip`) VALUES ('5', '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe', '::1')
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('3', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('3', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('3', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `live_class`
+WHERE `closed_time` = '0'
+ORDER BY `initiated_time` ASC
+===[took:0.007]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_notification`
+LEFT JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_notification`.`uid`
+WHERE savsoft_notification.uid in (0,5) and savsoft_notification.mesaj_turu=0
+ORDER BY `nid` DESC
+===[took:0.002]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_notification`
+LEFT JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_notification`.`uid`
+WHERE savsoft_notification.uid in (0,5) and savsoft_notification.mesaj_turu=0
+ORDER BY `nid` DESC
+===[took:0.001]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_quiz`
+WHERE FIND_IN_SET('3', gids)
+ORDER BY `quid` DESC
+select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=5 
+                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc
+select c.* from savsoft_users u, savsoft_category_kaynak c, savsoft_category_kadro ck where u.uid=5 and u.kadro_id=ck.kadro_id and c.kategori_id=ck.kategori_id and ck.kurum_id = c.kurum_id
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_users`
+JOIN `savsoft_group` ON `savsoft_users`.`gid`=`savsoft_group`.`gid`
+JOIN `savsoft_kurum` ON `savsoft_users`.`kurum_id`=`savsoft_kurum`.`kurum_id`
+JOIN `savsoft_kadro` ON `savsoft_users`.`kadro_id`=`savsoft_kadro`.`kadro_id`
+WHERE `savsoft_users`.`uid` = '5'
+SELECT *
+FROM `savsoft_payment`
+WHERE `uid` = '5'
+ORDER BY `pid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+SELECT *
+FROM `savsoft_kadro`
+ORDER BY `kadro_adi` ASC
+SELECT *
+FROM `savsoft_kurum`
+ORDER BY `kurum_adi` ASC
+===[took:0]
+
+SELECT *
+FROM `savsoft_giris_kontrol`
+WHERE `uid` = '5'
+AND `session_id` = '09647f1979cd0ae8ef346b1ee2aeadf0d012f8fe'
+AND `ip` = '::1'
+SELECT *
+FROM `savsoft_result`
+JOIN `savsoft_users` ON `savsoft_users`.`uid`=`savsoft_result`.`uid`
+JOIN `savsoft_quiz` ON `savsoft_quiz`.`quid`=`savsoft_result`.`quid`
+WHERE `savsoft_result`.`result_status` != 'Açık'
+AND `savsoft_result`.`uid` = '5'
+ORDER BY `rid` DESC
+SELECT *
+FROM `savsoft_quiz`
+ORDER BY `quid` DESC
+SELECT *
+FROM `savsoft_group`
+ORDER BY `gid` ASC
+===[took:0]
+

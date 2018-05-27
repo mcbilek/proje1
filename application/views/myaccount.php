@@ -55,29 +55,21 @@
 					<input type="text" name="contact_no" value="<?php echo $result['contact_no'];?>" 	 	 class="form-control input-medium bfh-phone" data-format="5dd ddddddd" placeholder="<?php echo $this->lang->line('contact_no');?>" disabled required autofocus>
 			</div>
 						<div class="form-group">	 
-					<label>Çalıştığı Kurum</label> 
-					<select class="form-control" name="kurum" id="kurum">
+					<label>Çalıştığı Kurum: </label>
 					<?php 
 					foreach($kurum_list as $key => $val){
-						?>
-						<option value="<?php echo $val['kurum_id'];?>" <?php if($result['kurum_id']==$val['kurum_id']){ echo 'selected';}?> ><?php echo $val['kurum_adi'];?> </option>
-						<?php 
+						if($result['kurum_id']==$val['kurum_id']){ echo "<label>".$val['kurum_adi']."</label>";}
 					}
 					?>
-					</select>
 			</div>
 			<div class="form-group">	 
-					<label>Geçmek İstediği Kadro</label> 
-					<select class="form-control" name="kadro" id="kadro">
+					<label>Geçmek İstediği Kadro: </label>
 					<?php 
 					foreach($kadro_list as $key => $val){
-						?>
-						
-						<option value="<?php echo $val['kadro_id'];?>" <?php if($result['kadro_id']==$val['kadro_id']){ echo 'selected';}?> ><?php echo $val['kadro_adi'];?> </option>
-						<?php 
+						if($result['kadro_id']==$val['kadro_id']){ echo "<label>".$val['kadro_adi']."</label>";}
 					}
 					?>
-					</select>
+
 			</div>	 
  
 	<button class="btn btn-default" type="submit"><?php echo $this->lang->line('submit');?></button>

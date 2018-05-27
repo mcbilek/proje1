@@ -1,9 +1,10 @@
 <?php
 
-require_once('../IyzipayBootstrap.php');
+//require_once('../iyzipay/IyzipayBootstrap.php');
+
+$this->load->library('IyzipayBootstrap');
 
 IyzipayBootstrap::init();
-
 class Config
 {
     public static function options()
@@ -18,4 +19,5 @@ class Config
         $options->setBaseUrl("https://sandbox-api.iyzipay.com");
         return $options;
     }
+        
 }
