@@ -104,7 +104,7 @@ class Qbank extends CI_Controller {
 	}
 	
 	
-	public function pre_new_question($sikSayisi=4,$categoryId=0)
+	public function pre_new_question($sikSayisi=5,$categoryId=0)
 	{
 	    log_message("debug", "categoryId:".$categoryId);
 	    log_message("debug", "categoryId:".$this->input->post('categoryid'));
@@ -120,7 +120,7 @@ class Qbank extends CI_Controller {
 		if($this->input->post('question_type')=='1'){
 			$nop=$this->input->post('nop');
 			if(!is_numeric($this->input->post('nop'))){
-				$nop=4;
+				$nop=5;
 			}
 			log_message("debug", "redirect ediyorus categoryId:".$this->input->post('categoryid'));
 			redirect('qbank/new_question_1/'.$nop.'/'.$this->input->post('categoryid'));

@@ -148,7 +148,7 @@ foreach($questions as $qk => $question){
 		</center>
 		Cevap: <?php echo $dogruCevap.". Bu soruya Toplam <b>".$question['dogru_adet']." defa Doğru, ".$question['yanlis_adet']." defa Yanlış cevap verilmiştir.</b>"?></h4>
 		</div>
-		 <div class="op"><h4>Kaynak:</h4><br>
+		 <div class="op"><h3><font face="tahoma">Kaynak:</font></h3><br>
 		 <?php echo $question['description'];?>
 		</div>
 		</div>
@@ -220,7 +220,7 @@ foreach($questions as $qk => $question){
 
 
 
-<div class="footer_buttons_ders_calis">
+<div class="footer_ders_calis">
 <!-- 	<button class="btn btn-warning"   onClick="javascript:review_later();" style="margin-top:2px;" ><?php echo $this->lang->line('review_later');?></button>
 	
 	<button class="btn btn-info"  onClick="javascript:clear_response();"  style="margin-top:2px;"  ><?php echo $this->lang->line('clear');?></button>

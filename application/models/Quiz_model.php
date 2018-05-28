@@ -1004,9 +1004,9 @@ if($this->config->item('allow_result_email')){
          //eðer hiç bir kategori seçilmemiþse
          //ilk sql daha önce çözülmeyen sorulardan getiriyor
          $sql = " SELECT q.*, cat.category_name, lvl.level_name,".
-         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
          " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 1) dogru_adet,".
          " (SELECT count(*) cnt FROM savsoft_result2 r WHERE r.soru_id = q.qid AND r.dogru_mu = 0) yanlis_adet".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
          " WHERE     q.cid = cat.cid".
          "       AND lvl.lid = q.lid".
          "       AND q.aktifmi = 1".
