@@ -4,7 +4,7 @@
 
 define('USER_TABLE_TABLENAME', 'savsoft_users');
 define('USER_TABLE_ID', 'uid');
-define('USER_TABLE_USERNAME', 'email');
+define('USER_TABLE_USERNAME', 'concat(first_name," ",last_name) isim');
 
 
 // message statuses
@@ -33,3 +33,5 @@ define('MSG_PARTICIPANT_ADDED', 10);
 define('MSG_ERR_PARTICIPANT_EXISTS', 11);
 define('MSG_ERR_PARTICIPANT_NONSYSTEM', 12);
 define('MSG_PARTICIPANT_REMOVED', 13);
+define('MSG_ERR_INVALID_MSG_ID_OR_THREAD_ID', 14);
+define('MSG_ERR_INVALID_EMAIL', 15);

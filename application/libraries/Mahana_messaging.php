@@ -20,14 +20,16 @@ class Mahana_messaging
 {
     public function __construct()
     {
+//         log_message("debug", "Mahana_messaging e geldi");
         $this->ci =& get_instance();
         // ------------------------------------------------------------------------
         // @TODO: There must be a better way than this to specify a file
         // path that works in both standard CodeIgniter and HMVC modules.
         // ------------------------------------------------------------------------
         require_once dirname(__FILE__).'/../config/mahana.php';
-
+//         log_message("debug", "Mahana_messaging de require_once çalýþtý");
         $this->ci->load->model('mahana_model');
+//         log_message("debug", "mahana_model load edildiiii");
         $this->ci->load->helper('language');
         $this->ci->lang->load('mahana');
     }
@@ -60,6 +62,23 @@ class Mahana_messaging
 
         // General Error Occurred
         return $this->_general_error();
+    }
+    
+    /**
+     * get_user_id() - will return a userId from email, if email is not exist return -1.
+     *
+     * @param   string  $email   EQUIRED
+     * @return  integer
+     */
+    function get_user_id($email)
+    {
+        if (empty($email))
+        {
+            return $this->_invalid_id(MSG_ERR_INVALID_EMAIL);
+        }
+        
+        return $this->ci->mahana_model->get_user_id_from_email($email);
+        
     }
 
     // ------------------------------------------------------------------------
@@ -104,7 +123,7 @@ class Mahana_messaging
      * @param   string   $order_by     OPTIONAL
      * @return  array
      */
-    function get_all_threads($user_id, $full_thread = FALSE, $order_by = 'ASC')
+    function get_all_threads($user_id, $full_thread = FALSE, $order_by = 'DESC')
     {
         if (empty($user_id))
         {
@@ -132,7 +151,7 @@ class Mahana_messaging
      * @param   string   $order_by     OPTIONAL
      * @return  array
      */
-    function get_all_threads_grouped($user_id, $full_thread = FALSE, $order_by = 'ASC')
+    function get_all_threads_grouped($user_id, $full_thread = FALSE, $order_by = 'DESC')
     {
         if (empty($user_id))
         {
@@ -140,6 +159,10 @@ class Mahana_messaging
         }
 
 		$message = $this->ci->mahana_model->get_all_threads($user_id, $full_thread, $order_by);
+// 		print "<pre>";
+// 		print_r($message);
+// 		print "</pre>";
+// 		exit();
         if (is_array($message))
         {
             $threads = array();
@@ -298,7 +321,9 @@ class Mahana_messaging
                 'msg'  => lang('mahana_'.MSG_ERR_INVALID_RECIPIENTS)
             );
         }
-
+//         print_r($sender_id);
+//         print_r($recipients);
+//         exit();
         if ($thread_id = $this->ci->mahana_model->send_new_message($sender_id, $recipients, $subject, $body, $priority))
         {
             return $this->_success($thread_id, MSG_MESSAGE_SENT);
@@ -313,26 +338,26 @@ class Mahana_messaging
     /**
      * reply_to_message() - replies to internal message. This function will NOT create a new thread or participant list
      *
-     * @param   integer  $msg_id     REQUIRED
      * @param   integer  $sender_id  REQUIRED
-     * @param   string   $subject
+     * @param   integer  $msg_id     
+     * @param   integer  $thread_id   
      * @param   string   $body
      * @param   integer  $priority
      * @return  array
      */
-    function reply_to_message($msg_id, $sender_id, $subject = '', $body = '', $priority = PRIORITY_NORMAL)
+    function reply_to_message($sender_id, $msg_id = -1, $thread_id=-1, $body = '', $priority = PRIORITY_NORMAL)
     {
         if (empty($sender_id))
         {
             return $this->_invalid_id(MSG_ERR_INVALID_SENDER_ID);
         }
 
-        if (empty($msg_id))
+        if ($msg_id==-1 && $thread_id==-1)
         {
-            return $this->_invalid_id(MSG_ERR_INVALID_MSG_ID);
+            return $this->_invalid_id(MSG_ERR_INVALID_MSG_ID_AND_THREAD_ID);
         }
 
-        if ($new_msg_id = $this->ci->mahana_model->reply_to_message($msg_id, $sender_id, $body, $priority))
+        if ($new_msg_id = $this->ci->mahana_model->reply_to_message($msg_id, $thread_id, $sender_id, $body, $priority))
         {
             return $this->_success($new_msg_id, MSG_MESSAGE_SENT);
         }

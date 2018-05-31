@@ -1,12 +1,56 @@
+ <script>
+var aktifBlockId="#chat_thread_1";
+var aktifThreadId=1;
+var aktifMsgId=1;
+var aktifKisiId="test";
+function mesajDegistir(id,threadId) {
+	//console.log(threadId);
+	var mesajBlock = "#chat_" + id;
+	var obje="#"+id;
+	$('ul[id^=chat_thread_]').css('display', 'none'); // matches those that begin with 'tcol'
+// 	$('td[name=tcol1]') // matches exactly 'tcol1'
+// 	$('td[name^=tcol]') // matches those that begin with 'tcol'
+// 	$('td[name$=tcol]') // matches those that end with 'tcol'
+// 	$('td[name*=tcol]') // matches those that contain 'tcol'
+	//$(aktifBlockId).css('display', 'none');
+	$(mesajBlock).css('display', 'block');
+	$("li.left.clearfix.secili").attr('class','li.left.clearfix');
+	$(obje).attr('class','left clearfix secili');
+//	aktifBlockId="#chat_"+id;
+	aktifThreadId=threadId;
+	//cevap atarken kullandığımız hidden input u güncelliyoruz.
+	$("#thrd_id").val(threadId);
+	}
+	
+function yeniMesaj() {
+	$(yeniMesajGrup).show();
+	$(mesajText).attr("placeholder", "Yeni Mesaj");
+	$(islem_tur).val(2);
+	$(emailInput).attr("required", "required");
+	$(emailInput).focus();
+	}
+</script>
  <div class="container">
  	<link href="<?php echo base_url('css/chat.css');?>" rel="stylesheet">
  <?php 
  $logged_in=$this->session->userdata('logged_in');
-		
+		$aktifMesaj="";
+		$aktifThrdId=-1;
+// 		print "<pre>";
+// 		print_r($mesajlar);
+// 		print "</pre>";
 		?>  
  
    
  <h3><?php echo $title;?></h3>
+   <div class="row">
+<div class="col-md-12">
+<br>
+			<?php 
+		if($this->session->flashdata('message')){
+			echo $this->session->flashdata('message');	
+		}
+		?>	
       <div class="chat_container">
          <div class="col-sm-3 chat_sidebar">
     	 <div class="row">
@@ -18,201 +62,153 @@
                   </button>
                </div>
             </div>
-            <div class="dropdown all_conversation">
-               <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fa fa-weixin" aria-hidden="true"></i>
-               Tüm yazışmalar
-               <span class="caret pull-right"></span>
-               </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <li><a href="#">Okunmamış Mesajlar </a>  
-                  <li><a href="#">Gönderilen Mesajlar</a></li>
-                  <li><a href="#">Silinmiş Mesajlar</a></li>
-               </ul>
-			   </li>
-               </ul>
-            </div>
+
             <div class="member_list">
                <ul class="list-unstyled">
-                  <li class="left clearfix">
+               <?php 
+               if (count($mesajlar)==0) {
+                   ?>
+               <li class="left clearfix">
                      <span class="chat-img pull-left">
                      </span>
                      <div class="chat-body clearfix">
                         <div class="header_sec">
-                           <strong class="primary-font">Mustafa İslamoğlu<br></strong> <strong class="pull-right"><span class="badge pull-right">3</span></strong>
-                           <strong> 17.04.2018 19:45 </strong>
+                           <strong class="primary-font">Hiç Mesaj Bulunamadı!<br></strong>
+                           <strong> - </strong>
                         </div>
                      </div>
-                  </li>
-                  <li class="left clearfix">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right ">
-                           09:45AM</strong>
-                        </div>
-                        <div class="contact_sec">
-                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
-                  <li class="left clearfix">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
-                           09:45AM</strong>
-                        </div>
-                        <div class="contact_sec">
-                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
-                          <li class="left clearfix">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
-                           09:45AM</strong>
-                        </div>
-                        <div class="contact_sec">
-                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
-                          <li class="left clearfix" style="background: #428bca none repeat scroll 0 0; color: #fffff;">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <b>Jack Sparrow</b> <b class="pull-right">
-                           	09:45AM</b>
-                        </div>
-                        <div class="contact_sec">
-                           <b class="primary-font">(123) 123-456</b> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
-                          <li class="left clearfix">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
-                           09:45AM</strong>
-                        </div>
-                        <div class="contact_sec">
-                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
-                          <li class="left clearfix">
-                     <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body clearfix">
-                        <div class="header_sec">
-                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
-                           09:45AM</strong>
-                        </div>
-                        <div class="contact_sec">
-                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                        </div>
-                     </div>
-                  </li>
+                  </li>   
+                   <?php 
+               } else {
+                   
+                   $kontrol=false;
+                   foreach ($mesajlar  as $i => $thread) {
+//                        print "<pre>";
+//                        print_r($i);
+//                        print "</pre>";
+               ?>
+								<li onclick="mesajDegistir(this.id,this.value)"
+									id="thread_<?php echo $thread['messages'][0]['thread_id']?>"
+									value="<?php echo $thread['messages'][0]['thread_id']?>"
+									class="left clearfix <?php
+                    if (! $kontrol) {
+                        echo "secili";
+                        $kontrol = true;
+                    }
+                  
+                  ?>">
+                  <span class="chat-img pull-left"> </span>
+									<div class="chat-body clearfix">
+										<div class="header_sec">
+											<strong class="primary-font"><?php 
+                           $sonMesajTarihi="-";
+//                            $last_key = end(array_keys($thread['messages']));
+                           foreach ($thread['messages'] as $j => $mesaj) {
+                                // if ($mesaj['uid']!=$logged_in['uid']) {
+                                $alici=$mesaj['alici'];
+                                $old_date_timestamp = strtotime($mesaj['cdate']);
+                                $sonMesajTarihi = date('d.m.Y H:i', $old_date_timestamp);
+                                // }
+                            }
+                            echo $alici;
+                           ?></strong> <span class="pull-right">
+                            <?php echo $sonMesajTarihi;?> </span><br>
+											<strong class="pull-left">Konu: </strong> <span
+												class="badge pull-left"><?php echo $mesaj['subject'];?></span>
+										</div>
+									</div></li>
+								<?php 
+                }
+            }
+               ?>
+
+
                </ul>
             </div></div>
          </div>
          <!--chat_sidebar-->
 		 
 		 
-         <div class="col-sm-9 message_section">
-		 <div class="row">
-		 <div class="new_message_head">
-		 <div class="pull-left"><button><i class="fa fa-plus-square-o" aria-hidden="true"></i> New Message</button></div><div class="pull-right"><div class="dropdown">
-  <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-cogs" aria-hidden="true"></i>  Setting
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Profile</a></li>
-    <li><a href="#">Logout</a></li>
-  </ul>
-</div></div>
+         <div class="col-sm-9 message_section" style="padding-right: 0px; padding-left:0px;">
+		 <div class="row" style=" padding-left: 15px; padding-right: 15px;">
+		 <div class="new_message_head" style="padding-left: 25px;padding-right: 10px;">
+		 <div><button  onclick="yeniMesaj()" ><i class="fa fa-plus-square-o" aria-hidden="true"></i> Yeni Mesaj</button></div>
+		 </div>
 		 </div><!--new_message_head-->
 		 
 		 <div class="chat_area">
-		 <ul class="list-unstyled">
-		 <li class="left clearfix">
-                     <span class="chat-img1 pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body1 clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-						<div class="chat_time pull-right">09:40PM</div>
-                     </div>
-                  </li>
-				   <li class="left clearfix">
-                     <span class="chat-img1 pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body1 clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-						<div class="chat_time pull-right">09:40PM</div>
-                     </div>
-                  </li>
-                     <li class="left clearfix">
-                     <span class="chat-img1 pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
-                     </span>
-                     <div class="chat-body1 clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-    					<div class="chat_time pull-right">09:40PM</div>
-                     </div>
-                  </li>
-				  <li class="left clearfix admin_chat">
+		 <?php
+		 $kontrol=false;
+		 foreach ($mesajlar  as $i => $thread) {
+		     
+		 ?>
+		 <ul id="chat_thread_<?php echo $thread['messages'][0]['thread_id']?>" style="display:<?php if (!$kontrol) {$kontrol=true; echo "block"; $aktifThrdId=$thread['messages'][0]['thread_id']; } else {echo "none";} ?>" class="list-unstyled">
+		 		<?php 
+		 		foreach ($thread['messages'] as $j => $mesaj) {
+		 		    $giden=false;
+		 		    if ($mesaj['uid']==$logged_in['uid'])
+		 		        $giden=true;
+		 		    $old_date_timestamp = strtotime($mesaj['cdate']);
+		 		    $mesajTarihi = date('d.m.Y H:i', $old_date_timestamp);
+		 		    
+		 		    if ($giden) {
+		 		        
+		 		?>
+		 		<li class="left clearfix admin_chat">
                      <span class="chat-img1 pull-right">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                     <img src="<?php echo base_url("images/giden.png");?>" alt="User Avatar" >
                      </span>
-                     <div class="chat-body1 clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-						<div class="chat_time pull-left">09:40PM</div>
+                     <div class="chat-body2 clearfix">
+                        <p><?php  echo "<strong>Siz: </strong>".$mesaj['body']; ?></p>
+						<div class="chat_time pull-left"><?php echo $mesajTarihi;?></div>
                      </div>
                   </li>
-                  <li class="left clearfix admin_chat">
-                     <span class="chat-img1 pull-right">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+				<?php } else { ?>
+				<li class="left clearfix">
+                     <span class="chat-img1 pull-left">
+                     <img src="<?php echo base_url("images/gelen.png");?>" alt="User Avatar" >
                      </span>
                      <div class="chat-body1 clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-    					<div class="chat_time pull-left">09:40PM</div>
+                        <p><?php echo "<strong>".$mesaj['isim'].": </strong>".$mesaj['body']; ?></p>
+						<div class="chat_time pull-right"><?php echo $mesajTarihi;?></div>
                      </div>
                   </li>
-				  
 				
+				<?php 
+				}
+				} ?>
 		 
 		 
 		 </ul>
+		 <?php } ?>
 		 </div><!--chat_area-->
           <div class="message_write">
-    	 <textarea class="form-control" placeholder="type a message"></textarea>
-		 <div class="clearfix"></div>
-		 <div class="chat_bottom"><a href="#" class="pull-left upload_btn"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
- Add Files</a>
- <a href="#" class="pull-right btn btn-success">
- Send</a></div>
+          
+         
+		   <div class="form-row">
+		 <div class="chat_bottom">
+		 <form method="post" action="<?php echo site_url('mesajlar/cevap_gonder');?>">
+         <input type="hidden" value="<?php echo $aktifThrdId;?>" id="thrd_id" name="thrd_id">
+         <input type="hidden" value="1" id="islem_tur" name="islem_tur">
+<div class="form-group" id="yeniMesajGrup" style="display: none;">
+    <div class="form-group col-md-6">
+      <input type="email" class="form-control" id="emailInput" name="email" placeholder="Kullanıcı Adı (Email)">
+    </div>
+    <div class="form-group col-md-6">
+      <input type="text" class="form-control" name="konu" placeholder="Konu">
+    </div>
+    </div>
+    		   <div class="form-group col-md-12">
+    	 <textarea class="form-control" name="mesaj" id="mesajText" placeholder="Cevap yazın" required></textarea>
+    	 </div>
+  </div>
+ 		 <input type="submit" value="Mesajı Gönder" class="pull-right btn btn-success"></div>
+ 		</form>
+ 		 
 		 </div>
 		 </div>
          </div> <!--message_section-->
       </div>
+      </div>
+      </div>
 
-</div>

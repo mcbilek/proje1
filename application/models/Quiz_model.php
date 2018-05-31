@@ -982,6 +982,8 @@ if($this->config->item('allow_result_email')){
      $gid=$logged_in['gid'];
      $uid=$logged_in['uid'];
      $soruAdet = $_POST['soruAdet'];
+     if (empty($soruAdet))
+         $soruAdet=1000;
      //admin yada özel üye deðilse demo soru çekildiðine dair kayýt atýyoruz.
      if($logged_in['su']=='0' && $gid!=3){
 

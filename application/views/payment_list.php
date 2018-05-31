@@ -89,7 +89,16 @@ foreach($payment_history as $key => $val){
  <td><?php if ($val['payment_status']=="0") { echo "Beklemede";} else {echo "Onaylandı";}?></td>
  <td ><form method="post" action="<?php echo site_url('payment/odemeOnay');?>" name="odemeOnay" style="margin-bottom: 0px;">
  <input type="hidden" name="payment_id" value="<?php echo $val['pid'];?>" >
- <button type="submit" class="btn btn-primary btn-rounded btn-sm my-0 " <?php if ($val['payment_status']=="1") { echo "disabled";}?>>Onayla</button>
+ <input type="hidden" name="islem" value="<?php if ($val['payment_status']=="1") { echo "-1";} else {echo "1";}?>" >
+ <button type="submit" class="btn <?php if ($val['payment_status']=="1") { echo "btn-warning";} else {echo "btn-primary";}?> btn-rounded btn-sm my-0 " <?php     if ($val['payment_gateway'] == "2") {echo "disabled";}?> >
+ <?php
+    
+if ($val['payment_status'] == "1") {
+        echo "İptal Et";
+    } else {
+        echo "Onayla";
+    }
+    ?></button>
 	</form></td>
 </tr>
 

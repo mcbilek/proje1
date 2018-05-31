@@ -96,12 +96,19 @@
    border-bottom: 1px solid #dddddd;
    padding: 6px;
    }
+   .member_list li.secili{
+   border-bottom: 1px solid #7b7474;
+   padding: 6px;
+   background: #428bca;
+   color:#fff;
+   }
    .member_list li:last-child {
    border-bottom:none;
    }
    .member_list {
-   height: 520px;
-   overflow-x: hidden;
+   height: 452px;
+   border: 1px solid rgba(0, 0, 0, 0.15);
+   overflow-x: hide;
    overflow-y: auto;
    }
    .sub_menu_ {
@@ -158,10 +165,20 @@
   margin-left: 50px;
 }
 .chat-body1 p {
-  background: #fbf9fa none repeat scroll 0 0;
-  padding: 10px;
+  background: #76c2af5e none repeat scroll 0 0;
+  padding: 12px;
+  font-size: 16px;
 }
 .chat_area .admin_chat .chat-body1 {
+  margin-left: 0;
+  margin-right: 50px;
+}
+.chat-body2 p {
+  background: #77b3d478 none repeat scroll 0 0;
+  padding: 12px;
+  font-size: 16px;
+}
+.chat_area .admin_chat .chat-body2 {
   margin-left: 0;
   margin-right: 50px;
 }
@@ -171,7 +188,10 @@
 .message_write {
   background: #f5f3f3 none repeat scroll 0 0;
   float: left;
-  padding: 15px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   width: 100%;
 }
 

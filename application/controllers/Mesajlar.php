@@ -8,8 +8,10 @@ class Mesajlar extends CI_Controller {
 	   parent::__construct();
 	   $this->load->database();
 	   $this->load->helper('url');
-	   $this->load->model("notification_model");
 	   $this->load->model("user_model");
+// 	   log_message("debug", "mahana_messaging load ediliyor");
+	   $this->load->library('mahana_messaging');
+// 	   log_message("debug", "mahana_messaging load edildi");
 	     $this->lang->load('basic', $this->config->item('language'));
 
 	 }
@@ -19,14 +21,30 @@ class Mesajlar extends CI_Controller {
 	    log_message("debug", "ENVIRONMENT:".ENVIRONMENT);
 		
 	    $this->loginController();
-	    
-// 	    $logged_in=$this->session->userdata('logged_in');
+	    $logged_in=$this->session->userdata('logged_in');
+	    $mahana = new Mahana_messaging();
+// 	    $msg="5 id li üyeye cevap";
+// 	    $status = $mahana->send_new_message($logged_in['uid'], 5 ,"konu","5 id li üyeye yeni mesaj ğüişçöı ÜĞİŞÇÖ");
+// 	    $status = $mahana->reply_to_message(3, 5,-1,"konular",$msg);
+// 	    if ($status['err']==MSG_SUCCESS)
+// 	        $basarili="";
+// 	    print_r($logged_in['uid']);
+// 	    echo "<br>";
+// 	    print_r($status);
+// 	    exit();
 // 	    if($logged_in['su']!='1'){
 // 	        exit($this->lang->line('permission_denied'));
 // 	    }
+        $mesajs=$mahana->get_all_threads_grouped($logged_in['uid'],true);
+//       print "<pre>";
+//       print_r($mesajs);
+//       print "</pre>";
+//        exit();
+
 	    
-	    $data['limit']=$limit;
 		$data['title']=$this->lang->line('mesajlar_title');
+		if ($mesajs['error']==MSG_SUCCESS)
+		  $data['mesajlar']=$mesajs['retval'];
 		// fetching quiz list
 	//	$data['result']=$this->notification_model->notification_list($limit);
 		$this->load->view('header',$data);
@@ -36,104 +54,88 @@ class Mesajlar extends CI_Controller {
 	
 	
 	
-	public function register_token($device,$uid){
-	 if($device=='web'){
-	 $userdata=array(
-	 'web_token'=>$_POST['currentToken']	 
-	 );
-	 }else{
-	  $userdata=array(
-	 'android_token'=>$_POST['currentToken']	 
-	 );
-	 }
-	$this->db->where('uid',$uid);
-	$this->db->update('savsoft_users',$userdata);
-	
-	}
-	
-	
-	
-	public function add_new($tuid='0'){
-	
-        $this->loginController();
-        $logged_in=$this->session->userdata('logged_in');
-		if($logged_in['su']!='1'){
-			exit($this->lang->line('permission_denied'));
-		}
-		
-	$data['title']=$this->lang->line('send_notification');
-	$data['tuid']=$tuid;	
-	        $this->load->view('header',$data);
-		$this->load->view('new_notification',$data);
-		$this->load->view('footer',$data);
-	}
-	
-	
-	public function send_notification(){
-	
-	
-        $this->loginController();
-        $logged_in=$this->session->userdata('logged_in');
-		if($logged_in['su']!='1'){
-			exit($this->lang->line('permission_denied'));
-		}
-		/*
-	foreach($_POST['notification_to'] as $nk => $nval){
-	if($nval != ''){
-	 $fields = array(
-            'to' => $nval,
-            'icon' => 'logo',
-	    'sound'=>'default',
-            'data' =>array('message'=> $_POST['message']),
-            'notification' =>array('title'=> $_POST['title'],'body'=> $_POST['message'],'click_action'=>$_POST['click_action']),
-        );
-   // Set POST variables
-        $url = 'https://fcm.googleapis.com/fcm/send';
- $firebase_serverkey=$this->config->item('firebase_serverkey');
-        $headers = array(
-            'Authorization: key='.$firebase_serverkey,
-            'Content-Type: application/json'
-        );
-        // Open connection
-        $ch = curl_init();
- 
-        // Set the url, number of POST vars, POST data
-        curl_setopt($ch, CURLOPT_URL, $url);
- 
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
- 
-        // Disabling SSL Certificate support temporarly
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
- 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
- 
-        // Execute post
-        $result = curl_exec($ch);
-        if ($result === FALSE) {
-            die('Curl failed: ' . curl_error($ch));
-        }
- 
-        // Close connection
-        curl_close($ch);
+	public function cevap_gonder(){
+	    if ($this->input->post('islem_tur')==2) {
+	        $this->yeni_mesaj_gonder();
+	    } else {
+	        
+	    log_message("debug", "ENVIRONMENT:".ENVIRONMENT);
+	    log_message("debug", "cevap_gonder geldi:");
+	    
+	    $this->loginController();
+	    $logged_in=$this->session->userdata('logged_in');
+	    $mahana = new Mahana_messaging();
         
+	    $mahana->reply_to_message($logged_in['uid'],-1,$this->input->post('thrd_id'),$this->input->post('mesaj'));
+	    $mesajs=$mahana->get_all_threads_grouped($logged_in['uid'],true);
         
-	
-	}
-	}
-	*/
-	$this->notification_model->insert_notification($result,$nval);
-	
-	  $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('notification_sent')." </div>");
-		 
-		redirect('notification/index');
-	
+        $data['title']=$this->lang->line('mesajlar_title');
+        if ($mesajs['error']==MSG_SUCCESS)
+            $data['mesajlar']=$mesajs['retval'];
+        
+        $this->load->view('header',$data);
+        $this->load->view('mesajlar',$data);
+        $this->load->view('footer',$data);
+	    }
 	}
 	
+	function hataBildir(){
+        log_message("debug", "hataBildir geliyor");
+        log_message("debug", "hataBildir geldi");
+        log_message("debug", $_POST['konu']);
+        log_message("debug", $_POST['mesaj']);
+        log_message("debug", $_POST['soru_no']);
+        
+        $this->loginController();
+        $logged_in = $this->session->userdata('logged_in');
+        $mahana = new Mahana_messaging();
+        $aliciUserId = 42;
+        $title = $this->input->post('konu').",soru no:".$this->input->post('soru_no');
+        $mesaj = $this->input->post('soru_no')." id li soru için, hata bildirimi:".$this->input->post('mesaj');
+        $mesaj = $mesaj.", soruyu düzenlemek için <a href='".site_url('qbank/edit_question_1/'.$this->input->post('soru_no'))."'>tıklayın</a>";
+        //http://localhost/sinav/qbank/edit_question_1/36
+        
+        $mahana->send_new_message($logged_in['uid'], $aliciUserId, $title, $mesaj);
+//        $this->session->set_flashdata('message', "<div class='alert alert-success alert-dismissible fade in' role='alert'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Mesajınız Başarıyla Gönderilmiştir. </div>");
+    }
 	
 	
+	public function yeni_mesaj_gonder(){
+	    //print_r($_POST);
+// 	    exit();
+	    log_message("debug", "ENVIRONMENT:".ENVIRONMENT);
+	    //exit();
+	    
+	    $this->loginController();
+	    $logged_in=$this->session->userdata('logged_in');
+	    $mahana = new Mahana_messaging();
+	    $aliciUserId=$mahana->get_user_id($this->input->post('email'));
+	    if($aliciUserId>0) {
+            if (empty($this->input->post('konu')))
+                $title = $this->input->post('title');
+            else
+                $title = $this->input->post('konu');
+            if (empty($this->input->post('mesaj')))
+                $mesaj = $this->input->post('message');
+            else
+                $mesaj = $this->input->post('mesaj');
+	                    
+            $mahana->send_new_message($logged_in['uid'],$aliciUserId,$title,$mesaj);
+	        $this->session->set_flashdata('message', "<div class='alert alert-success alert-dismissible fade in' role='alert'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Mesajınız Başarıyla Gönderilmiştir. </div>");
+	    } else {
+	        $this->session->set_flashdata('message', "<div class='alert alert-danger alert-dismissible fade in'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Email Adresi Bulunamadı! </div>");
+	    }
+	    $mesajs=$mahana->get_all_threads_grouped($logged_in['uid'],true);
+        
+        $data['title']=$this->lang->line('mesajlar_title');
+        if ($mesajs['error']==MSG_SUCCESS)
+            $data['mesajlar']=$mesajs['retval'];
+        
+        $this->load->view('header',$data);
+        $this->load->view('mesajlar',$data);
+        $this->load->view('footer',$data);
+	}
 	
- 
+	
 	
 }

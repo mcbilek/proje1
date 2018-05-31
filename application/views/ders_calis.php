@@ -263,10 +263,11 @@ foreach($questions as $qk => $question){
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form id="hataBildirForm" action="<?php echo site_url('quiz/hataBildir');?>">
+			<form id="hataBildirForm" action="<?php echo site_url('mesajlar/hataBildir');?>">
 				<div class="modal-body">
-					<textarea class="form-control" rows="5" name="hataComment"></textarea>
+					<textarea class="form-control" rows="5" name="mesaj"></textarea>
 					<input type="hidden" name="soru_no" value="">
+					<input type="hidden" name="konu" value="Hatalı Soru Bildirimi">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"	data-dismiss="modal">İptal</button>

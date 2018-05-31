@@ -62,14 +62,16 @@ class Mahana_model extends CI_Model
      * @param   integer  $priority
      * @return  integer  $new_msg_id
      */
-    function reply_to_message($reply_msg_id, $sender_id, $body, $priority)
+    function reply_to_message($reply_msg_id, $thread_id, $sender_id, $body, $priority)
     {
         $this->db->trans_start();
 
+        // if thread_id is -1,
         // Get the thread id to keep messages together
-        if ( ! $thread_id = $this->_get_thread_id_from_message($reply_msg_id))
-        {
-            return FALSE;
+        if ($thread_id==-1) {
+            if (! $thread_id = $this->_get_thread_id_from_message($reply_msg_id)) {
+                return FALSE;
+            }
         }
 
         // Add this message
@@ -120,6 +122,24 @@ class Mahana_model extends CI_Model
 
         return $query->result_array();
     }
+    /**
+     * Get a user_id from email
+     *
+     * @param  integer $email
+     * @return integer
+     */
+    function get_user_id_from_email($email)
+    {
+        $sql = 'SELECT uid from ' . USER_TABLE_TABLENAME .
+        ' WHERE email = ? ' ;
+
+        $query = $this->db->query($sql, array($email));
+        if ($query->num_rows() > 0) {
+            return $query->row()->uid;
+        } else {
+            return -1;
+        }
+    }
 
     // ------------------------------------------------------------------------
 
@@ -165,25 +185,29 @@ class Mahana_model extends CI_Model
      * @param   string   $order_by
      * @return  array
      */
-    function get_all_threads($user_id, $full_thread = FALSE, $order_by = 'asc')
+    function get_all_threads($user_id, $full_thread = FALSE, $order_by = 'desc')
     {
-        $sql = 'SELECT m.*, s.status, t.subject, '.USER_TABLE_USERNAME .
-        ' FROM ' . $this->db->dbprefix . 'msg_participants p ' .
+        $sql = 'SELECT m.*, s.status, t.subject, uid,'.USER_TABLE_USERNAME .
+        ',group_concat((select distinct concat(first_name, " ", last_name) from msg_participants p2, savsoft_users u where p2.user_id = u.uid and p2.user_id = p.user_id and p.user_id !=s.user_id )) alici FROM ' . $this->db->dbprefix . 'msg_participants p ' .
         ' JOIN ' . $this->db->dbprefix . 'msg_threads t ON (t.id = p.thread_id) ' .
         ' JOIN ' . $this->db->dbprefix . 'msg_messages m ON (m.thread_id = t.id) ' .
         ' JOIN ' . $this->db->dbprefix . USER_TABLE_TABLENAME . ' ON (' . USER_TABLE_ID . ' = m.sender_id) '.
         ' JOIN ' . $this->db->dbprefix . 'msg_status s ON (s.message_id = m.id AND s.user_id = ? ) ' .
-        ' WHERE p.user_id = ? ' ;
+        ' WHERE s.user_id = ? group by m.id' ;
 
         if (!$full_thread)
         {
             $sql .= ' AND m.cdate >= p.cdate';
         }
 
-        $sql .= ' ORDER BY t.id ' . $order_by. ', m.cdate '. $order_by;
+        $sql .= ' ORDER BY t.id ' . $order_by. ', m.cdate ASC';
 
         $query = $this->db->query($sql, array($user_id, $user_id));
-
+//         log_message("debug", "get_all_threads sql çalışıyor".$query->num_rows());
+//         print "<pre>";
+//         print_r($query->result_array());
+//         print "</pre>";
+//         exit();
         return $query->result_array();
     }
 

@@ -78,7 +78,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://www.bakanliksinav.com/quiz"><?php echo $this->lang->line('savsoft_quiz');?></a>
+            <a class="navbar-brand" href="https://www.bakanliksinav.com/sinav"><?php echo $this->lang->line('savsoft_quiz');?></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

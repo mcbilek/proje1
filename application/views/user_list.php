@@ -34,7 +34,8 @@ data-show-export="true">
 <thead>
 <tr>
  <th data-sortable="true">#</th>
- <th data-sortable="true"><?php echo $this->lang->line('email');?></th>
+ <th data-sortable="true">Email</th>
+ <th data-sortable="true">Kyt.Trh</th>
 <th data-sortable="true"><?php echo $this->lang->line('first_name');?> <?php echo $this->lang->line('last_name');?></th>
 <th data-sortable="true">Kurum</th>
 <th data-sortable="true">Kadro</th>
@@ -55,10 +56,14 @@ if(count($result)==0){
 	<?php
 }
 foreach($result as $key => $val){
+    // returns Saturday, January 30 10 02:06:34
+    $old_date_timestamp = strtotime($val['registered_date']);
+    $new_date = date('d.m.Y', $old_date_timestamp);
 ?>
 <tr>
  <td><?php echo $val['uid'];?></td>
-<td><?php echo $val['email'].' '.$val['wp_user'];?></td>
+<td><?php echo $val['email'];?></td>
+<td><?php echo $new_date;?></td>
 <td><?php echo $val['first_name'];?> <?php echo $val['last_name'];?></td>
 <td><?php echo $val['kurum_adi'];?></td>
 <td><?php echo $val['kadro_adi'];?></td>

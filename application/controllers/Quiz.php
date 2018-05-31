@@ -725,12 +725,6 @@ function open_quiz($limit='0'){
 //         echo $sonuc;
        echo "true";
     }
-    function hataBildir(){
-        log_message("debug", "hataBildir".$_POST['hataComment']);
-
-       echo "true";
-    }
-    
     
     
  function set_ind_time(){
@@ -739,7 +733,6 @@ function open_quiz($limit='0'){
 		
 		
 	}
- 
  
  
  function upload_photo(){

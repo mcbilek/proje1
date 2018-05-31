@@ -204,10 +204,10 @@ foreach($calisma_result as $key => $val){
                         $notvar = false;
                         foreach ($calisma_kaynak as $anahtar => $deger) {
                             if ($deger['kategori_id'] == $val['cid']) {
-                                $notvar = true;
                                 $tur = $deger['kaynak_tur'];
                                 $kay_id=$deger['kaynak_id'];
                                 if ($tur == 0) {
+                                    $notvar = true;
                                     $i ++;
                                     $anan = $deger['dosya_adi'];
                                     $baban = $deger['dosya_aciklama'];
@@ -233,10 +233,10 @@ foreach($calisma_result as $key => $val){
                         $dersnotuvar=false;
                         foreach ($calisma_kaynak as $anahtar => $deger) {
                             if ($deger['kategori_id'] == $val['cid']) {
-                                $dersnotuvar=true;
                                 $tur = $deger['kaynak_tur'];
                                 $kay_id=$deger['kaynak_id'];
                                 if ($tur == 1) {
+                                    $dersnotuvar=true;
                                     $i ++;
                                     $dosya_adi = $deger['dosya_adi'];
                                     $baban = $deger['dosya_aciklama'];
@@ -253,22 +253,19 @@ foreach($calisma_result as $key => $val){
                         }
                         if (! $dersnotuvar)
                             echo "Ders Notu Eklenmemiş";
+                        else
+                            $dersnotuvar=false;
+                            
                         $i = 0;
                         ?>
                         
-					<hr>
                         <form method="post" action="<?php echo site_url('quiz/ders_calis');?>" style="margin-bottom: 0px;">
                         <input id="cat_id" type="hidden" name="kategori_id" value="<?php echo $val['cid'];?>">
-                            <h4><?php echo $this->lang->line('noq');?></h4>
-                            <select class="selectpicker" name="soruAdet">
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
-                            </select><p><p>
+                            
+                            <p><p>
                         <div class="panel-footer">
                          
-						 <button type="submit" class="btn btn-success">Soru Çöz</button>
+						 <button type="submit" class="btn btn-success">Soru Getir</button>
 						 </form>
 
 <?php 

@@ -6,7 +6,7 @@
  
 
   <div class="row">
-     <form method="post" action="<?php echo site_url('notification/send_notification');?>">
+     <form method="post" action="<?php echo site_url('mesajlar/yeni_mesaj_gonder');?>">
 	
 <div class="col-md-8">
 <br> 
@@ -34,7 +34,7 @@
 			
 
 			<div class="form-group">	 
-			<label for="inputEmail"  ><?php echo $this->lang->line('title');?></label> 
+			<label for="inputEmail"  >Konu</label> 
 			<input type="text" required  name="title"  class="form-control"   > 
 			</div>
 			 
@@ -43,10 +43,10 @@
 			<input type="text" required  name="message"  class="form-control"   > 
 			</div>
 			 
-			<div class="form-group">	 
+<!-- 			<div class="form-group">	 
 			<label for="inputEmail"  ><?php echo $this->lang->line('click_action');?></label> 
 			<input type="text" required  name="click_action"  value="<?php echo base_url();?>" class="form-control"   > 
-			</div>
+ 			</div> -->
 			 
 			<?php 
 			if($tuid=='0'){
@@ -64,10 +64,11 @@
 			
 			?>
 			 <?php echo $this->lang->line('send_to');?>: 
-			 <?php echo $nuser['first_name'];?>  <?php echo $nuser['last_name'];?> (# <?php echo $nuser['uid'];?>)<br><br>
+			 <?php echo $nuser['first_name']." ".$nuser['last_name']." - ".$nuser['email']  ;?> (# <?php echo $nuser['uid'];?>)<br><br>
 			<input type="hidden" required  name="notification_to[]" value="<?php echo $nuser['web_token'];?>"   > 
 			<input type="hidden" required  name="notification_to[]" value="<?php echo $nuser['android_token'];?>"   > 
 			<input type="hidden" required  name="uid" value="<?php echo $tuid;?>"   > 
+			<input type="hidden" required  name="email" value="<?php echo $nuser['email'];?>"   > 
 			<?php 
 			}
 			?> 
