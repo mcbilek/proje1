@@ -233,10 +233,8 @@ return $revenue;
 		);
 		$this->db->where('gid',$gid);
 		if($this->db->update('savsoft_group',$userdata)){
-			
 			return true;
 		}else{
-			
 			return false;
 		}
  }
@@ -312,10 +310,18 @@ return $revenue;
 		return $query->result_array();
  }
  
- function kadro_list(){
+ function kadro_list($sadece_aktifler=0){
+     if ($sadece_aktifler)
+         $this->db->where('aktifmi',1);
 	 $this->db->order_by('kadro_adi','asc');
 	$query=$this->db->get('savsoft_kadro');
 		return $query->result_array();
+ }
+ 
+ function ozel_uyelik_ucreti($kadro_id){
+     $query = $this->db->query("select * from savsoft_kadro where kadro_id =$kadro_id");
+     $ret = $query->row();
+     return $ret->uyelik_ucreti;
  }
  
  function kurum_list(){
@@ -559,17 +565,23 @@ $new_password=rand('1111','9999');
  }
  function update_user_for_odeme($gid,$sure){
         $logged_in = $this->session->userdata('logged_in');
-        
+        //
         $userdata = array(
             'gid' => $gid,
             'subscription_expired' => $sure
         );
         
         $this->db->where('uid', $logged_in['uid']);
-        if ($this->db->update('savsoft_users', $userdata))
-            return true;
-        else
+        if ($this->db->update('savsoft_users', $userdata)) {
+            $logged_in['gid']=$gid;
+            $this->session->set_userdata('logged_in', $logged_in);
             
+//             $newUser = $this->get_user($logged_in['uid']);
+            $user = $this->session->userdata('logged_in');
+            log_message("debug", "yeni user grup:".$user['gid']);
+            return true;
+        }
+        else
             return false;
     }
  

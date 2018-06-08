@@ -10,13 +10,6 @@
 
 <script>
 
-
-function submitform(){
-alert('Time Over');
-window.location="<?php echo site_url('quiz/submit_quiz/');?>";
-}
- 
-
 </script>
 
 
@@ -83,6 +76,7 @@ $abc=array(
 '10'=>'J',
 '11'=>'K'
 );
+$soruAdet=count($questions);
 foreach($questions as $qk => $question){
 ?>
  <div id="q<?php echo $qk;?>" class="question_div" style="display: block;">
@@ -92,7 +86,7 @@ foreach($questions as $qk => $question){
 		 
 
 
-		<div class="option_container" >
+		<div class="option_container" id="op_con_<?php echo $qk;?>" >
 		 <?php 
 		 // multiple single choice
 		 if($question['question_type']==$this->lang->line('multiple_choice_single_answer')){
@@ -121,8 +115,13 @@ foreach($questions as $qk => $question){
 				    }
 			?>
 			 
-		<div class="op"><div class="radio"><label><input type="radio" name="answer[<?php echo $qk;?>][]"  id="answer_value<?php echo $qk.'-'.$i;?>" 
-						value="<?php echo $option['oid'];?>" onClick="javascript:show_question_answer('<?php echo $qk;?>','<?php echo $score;?>','<?php echo $question['qid'];?>','<?php echo $option['oid'];?>');" ><?php echo $abc[$i];?>)  <?php echo $option['q_option'];?> </label></div></div>
+		<div class="op"><div onClick="javascript:show_question_answer('<?php echo $qk;?>','<?php echo $score;?>','<?php echo $question['qid'];?>','<?php echo $option['oid'];?>','answer_value<?php echo $qk.'-'.$i;?>');" class="radio" style="border: 1px solid lightgrey; border-radius: 5px; padding: 5px 5px; cursor: pointer;margin-top: 0px;" >
+		<label style="margin: 8;">
+		<input type="radio" name="answer[<?php echo $qk;?>][]"  id="answer_value<?php echo $qk.'-'.$i;?>" value="<?php echo $option['oid'];?>" >
+		<?php echo $abc[$i];?>)  <?php echo $option['q_option'];?> 
+		</label>
+		</div>
+		</div>
 			 
 			 
 			 <?php 
@@ -231,8 +230,40 @@ foreach($questions as $qk => $question){
 	
 	<button class="btn btn-danger"  onClick="javascript:cancelmove();" style="margin-top:2px;" ><?php echo $this->lang->line('submit_quiz');?></button>
 	 -->
-	 <a class="btn btn-warning"  href="<?php echo site_url('quiz/');?>"  style="margin-top:2px;"  >Çalışmayı Bitir</a>
-</div>
+		<div class="row">
+
+			<div class="col-sm-2"
+				style="border: 1px solid #D8D8D8; height: 60px; text-align:center; padding-top:3px;">
+				<a class="btn btn-warning" href="<?php echo site_url('quiz/');?>"
+					style="margin-top: 2px;">Çalışmayı Bitir</a>
+			</div>
+			<div class="col-sm-10">
+			<div class="row">
+			<div class="col-sm-3" style="border: 1px solid #D8D8D8; height: 60px;">
+					<h4 class="mb-0" style="text-align:center;">
+						TOPLAM: <strong id="toplamSoru"><?php echo $soruAdet;?></strong>
+					</h4>
+			</div>
+			<div class="col-sm-3" style="border: 1px solid #D8D8D8; height: 60px;">
+					<h4 class="text-success mb-0" style="text-align:center;">
+						DOĞRU: <strong id="dogruSoru">0</strong>
+					</h4>
+			</div>
+			<div class="col-sm-3" style="border: 1px solid #D8D8D8; height: 60px;">
+					<h4 class="text-danger mb-0" style="text-align:center;">
+						YANLIŞ: <strong id="yanlisSoru">0</strong>
+					</h4>
+			</div>
+			<div class="col-sm-3" style="border: 1px solid #D8D8D8; height: 60px;">
+					<h4 class="text-info mb-0" style="text-align:center;">
+						KALAN: <strong id="kalanSoru"><?php echo $soruAdet;?></strong>
+					</h4>
+			</div>
+			</div>
+		</div>
+
+
+	</div>
 
 <!-- <a href="#my_modal" data-toggle="modal" data-soru_id ="test">Open Modal</a> -->
 <div class="modal" id="my_modal">
@@ -281,7 +312,7 @@ foreach($questions as $qk => $question){
 
 <script>
 
-noq="<?php echo $noq;?>";
+noq="<?php echo $soruAdet;?>";
 show_questions_for_calis();
 
 $('#HataModal').on('show.bs.modal', function (event) {

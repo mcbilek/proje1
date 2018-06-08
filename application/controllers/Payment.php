@@ -64,7 +64,6 @@ function subscription_expired($uid){
 	    }
 	    log_message("debug", "tek_login_kontrolü yapıldı.");
 	    
-	    $logged_in=$this->session->userdata('logged_in');
 	   // print_r($logged_in);
 	   // exit();
 	    if($logged_in['gid']=='3'){
@@ -75,6 +74,7 @@ function subscription_expired($uid){
 	    
 	    
 	    $data['odemeTuru']=$odemeTuru;
+	    $data['ucret']=$this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
 	    $data['title']="Özel Üyelik";
 	    // havale ile üyelik
 	    //$data['odemeBildirimi']=$this->ozelUyelik_model->payment_list($limit);
@@ -139,19 +139,20 @@ function subscription_expired($uid){
 	    //eğer adres alanı gelmişse, ödeme hazırlıyoruz demektir.
 	    if ($this->input->post('adres')!="") {
 	    log_message("debug", "adres:".$this->input->post('adres'));
-	    
+	    $ucret = $this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
 	    require_once('config_iyzico.php');
 	    
 	    # create request class
 	    $request = new \Iyzipay\Request\CreateCheckoutFormInitializeRequest();
 	    $request->setLocale(\Iyzipay\Model\Locale::TR);
 	    //$request->setConversationId("123456789");
-	    $request->setPrice("100");
-	    $request->setPaidPrice("100");
+	    $request->setPrice($ucret);
+	    $request->setPaidPrice($ucret);
 	    $request->setCurrency(\Iyzipay\Model\Currency::TL);
 	    $request->setBasketId("1");
 	    $request->setPaymentGroup(\Iyzipay\Model\PaymentGroup::SUBSCRIPTION);
-	    $request->setCallbackUrl("https://www.bakanliksinav.com/sinav/payment/krediKartiReturn");
+// 	    $request->setCallbackUrl("https://www.bakanliksinav.com/sinav/payment/krediKartiReturn");
+	    $request->setCallbackUrl("http://localhost/sinav/payment/krediKartiReturn");
 	    $request->setEnabledInstallments(array(2, 3, 6, 9));
 	    
 	    $buyer = new \Iyzipay\Model\Buyer();
@@ -185,7 +186,7 @@ function subscription_expired($uid){
 	    $secondBasketItem->setCategory1("Özel Üyelik");
 	    $secondBasketItem->setCategory2("Ücretli Üyelik");
 	    $secondBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
-	    $secondBasketItem->setPrice("100");
+	    $secondBasketItem->setPrice($ucret);
 	    $basketItems[0] = $secondBasketItem;
 	    
 	    $request->setBasketItems($basketItems);
@@ -194,12 +195,16 @@ function subscription_expired($uid){
 	    $checkoutFormInitialize = Iyzipay\Model\CheckoutFormInitialize::create($request, Config::options());
 	    //print_r($checkoutFormInitialize);
 	    if ($checkoutFormInitialize->getStatus()=="success") {
-	        //odeme için kayıt atıyoruz.
 	        $this->ozeluyelik_model->insert_krediKartiOdeme($checkoutFormInitialize,3,100.00);
             $data['islemHazir']="1";
             $data['OdemeFormuScripti'] = $checkoutFormInitialize->getCheckoutFormContent();
             $this->session->set_flashdata('iyzico', '<div id="iyzipay-checkout-form"  class="responsive"></div>');
+	        //odeme için kayıt atıyoruz.
             } else {
+//                 print "<pre>";
+//                 print_r($checkoutFormInitialize);
+//                 print "</pre>";
+//                 exit();
                 $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz. Hata Mesajı: " . $checkoutFormInitialize->getErrorMessage() . "</div>");
             }
 	    }

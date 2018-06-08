@@ -84,6 +84,7 @@ class Login extends CI_Controller {
 	}
 
 		public function registration($gid='0') {
+		    //ilk defa bu metoda geliyorsa register_pre yi yüklüyoruz
 		    if ($this->input->post('email') == "" && $this->input->post('contact_no') == "" && $this->input->post('sms_onay_kodu') == "") {
             
                 $this->load->helper('url');
@@ -91,6 +92,7 @@ class Login extends CI_Controller {
                 $this->load->view('header', $data);
                 $this->load->view('register_pre', $data);
                 $this->load->view('footer', $data);
+                //telefon no ve email gelmişse
 		    } else if ($this->input->post('email') != "" && $this->input->post('contact_no') != "" && $this->input->post('sms_onay_kodu') == "") {
             $this->load->helper('url');
             $this->load->library('form_validation');
@@ -118,6 +120,7 @@ class Login extends CI_Controller {
                     $this->load->view('register_pre', $test);
                     $this->load->view('footer', $test);
                 }
+                //sms atıyoruz
                 $smsKodu = rand('11111', '99999');
                 $this->session->set_userdata('onayKodu', $smsKodu);
                 $smsText = "Bakanliksinav.com sms onay kodunuz:".$smsKodu;
@@ -166,7 +169,7 @@ class Login extends CI_Controller {
                 // fetching kurum list
                 $data['kurum_list']=$this->user_model->kurum_list();
                 // fetching kadro list
-                $data['kadro_list']=$this->user_model->kadro_list();
+                $data['kadro_list']=$this->user_model->kadro_list(1);
                 $this->load->view('header',$data);
                 $this->load->view('register',$data);
                 $this->load->view('footer',$data);

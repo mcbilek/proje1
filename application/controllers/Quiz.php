@@ -860,8 +860,8 @@ if(isset($_FILES['webcam'])){
          redirect('login');
      }
      
-     
-     if($logged_in['su']=='0' && $gid!=3){
+     log_message("debug", "ders çalış grup id:".$logged_in['gid']);
+     if($logged_in['su']=='0' && $logged_in['gid']!=3){
          $demoCozdu = $this->quiz_model->get_questions_demo_kontrol();
          //bugünlik limit demo soruları çözmüş.
          if ($demoCozdu==1) {

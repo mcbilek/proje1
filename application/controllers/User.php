@@ -255,8 +255,12 @@ class User extends CI_Controller {
         public function upgid($gid){
         $logged_in=$this->session->userdata('logged_in');
 			$uid=$logged_in['uid'];
-			$group=$this->user_model->get_group($gid);
-		if($group['price'] != '0'){
+			log_message("debug", "upgid gid:".$gid);
+			$ucret = $this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
+			log_message("debug", "upgid ucret:".$ucret);
+			//exit();
+			//$group=$this->user_model->get_group($gid);
+			if($ucret != '0' && $gid==3){
 		redirect('payment/upgradeGroup/'.$gid.'/'.$logged_in['uid']);
 		 }else{
 		$subscription_expired=time()+(365*20*24*60*60);
@@ -265,9 +269,14 @@ class User extends CI_Controller {
 			'gid'=>$gid,
 			'subscription_expired'=>$subscription_expired
 			);
-			
 			$this->db->where('uid',$uid);
 			$this->db->update('savsoft_users',$userdata);
+			//sessiondaki grup id yi update ediyoruz.
+			$logged_in['gid']=$gid;
+			$this->session->set_userdata('logged_in', $logged_in);
+			$user = $this->session->userdata('logged_in');
+			log_message("debug", "User->upgid yeni user grup:".$user['gid']);
+			
 			 $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('group_updated_successfully')." </div>");
 			redirect('user/edit_user/'.$logged_in['uid']);
         
@@ -283,6 +292,7 @@ class User extends CI_Controller {
 			$data['title']=$this->lang->line('select_package');
 		// fetching group list
 		$data['group_list']=$this->user_model->group_list();
+		$data['uyelik_ucreti']=$this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
 		$this->load->view('header',$data);
 		$this->load->view('change_group',$data);
 		$this->load->view('footer',$data);

@@ -335,23 +335,38 @@ function show_next_question_for_calis() {
 
 }
 
-function show_question_answer(ilgili_soru,dogrumu,qid,oid) {
+function show_question_answer(ilgili_soru,dogrumu,qid,oid,radioId) {
+	var optElement="#"+radioId;
+	var opContainerDiv="#op_con_"+ilgili_soru+" *";
+	if ($(optElement).is(':enabled')) {
+		$(opContainerDiv).css('cursor','not-allowed');
 	//	fide_all_question();
 		qn = parseInt(ilgili_soru);
 	document.getElementById('fields'+ilgili_soru).disabled = true;
 	var did = "#cevap" + ilgili_soru;
 	var dogru = "#dogru" + ilgili_soru;
 	var yanlis = "#yanlis" + ilgili_soru;
+	$(optElement).prop("checked", true);
+	//alert(optElement);
 	if (dogrumu==0) {
+		var yanlisAdet=parseInt($('#yanlisSoru').text());
+		var kalanAdet=parseInt($('#kalanSoru').text());
+		$('#yanlisSoru').text(yanlisAdet+1);
+		$('#kalanSoru').text(kalanAdet-1);
 		$(did).attr("class", "panel panel-danger question_container");
 		$(yanlis).css('display', 'block');
 		$(dogru).css('display', 'none');
 	} else {
+		var dogruAdet=parseInt($('#dogruSoru').text());
+		var kalanAdet=parseInt($('#kalanSoru').text());
+		$('#dogruSoru').text(dogruAdet+1);
+		$('#kalanSoru').text(kalanAdet-1);
 		$(dogru).css('display', 'block');
 		$(yanlis).css('display', 'none');
 	}
 		$(did).css('display', 'block');
 		save_answer_for_calis(qid,oid,dogrumu);
+	}
 }
 
 function hide_questions_answer_and_next() {
@@ -561,7 +576,7 @@ function save_answer_for_calis(qn,oid,dogrumu) {
 	}, 5000);
 
 	var str = $("form").serialize();
-	console.log(str);
+	//console.log(str);
 	// var formData = {user_answer:str};
 	$.ajax({
 		type : "POST",

@@ -30,7 +30,7 @@
 <?php
 if ($islemHazir!="1") {
 ?>
- Ücret: <strong>100,00 ?</strong><br>
+ Ücret: <strong><?php echo $ucret;?>,00 ₺</strong><br>
  *Kredi kartı ile ödeme işlemlerinde adres girilmesi zorunludur.
  <br><br>
 <div class="form-group">
@@ -64,7 +64,7 @@ if ($islemHazir!="1") {
 <div class="col-md-7">
 <div class="login-panel panel panel-default">
 <div class="panel-body"> 
- Ücret: ? 100,00 TL<br><br>
+Ücret: <strong><?php echo $ucret;?>,00 ₺</strong><br><br>
 <div class="form-group">
 	<form method="post" action="<?php echo site_url('payment/odemeBildirimi/3/1');?>"
 	name="f1">

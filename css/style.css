@@ -41,7 +41,7 @@ img{
 		padding-right:8px;
 		padding-top:2px;
 		font-size: medium;
-		font-family: arial black;
+		font-family: tahoma;
 		color: #000000;
 	}
 	
@@ -72,8 +72,8 @@ img{
 		width:100%;
 		height:50px;
 		padding:4px;
-		
 		border-top:1px solid #dddddd;
+		left:0px;
 		
 		
 	}
