@@ -84,14 +84,10 @@ if ($islemHazir!="1") {
     
 </div>
 </div>
-						<h3>Hesap Numaralarımız</h3>
-<h4>1-Ziraat Bankası</h4>
-<b>İsim</b>: Deneme Deneme , <b>IBAN</b>: TR680006200000222990028402<br>
-<h4>2-Garanti Bankası</h4>
-<b>İsim</b>: Deneme Deneme , <b>IBAN</b>: TR680006200000222990028402<br>
-<h4>3-İş Bankası</h4>
-<b>İsim</b>: Deneme Deneme , <b>IBAN</b>: TR680006200000222990028402<br>
-     
+						<h3>Hesap Numaramız</h3>
+<h4>Banka: Halk Bankası</h4>
+<b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: TR640001200939900001016527<br>
+
 </div>
          
 </div>

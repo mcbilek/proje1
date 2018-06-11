@@ -16,8 +16,48 @@
 
 <div class="container" >
 
+<div class="modal fade" id="HataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Lütfen Sorudaki Hatayı Yazınız</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="İptal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="hataBildirForm" action="<?php echo site_url('mesajlar/hataBildir');?>">
+				<div class="modal-body">
+					<textarea class="form-control" rows="5" name="mesaj"></textarea>
+					<input type="hidden" name="soru_no" value="">
+					<input type="hidden" name="konu" value="Hatalı Soru Bildirimi">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"	data-dismiss="modal">İptal</button>
+					<button type="submit" class="btn btn-primary">Gönder</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
+<div class="modal" id="my_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">Modal header</h4>
+      </div>
+      <div class="modal-body">
+        <p>some content</p>
+        <input type="text" name="bookId" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="save_answer_signal" id="save_answer_signal2"></div>
 <div class="save_answer_signal" id="save_answer_signal1"></div>
@@ -266,48 +306,6 @@ foreach($questions as $qk => $question){
 	</div>
 
 <!-- <a href="#my_modal" data-toggle="modal" data-soru_id ="test">Open Modal</a> -->
-<div class="modal" id="my_modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Modal header</h4>
-      </div>
-      <div class="modal-body">
-        <p>some content</p>
-        <input type="text" name="bookId" value=""/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="HataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Lütfen Sorudaki Hatayı Yazınız</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="İptal">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form id="hataBildirForm" action="<?php echo site_url('mesajlar/hataBildir');?>">
-				<div class="modal-body">
-					<textarea class="form-control" rows="5" name="mesaj"></textarea>
-					<input type="hidden" name="soru_no" value="">
-					<input type="hidden" name="konu" value="Hatalı Soru Bildirimi">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"	data-dismiss="modal">İptal</button>
-					<button type="submit" class="btn btn-primary">Gönder</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 
 <script>
@@ -316,6 +314,7 @@ noq="<?php echo $soruAdet;?>";
 show_questions_for_calis();
 
 $('#HataModal').on('show.bs.modal', function (event) {
+	  $('.modal-backdrop').remove();
 	  var button = $(event.relatedTarget); // Button that triggered the modal
 	  var soru_id = button.data('soru_id'); // Extract info from data-* attributes
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).

@@ -116,7 +116,7 @@ function getfirstqn($cat_keys='0',$category_range){
 }
 
 
-if(count($categories) > 1 ){
+if(count($categories) > 1000 ){
 	$jct=0;
 	foreach($categories as $cat_key => $category){
 ?>

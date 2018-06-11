@@ -101,14 +101,26 @@ Class Ozeluyelik_model extends CI_Model
     }
     function odemeyiOnayla(){
         log_message('debug', '$payment_id:'. $this->input->post('payment_id'));
+        $pid=$this->input->post('payment_id');
         if ($this->input->post('islem') == 1) {
             $userdata = array(
                 'payment_status' => 1
             );
+            $sure = strtotime('+2 month');
+            if($this->db->simple_query("update savsoft_users u set u.gid=3, u.subscription_expired=$sure  where u.uid=(select p.uid FROM savsoft_payment p where p.pid=$pid)"))
+                log_message("debug", "update başarılı,pid:".$pid);
+            else 
+                log_message("debug", "update başarısız,pid:".$pid);
+            
         } else {
             $userdata = array(
                 'payment_status'=>0
             );
+            $sure = strtotime('+10 year');
+            if($this->db->simple_query("update savsoft_users u set u.gid=1, u.subscription_expired=$sure where u.uid=(select p.uid FROM savsoft_payment p where p.pid=$pid)"))
+                log_message("debug", "update başarılı,pid:".$pid);
+            else
+                log_message("debug", "update başarısız,pid:".$pid);
         }
         $this->db->where('pid',$this->input->post('payment_id'));
         if($this->db->update('savsoft_payment',$userdata)){

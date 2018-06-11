@@ -151,8 +151,8 @@ function subscription_expired($uid){
 	    $request->setCurrency(\Iyzipay\Model\Currency::TL);
 	    $request->setBasketId("1");
 	    $request->setPaymentGroup(\Iyzipay\Model\PaymentGroup::SUBSCRIPTION);
-// 	    $request->setCallbackUrl("https://www.bakanliksinav.com/sinav/payment/krediKartiReturn");
-	    $request->setCallbackUrl("http://localhost/sinav/payment/krediKartiReturn");
+	    $request->setCallbackUrl("https://www.bakanliksinav.com/sinav/payment/krediKartiReturn");
+// 	    $request->setCallbackUrl("http://localhost/sinav/payment/krediKartiReturn");
 	    $request->setEnabledInstallments(array(2, 3, 6, 9));
 	    
 	    $buyer = new \Iyzipay\Model\Buyer();
@@ -244,7 +244,7 @@ function subscription_expired($uid){
 	            $gid = 3;
 	            $odemeTuru=2;
 	            //$this->ozeluyelik_model->insert_odemeBildirimi($gid,$odemeTuru);
-	            $sure = strtotime('+1 month');
+	            $sure = strtotime('+2 month');
 	            $this->user_model->update_user_for_odeme($gid, $sure);
 	            $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödemeniz Başarıyla Gerçekleştirilmiştir. Özel Üyelik Avantajlarından Faydalanabilirsiniz. </div>");
 	        } else {

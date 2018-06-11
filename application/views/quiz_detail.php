@@ -28,8 +28,8 @@
 <tr><td><?php echo $this->lang->line('duration');?></td><td><?php echo $quiz['duration'];?></td></tr>
 <tr><td><?php echo $this->lang->line('maximum_attempts');?></td><td><?php echo $quiz['maximum_attempts'];?></td></tr>
 <tr><td><?php echo $this->lang->line('pass_percentage');?></td><td><?php echo $quiz['pass_percentage'];?></td></tr>
-<tr><td><?php echo $this->lang->line('correct_score');?></td><td><?php echo $quiz['correct_score'];?></td></tr>
-<tr><td><?php echo $this->lang->line('incorrect_score');?></td><td><?php echo $quiz['incorrect_score'];?></td></tr>
+<tr><td><?php echo $this->lang->line('correct_score');?></td><td>1</td></tr>
+<tr><td><?php echo $this->lang->line('incorrect_score');?></td><td>0</td></tr>
 
 </table>
   
