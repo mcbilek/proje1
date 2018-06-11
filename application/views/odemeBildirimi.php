@@ -1,3 +1,8 @@
+<style>
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background-color: red;
+}
+</style>
  <div class="container">
 
 			<?php 
@@ -12,10 +17,10 @@
 
 <div class="container"><h3>Ödeme Yöntemini Seçiniz </h3></div>
 <div id="exTab1" class="container">	
-<ul  class="nav nav-pills">
-<li class="active"><a  href="#1a" data-toggle="tab">Kredi Kartı</a>
+<ul  class="nav nav-pills red">
+<li class="active"><a style="background-color:  #286090; color:  white;" href="#1a" data-toggle="tab">Kredi Kartı</a>
 </li>
-<li><a href="#2a" data-toggle="tab">Havale</a>
+<li><a style="background-color:  #C9302C; color:  white;" href="#2a" data-toggle="tab">Havale</a>
 </li>
 
 </ul>
@@ -71,8 +76,7 @@ if ($islemHazir!="1") {
 	<label>Havale Yaptığınız Bankayı Seçiniz: </label> 
 	<select class="selectpicker" data-width="fit" title="Havale Yaptığınız Bankayı Seçiniz" required  name="bankaAdi" id="bankaAdi">
                 <option value="Ziraat">Ziraat Bankası</option>
-                <option value="Garanti">Garanti Bankası</option>
-                <option value="isBank">İş Bankası</option>
+                <option value="Halk">Halk Bankası</option>
 					</select> <br>
 					
 	<label>Havale Yapan Kişi: </label><input type="text" name="gonderen" id="gonderen" class="form-control" required>
@@ -85,9 +89,10 @@ if ($islemHazir!="1") {
 </div>
 </div>
 						<h3>Hesap Numaramız</h3>
-<h4>Banka: Halk Bankası</h4>
+<h4>1- Halk Bankası</h4>
 <b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: TR640001200939900001016527<br>
-
+<h4>2- Ziraat Bankası</h4>
+<b>İsim</b>: Nurben Dönmez , <b>IBAN</b>: TR460001000484592191065001<br>
 </div>
          
 </div>

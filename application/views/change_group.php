@@ -34,7 +34,7 @@ $colorcode=array(
 <?php 
  
 if($val['price']==0){
-echo "0";
+echo "-";
 }else{
     echo $this->config->item('base_currency_prefix').' '.$uyelik_ucreti.' '.$this->config->item('base_currency_sufix'); 
 }

@@ -5,7 +5,7 @@ $logged_in=$this->session->userdata('logged_in');
 			
 			?>
    
- <h3>Deneme Sınavları</h3>
+ <h3>Deneme Sınavları<?php if ($logged_in['gid']==1) { ?>  <a href="<?php echo site_url('user/switch_group');?>" class="btn btn-danger">Özel Üyeliğe Geç</a> <?php }?> </h3>
     <?php 
 	if($logged_in['su']=='1'){
 		?>
