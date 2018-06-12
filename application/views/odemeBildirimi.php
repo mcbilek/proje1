@@ -91,11 +91,11 @@ if ($islemHazir!="1") {
 </div>
 						<h3>Hesap Numaramız</h3>
 <h4>1- Halk Bankası</h4>
-<b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: TR640001200939900001016527<br>
+<b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: <input type="text" style="width: 250;" value="TR640001200939900001016527" disabled> <br>
 <h4>2- Vakıfbank</h4>
-<b>İsim</b>: Nurben Dönmez, <b>IBAN</b>: TR550001500158007307531976<br>
+<b>İsim</b>: Nurben Dönmez, <b>IBAN</b>: <input type="text" style="width: 250;" value="TR550001500158007307531976" disabled> <br>
 <h4>3- Ziraat Bankası</h4>
-<b>İsim</b>: Nurben Dönmez , <b>IBAN</b>: TR460001000484592191065001<br>
+<b>İsim</b>: Nurben Dönmez , <b>IBAN</b>: <input type="text" style="width: 250;" value="TR460001000484592191065001" disabled> <br>
 </div>
          
 </div>
@@ -110,4 +110,5 @@ if ($islemHazir!="1") {
 </div>
 
 </div> 
+
 <?php echo $OdemeFormuScripti; ?>

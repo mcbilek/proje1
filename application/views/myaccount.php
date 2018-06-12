@@ -22,7 +22,7 @@
 		?>	
 		
 				<div class="form-group">	 
-				<?php echo $this->lang->line('group_name');?>: <?php echo $result['group_name'];?> (<?php echo $this->lang->line('price_');?>: <?php echo $result['price'];?>)
+				<?php echo $this->lang->line('group_name');?>: <?php echo $result['group_name'];?>
 				
 				<?php 
 				if($this->config->item('allow_switch_group')){

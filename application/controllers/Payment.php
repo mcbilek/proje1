@@ -107,7 +107,8 @@ function subscription_expired($uid){
 	    }
 	    
 	    $anaSayfa=site_url('login');
-	    if($this->ozeluyelik_model->insert_odemeBildirimi($groupId,$odemeTuru)){
+	    $ucret = $this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
+	    if($this->ozeluyelik_model->insert_odemeBildirimi($groupId,$odemeTuru,$ucret)){
 	        $this->sms_model->send_sms($logged_in[first_name]." ".$logged_in[last_name]." yeni bir ödeme bildiri yaptı.",$this->config->item('telefon_no'));
 	        $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödeme bildiriminiz alınmıştır, onaylandıktan sonra özel üyelik avantajlarından faydalanabilirsiniz.<a href='".$anaSayfa."'>  Ana Sayfa</a> </div>");
 	    }else{
