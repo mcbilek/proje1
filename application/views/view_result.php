@@ -441,7 +441,7 @@ if($result['view_answer']=='1' || $logged_in['su']=='1'){
 ?>
 
 <div class="login-panel panel panel-default">
-		<div class="panel-body"> 
+		<div class="panel-body" style="background-color: #fbfbfb;"> 
 		<a name="answers_i"></a>
 <h3><?php echo $this->lang->line('answer_sheet');?></h3>
 
@@ -464,15 +464,15 @@ foreach($questions as $qk => $question){
  <hr>
 
 
-<div class="col-md-12 " id="q<?php echo $qk;?>" class="" style="margin:10px;padding:10px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a; color:#ffffff;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c; color:#ffffff;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
+<div class="col-md-12 " id="q<?php echo $qk;?>" class="" style="padding:10px;border-radius:  5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
 	<div class="col-md-2 col-sm-2">
 		<div style="height:45px; width:45px; background-color:#ffffff;border-radius:50%;color:#4b7d42;
 		margin-top:6px;padding:14px;padding-left:15px;"><b><?php echo $qk+1;?></b></div>
 	</div>
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="border-radius: 5px; <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#dbdbdb;<?php } ?>">
 
-      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a; color:#ffffff;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c; color:#ffffff;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#dbdbdb;<?php } ?>" >
-      <span style="font-size: medium; color: #ffffff; font-family: 'arial black', 'avant garde';">
+      <div class="panel-body" style=" <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#dbdbdb;<?php } ?>" >
+      <span style="font-size: medium; font-family: 'tahamo';">
 		<?php echo $question['question'];?><br><br>
 					<?php 
 					$j=0;
@@ -499,10 +499,10 @@ foreach($questions as $qk => $question){
 			 
 			 ?>
 			 <input type="hidden"  name="question_type[]"  id="q_type<?php echo $qk;?>" value="1">
-			 	<div class="panel panel-success">
-      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a; color:#ffffff;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c; color:#ffffff;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
+			 	<div class="panel panel-success" style="border-radius: 5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
+      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
 			 
-			<span style="font-size: medium; color: #000000; font-family: 'arial black', 'avant garde';">
+			<span style="font-size: medium; font-family: 'tahamo';">
 			 <?php
 			$i=0;
 			$correct_options=array();
@@ -724,8 +724,8 @@ if(in_array($option['oid'],$save_ans)){   echo  trim($option['q_option']).', '; 
 		 }
 			
 		 ?>
-	<p>	<div class="panel panel-success">
-      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a; color:#ffffff;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c; color:#ffffff;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
+	<p>	<div class="panel panel-success" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
+      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
 	<?php 
  if($question['description']!='') {
 				echo '<b>'.$this->lang->line('description').'</b>:';

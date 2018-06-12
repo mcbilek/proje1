@@ -75,8 +75,9 @@ if ($islemHazir!="1") {
 	name="f1">
 	<label>Havale Yaptığınız Bankayı Seçiniz: </label> 
 	<select class="selectpicker" data-width="fit" title="Havale Yaptığınız Bankayı Seçiniz" required  name="bankaAdi" id="bankaAdi">
-                <option value="Ziraat">Ziraat Bankası</option>
                 <option value="Halk">Halk Bankası</option>
+                <option value="Vakif">Vakıfbank</option>
+                <option value="Ziraat">Ziraat Bankası</option>
 					</select> <br>
 					
 	<label>Havale Yapan Kişi: </label><input type="text" name="gonderen" id="gonderen" class="form-control" required>
@@ -91,7 +92,9 @@ if ($islemHazir!="1") {
 						<h3>Hesap Numaramız</h3>
 <h4>1- Halk Bankası</h4>
 <b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: TR640001200939900001016527<br>
-<h4>2- Ziraat Bankası</h4>
+<h4>2- Vakıfbank</h4>
+<b>İsim</b>: Nurben Dönmez, <b>IBAN</b>: TR550001500158007307531976<br>
+<h4>3- Ziraat Bankası</h4>
 <b>İsim</b>: Nurben Dönmez , <b>IBAN</b>: TR460001000484592191065001<br>
 </div>
          

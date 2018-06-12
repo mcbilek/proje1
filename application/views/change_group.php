@@ -1,8 +1,7 @@
  
  <div class="container">
   
-   
- <h3><?php echo $title;?></h3>
+ <h3><?php if ($logged_in['gid']==1) { echo $title;} else {echo "Zaten Özel Gruptasınız, grup değiştiremezsiniz.";}?></h3>
    
      
    <div class="row">
@@ -15,8 +14,9 @@ $colorcode=array(
 'info',
 'danger'
 );
+$logged_in=$this->session->userdata('logged_in');
     foreach($group_list as $k => $val){
-    
+        if ($logged_in['gid']!=3) {
    ?>
 	                <!-- item -->
                 <div class="col-md-4 text-center">
@@ -55,6 +55,7 @@ echo "-";
 	  
 	  
 	  <?php 
+        }
 	  if($cc >= 4){
 	  $cc=0;
 	  }else{

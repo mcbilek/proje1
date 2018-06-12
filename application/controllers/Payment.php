@@ -195,11 +195,10 @@ function subscription_expired($uid){
 	    $checkoutFormInitialize = Iyzipay\Model\CheckoutFormInitialize::create($request, Config::options());
 	    //print_r($checkoutFormInitialize);
 	    if ($checkoutFormInitialize->getStatus()=="success") {
-	        $this->ozeluyelik_model->insert_krediKartiOdeme($checkoutFormInitialize,3,100.00);
+// 	        $this->ozeluyelik_model->insert_krediKartiOdeme($checkoutFormInitialize,3,$ucret);
             $data['islemHazir']="1";
             $data['OdemeFormuScripti'] = $checkoutFormInitialize->getCheckoutFormContent();
             $this->session->set_flashdata('iyzico', '<div id="iyzipay-checkout-form"  class="responsive"></div>');
-	        //odeme için kayıt atıyoruz.
             } else {
 //                 print "<pre>";
 //                 print_r($checkoutFormInitialize);
@@ -240,20 +239,22 @@ function subscription_expired($uid){
 	        # print result
 	        //print_r($odemeSonuc);
 	        //exit();
-	        if ($this->ozeluyelik_model->update_krediKartiOdeme($odemeSonuc)) {
+	        //ödeme başarılı olsun olmasın kayıt atıyoruz.
+	        $this->ozeluyelik_model->insert_krediKartiOdeme($odemeSonuc,3);
+	        if ($odemeSonuc->getStatus()=='success' && $odemeSonuc->getPaymentStatus()=='SUCCESS') {
 	            $gid = 3;
 	            $odemeTuru=2;
-	            //$this->ozeluyelik_model->insert_odemeBildirimi($gid,$odemeTuru);
+	            $this->ozeluyelik_model->insert_odemeBildirimi($gid,$odemeTuru,$odemeSonuc->getPaidPrice());
 	            $sure = strtotime('+2 month');
 	            $this->user_model->update_user_for_odeme($gid, $sure);
 	            $this->session->set_flashdata('message', "<div class='alert alert-success'>Ödemeniz Başarıyla Gerçekleştirilmiştir. Özel Üyelik Avantajlarından Faydalanabilirsiniz. </div>");
 	        } else {
 	            $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz, alınan hata:".$odemeSonuc->getErrorMessage()."</div>");
 	        }
-            
             redirect('quiz');
         } else {
-	        
+            $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bir hata oluştu, lütfen site yönetimine başvurunuz, alınan hata:".$odemeSonuc->getErrorMessage()."</div>");
+            redirect('quiz');
 	    }
 // 	    echo "<pre>";
 	    //print_r($_POST);

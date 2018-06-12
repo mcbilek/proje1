@@ -6,18 +6,18 @@ Class Ozeluyelik_model extends CI_Model
 {
     
     
-    function insert_odemeBildirimi($group_id,$odemeTuru,$cardFamily="",$paymentStatus="",$paymentId=""){
+    function insert_odemeBildirimi($group_id,$odemeTuru,$amount=0,$cardFamily="",$paymentStatus="",$paymentId=""){
         $logged_in=$this->session->userdata('logged_in');
-        switch ($group_id){
-            case 3:
-                $amount=100;
-                break;
-            case 1:
-                $amount=0;
-                break;
-            default:
-                $amount=0;
-        }
+//         switch ($group_id){
+//             case 3:
+//                 $amount=100;
+//                 break;
+//             case 1:
+//                 $amount=0;
+//                 break;
+//             default:
+//                 $amount=0;
+//         }
         log_message('debug', 'payment_gateway:'.$odemeTuru);
         log_message('debug', 'bankaAdi:'.$this->input->post('bankaAdi'));
         log_message('debug', 'amount:'.$amount);
@@ -42,7 +42,7 @@ Class Ozeluyelik_model extends CI_Model
                 'amount'=>$amount,
                 'bankaAdi'=>$cardFamily,
                 'payment_gateway'=>$odemeTuru,
-                'payment_status'=>$paymentStatus,
+                'payment_status'=>1,
                 'transaction_id'=>$paymentId,
                 'other_data'=>"Kredi Kartı Ödemesi"
             );
@@ -55,21 +55,24 @@ Class Ozeluyelik_model extends CI_Model
             return false;
         }
     }
-    function insert_krediKartiOdeme(CheckoutFormInitialize $form,$group_id,$ucret ){
+    function insert_krediKartiOdeme(CheckoutForm $odemeSonuc,$group_id){
         $logged_in=$this->session->userdata('logged_in');
 //         log_message('debug', 'payment_gateway:'.$odemeTuru);
 //         log_message('debug', 'bankaAdi:'.$this->input->post('bankaAdi'));
 //         log_message('debug', 'amount:'.$amount);
         log_message('debug', 'uid:'.$logged_in['uid']);
         log_message('debug', 'gid:'.$group_id);
-        log_message('debug', 'ucret:'.$ucret);
-        log_message('debug', 'token:'.$form->getToken());
+        log_message('debug', 'ucret:'.$odemeSonuc->getPaidPrice());
+        log_message('debug', 'token:'.$odemeSonuc->getToken());
         
         $odemeDetay=array(
             'user_id'=>$logged_in['uid'],
+            'status'=>$odemeSonuc->getStatus(),
+            'paymentId'=>$odemeSonuc->getPaymentId(),
             'grup_id'=>$group_id,
-            'token'=>$form->getToken(),
-            'price'=>$ucret
+            'token'=>$odemeSonuc->getToken(),
+            'price'=>$odemeSonuc->getPaidPrice(),
+            'raw_result'=>$odemeSonuc->getRawResult()
         );
 
         if($this->db->insert('kredi_karti_islemleri',$odemeDetay))
@@ -82,9 +85,9 @@ Class Ozeluyelik_model extends CI_Model
     function update_krediKartiOdeme(CheckoutForm $odemeSonuc){
         log_message('debug', 'update_krediKartiOdeme, token:'.$odemeSonuc->getToken());
         log_message('debug', 'update_krediKartiOdeme, status:'.$odemeSonuc->getStatus());
-        log_message('debug', 'update_krediKartiOdeme, status:'.$odemeSonuc->getCardFamily());
-        log_message('debug', 'update_krediKartiOdeme, status:'.$odemeSonuc->getCardType());
-        log_message('debug', 'update_krediKartiOdeme, status:'.$odemeSonuc->getRawResult());
+        log_message('debug', 'update_krediKartiOdeme, CardFamily:'.$odemeSonuc->getCardFamily());
+        log_message('debug', 'update_krediKartiOdeme, CardType:'.$odemeSonuc->getCardType());
+        log_message('debug', 'update_krediKartiOdeme, RawResult:'.$odemeSonuc->getRawResult());
         $userdata=array(
             'status'=>$odemeSonuc->getStatus(),
             'paymentId'=>$odemeSonuc->getPaymentId()
@@ -93,7 +96,7 @@ Class Ozeluyelik_model extends CI_Model
         $this->db->update('kredi_karti_islemleri',$userdata);
         
         if ($odemeSonuc->getStatus()=="success") {
-            $this->insert_odemeBildirimi(3, 2, $odemeSonuc->getCardFamily(),$odemeSonuc->getPaymentStatus(),$odemeSonuc->getPaymentId());            
+            $this->insert_odemeBildirimi(3, 2,$odemeSonuc->getPaidPrice(), $odemeSonuc->getCardFamily(),$odemeSonuc->getPaymentStatus(),$odemeSonuc->getPaymentId());            
             return true;
         }
         else 

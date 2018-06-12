@@ -124,16 +124,23 @@ class User2 extends CI_Controller {
 	        
 	        $incorrect_answers_new=array(0);
 	         foreach($incorrect_answers as $kk => $vv){
-	         if($kk < 100){
+	        // if($kk < 100){
 	          $incorrect_answers_new[]=$vv;
-	          }
+	        //  }
 	         }
+	         $adet=count($incorrect_answers_new);
+	         log_message("debug", "incorrect_answers_new_adet:".$adet);
 	         $incorrect_answers_new=array_filter($incorrect_answers_new);
-	         $incorrect_answers_new=implode(',',$incorrect_answers_new);
+	         log_message("debug", "incorrect_answers_new:".$incorrect_answers_new);
+	         $incorrect_answers_imp=implode(',',$incorrect_answers_new);
+	         log_message("debug", "incorrect_answers_new:".$incorrect_answers_new);
+	         log_message("debug", "incorrect_answers size:".count($incorrect_answers));
+	         if (count($incorrect_answers)==0)
+	             $incorrect_answers_imp=-1;
 	       // getting questions
-	       $query4=$this->db->query(" select * from savsoft_qbank where qid in ($incorrect_answers_new) ");
+	       $query4=$this->db->query(" select * from savsoft_qbank where qid in ($incorrect_answers_imp) ");
 	       $questions=$query4->result_array();
-	       $query5=$this->db->query(" select * from savsoft_options where qid in ($incorrect_answers_new) ");
+	       $query5=$this->db->query(" select * from savsoft_options where qid in ($incorrect_answers_imp) ");
 	       $options=$query5->result_array();
 	          }
 	        $data['questions']=$questions;
