@@ -652,6 +652,19 @@ $query=$this->db->get('savsoft_users');
 	 return $query->row_array();
 	 
  }
+ function get_yonetici_uids(){
+     
+     $query = $this->db->query("select uid from savsoft_users where su=1");
+     
+     foreach ($query->result() as $row)
+     {
+         $uids[]=$row->uid;
+
+     }
+	 
+     return $uids;
+	 
+ }
  
  
  

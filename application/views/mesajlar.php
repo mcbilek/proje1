@@ -103,14 +103,17 @@ function yeniMesaj() {
 											<strong class="primary-font"><?php 
                            $sonMesajTarihi="-";
 //                            $last_key = end(array_keys($thread['messages']));
+                           $alici="";
                            foreach ($thread['messages'] as $j => $mesaj) {
                                 // if ($mesaj['uid']!=$logged_in['uid']) {
                                 $alici=$mesaj['alici'];
+                                $alici = explode(",", $alici);
+//                                 echo $mesaj['alici'];
                                 $old_date_timestamp = strtotime($mesaj['cdate']);
                                 $sonMesajTarihi = date('d.m.Y H:i', $old_date_timestamp);
                                 // }
                             }
-                            echo $alici;
+                           echo $alici[0];
                            ?></strong> <span class="pull-right">
                             <?php echo $sonMesajTarihi;?> </span><br>
 											<strong class="pull-left">Konu: </strong> <span

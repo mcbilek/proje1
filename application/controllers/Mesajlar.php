@@ -89,13 +89,15 @@ class Mesajlar extends CI_Controller {
         $this->loginController();
         $logged_in = $this->session->userdata('logged_in');
         $mahana = new Mahana_messaging();
-        $aliciUserId = 42;
+        $aliciUserIds = $this->user_model->get_yonetici_uids();
+       // log_message("debug", "hataBildir-".$aliciUserIds[0].$aliciUserIds[1].$aliciUserIds[2]);
+      //  exit();
         $title = $this->input->post('konu').",soru no:".$this->input->post('soru_no');
         $mesaj = $this->input->post('soru_no')." id li soru için, hata bildirimi:".$this->input->post('mesaj');
         $mesaj = $mesaj.", soruyu düzenlemek için <a href='".site_url('qbank/edit_question_1/'.$this->input->post('soru_no'))."'>tıklayın</a>";
         //http://localhost/sinav/qbank/edit_question_1/36
         
-        $mahana->send_new_message($logged_in['uid'], $aliciUserId, $title, $mesaj);
+        $mahana->send_new_message($logged_in['uid'], $aliciUserIds, $title, $mesaj);
 //        $this->session->set_flashdata('message', "<div class='alert alert-success alert-dismissible fade in' role='alert'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Mesajınız Başarıyla Gönderilmiştir. </div>");
     }
 	
