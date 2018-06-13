@@ -1,7 +1,7 @@
  
  <div class="container">
   
- <h3><?php if ($logged_in['gid']==1) { echo $title;} else {echo "Zaten Özel Gruptasınız, grup değiştiremezsiniz.";}?></h3>
+ <h3><?php $logged_in=$this->session->userdata('logged_in'); if ($logged_in['gid']!=3) { echo $title;} else {echo "Zaten Özel Gruptasınız, grup değiştiremezsiniz.";}?></h3>
    
      
    <div class="row">
@@ -14,12 +14,11 @@ $colorcode=array(
 'info',
 'danger'
 );
-$logged_in=$this->session->userdata('logged_in');
     foreach($group_list as $k => $val){
         if ($logged_in['gid']!=3) {
    ?>
 	                <!-- item -->
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <div class="panel panel-<?php echo $colorcode[$cc];?> panel-pricing">
                         <div class="panel-heading">
                             <i class="fa fa-desktop"></i>
@@ -64,7 +63,10 @@ echo "-";
 	  
     }
     ?>
-  
+</div>
+<div class="row">
+    <div class="col-md-6 text-center"><img class="img-responsive" src="<?php echo site_url('images/soru_sayisi.jpeg');?>"></div>
+    <div class="col-md-6 text-center"><h4>Özel Üyelik Avantajları</h4><img class="img-responsive" src="<?php echo site_url('images/ozel_avantaj.jpeg');?>"></div>
 </div>
 
  

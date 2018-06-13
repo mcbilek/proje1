@@ -13,7 +13,7 @@
 
   <div class="row">
     
-<div class="col-md-10">
+<div class="col-md-12">
 
 <div class="container"><h3>Ödeme Yöntemini Seçiniz </h3></div>
 <div id="exTab1" class="container">	
@@ -66,7 +66,7 @@ if ($islemHazir!="1") {
          
            
    	<br><br>
-<div class="col-md-7">
+<div class="col-md-6">
 <div class="login-panel panel panel-default">
 <div class="panel-body"> 
 Ücret: <strong><?php echo $ucret;?>,00 ₺</strong><br><br>
@@ -89,6 +89,9 @@ if ($islemHazir!="1") {
     
 </div>
 </div>
+
+</div>
+<div class="col-md-6">
 						<h3>Hesap Numaramız</h3>
 <h4>1- Halk Bankası</h4>
 <b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: <input type="text" style="width: 250;" value="TR640001200939900001016527" disabled> <br>
@@ -105,7 +108,11 @@ if ($islemHazir!="1") {
 </div> 
 
 </div> 
- 
+<div class="row">
+    <div class="col-md-6 text-center"><img class="img-responsive" src="<?php echo site_url('images/soru_sayisi.jpeg');?>"></div>
+    <div class="col-md-6 text-center"><h4>Özel Üyelik Avantajları</h4><img class="img-responsive" src="<?php echo site_url('images/ozel_avantaj.jpeg');?>"></div>
+</div>
+
 </div>
 </div>
 
