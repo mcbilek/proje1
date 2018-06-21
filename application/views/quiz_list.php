@@ -218,7 +218,7 @@ foreach($calisma_result as $key => $val){
     					<a title="Sil" href="<?php echo base_url('index.php/genel/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
     					<p>
                        <?php
-                       }
+                       } echo "<br>";
                                 }
                             }
                         }
