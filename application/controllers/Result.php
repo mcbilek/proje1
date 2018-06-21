@@ -147,12 +147,17 @@ class Result extends CI_Controller {
 // 		print_r($data['options']);
 // 		exit();
 		}
-		// top 10 results of selected quiz
-	$last_ten_result = $this->result_model->last_ten_result($data['result']['quid']);
+		$last_results = $this->result_model->get_siralama($data['result']['quid']);
+		$data['last_results']=$last_results;
 	$value=array();
      $value[]=array('Quiz Name','Percentage (%)');
-     foreach($last_ten_result as $val){
+     $i=0;
+		// top 10 results of selected quiz
+     foreach($last_results as $val){
+         $i++;
      $value[]=array($val['email'].' ('.$val['first_name']." ".$val['last_name'].')',intval($val['percentage_obtained']));
+     if ($i==10)
+         break;
      }
      $data['value']=json_encode($value);
 	 
