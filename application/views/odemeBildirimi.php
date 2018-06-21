@@ -95,10 +95,13 @@ if ($islemHazir!="1") {
 						<h3>Hesap Numaramız</h3>
 <h4>1- Halk Bankası</h4>
 <b>İsim</b>: Gülşen Şahan, <b>IBAN</b>: <input type="text" style="width: 250;" value="TR640001200939900001016527" disabled> <br>
+<b>Şube:              </b> <input type="text" style="width: 381;" value="01016527 (399 KAZIMKARABEKİR / ANKARA ŞB.)" disabled> <br>
 <h4>2- Vakıfbank</h4>
 <b>İsim</b>: Nurben Dönmez, <b>IBAN</b>: <input type="text" style="width: 250;" value="TR550001500158007307531976" disabled> <br>
+<b>Şube:              </b> <input type="text" style="width: 394;" value="S00137 (Şişli/İstanbul)" disabled> <br>
 <h4>3- Ziraat Bankası</h4>
 <b>İsim</b>: Nurben Dönmez , <b>IBAN</b>: <input type="text" style="width: 250;" value="TR460001000484592191065001" disabled> <br>
+<b>Şube:              </b> <input type="text" style="width: 398;" value="484 (Şişli/İstanbul)" disabled> <br>
 </div>
          
 </div>
