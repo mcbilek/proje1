@@ -120,12 +120,13 @@ return $query->result_array();
  }
  
  
- function last_ten_result($quid){
+ function get_siralama($quid){
 		$this->db->order_by('percentage_obtained','desc');
-		$this->db->limit(10);		
+		//$this->db->limit(10);		
 	 	$this->db->where('savsoft_result.quid',$quid);
 	 	$this->db->join('savsoft_users','savsoft_users.uid=savsoft_result.uid'); 
 		$this->db->join('savsoft_quiz','savsoft_quiz.quid=savsoft_result.quid');
+		$this->db->select('savsoft_users.uid,email,first_name,last_name,percentage_obtained,il');
 		$query=$this->db->get('savsoft_result');
 		return $query->result_array();
  }
