@@ -299,9 +299,9 @@ class Login extends CI_Controller {
 	
 	function forgot(){
 	$this->load->helper('url');
-			if($this->input->post('email')){
-			$user_email=$this->input->post('email');
-			 if($this->user_model->reset_password($user_email)){
+			if($this->input->post('ceptel')){
+			    $ceptel=$this->input->post('ceptel');
+			if($this->user_model->reset_password($ceptel)){
 				$this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('password_updated')." </div>");
 						
 			}else{

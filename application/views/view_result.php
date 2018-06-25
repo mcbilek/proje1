@@ -87,7 +87,48 @@
 .td_line{
 	background:url('<?php echo base_url('images/rankbar.png');?>');background-repeat: repeat-x;
 }
+
+#topBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#topBtn:hover {
+  background-color: #555;
+}
+
 </style>
+
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("topBtn").style.display = "block";
+    } else {
+        document.getElementById("topBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+<button onclick="topFunction()" id="topBtn" title="Başa Dön">Başa Dön</button>
  <div class="container">
 <?php 
 $logged_in=$this->session->userdata('logged_in');
@@ -96,6 +137,17 @@ $logged_in=$this->session->userdata('logged_in');
     
  
 <?php 
+
+$iller = array('','Adana', 'Adıyaman', 'Afyon', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin',
+    'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale',
+    'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir',
+    'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkari', 'Hatay', 'Isparta', 'Mersin', 'İstanbul', 'İzmir',
+    'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya',
+    'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya',
+    'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak',
+    'Van', 'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kırıkkale', 'Batman', 'Şırnak',
+    'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce');
+
 
 function ordinal($number) {
     $ends = array('th','st','nd','rd','th','th','th','th','th','th');
@@ -289,12 +341,13 @@ $cia_tim_cate=cia_tim_cate($correct_incorrect_unattempted,explode(",",$result['i
 if($result['view_answer']=='1' || $logged_in['su']=='1'){
 	
 ?>
-<a href="#answers_i" class="btn btn-info" style="margin-top:10px;"><?php echo $this->lang->line('answer_sheet');?></a>
+<a href="#answers_i" class="btn btn-info" style="margin-top:10px;">Cevaplarınız</a>
 <?php 
 }
 ?>
 
-<a href="javascript:print();" class="btn btn-success printbtn" style="margin-top:10px;"><?php echo $this->lang->line('print');?></a>
+<a href="#siralama" class="btn btn-success printbtn" style="margin-top:10px;">Başarı Sıralaması</a>
+<a href="#top10" class="btn btn-warning printbtn" style="margin-top:10px;">Top 10</a>
 
 <?php
 if($result['gen_certificate']=='1'){
@@ -378,7 +431,37 @@ if($result['camera_req']=='1'){
 		</div>
 </div>
 <br>
- 
+  <div class="col-md-12"><br>
+  <a name="siralama"></a>
+		 <h3>Başarı Sıralaması</h3>
+					<table class="table table-bordered">
+					 <thead> <tr>
+					 <th style="background:#337ab7;color:#ffffff;">Sıra</th>
+					 <th  style="background:#337ab7;color:#ffffff;">Ad Soyad</th>
+					 <th  style="background:#337ab7;color:#ffffff;">Şehir</th>
+					  <th  style="background:#337ab7;color:#ffffff;">Puan</th>
+					</tr></thead>
+					<tbody>
+					  <?php 
+					  foreach($last_results as $sira => $sonuc){
+					  
+						?>
+						<tr <?php if ($sonuc['uid']==$logged_in['uid']) echo 'style="background-color: #f2dede;"'; ?>>
+						<td><?php echo $sira+1; ?></td>
+						<td><?php echo $sonuc['first_name']." ".$sonuc['last_name'];?></td>
+						<td><?php echo $iller[$sonuc['il']];?></td>
+						<td><?php echo $sonuc['percentage_obtained'];?></td>
+						 
+						</tr>
+					 <?php 
+					  }
+					  ?>
+					 </tbody>
+						</table>
+						
+		
+	</div>
+	<br>
  <div class="col-md-12">
 		 <h3><?php echo $this->lang->line('categorywise');?></h3>
 					<table class="table table-bordered">
@@ -442,7 +525,6 @@ if($result['view_answer']=='1' || $logged_in['su']=='1'){
 
 <div class="login-panel panel panel-default">
 		<div class="panel-body" style="background-color: #fbfbfb;"> 
-		<a name="answers_i"></a>
 <h3><?php echo $this->lang->line('answer_sheet');?></h3>
 
 <?php 
@@ -460,28 +542,38 @@ $abc=array(
 '11'=>'K'
 );
 foreach($questions as $qk => $question){
+
 ?>
  <hr>
 
-
-<div class="col-md-12 " id="q<?php echo $qk;?>" class="" style="padding:10px;border-radius:  5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
+<a name="answers_i"></a>
+<div class="col-md-12 " id="q<?php echo $qk;?>" class="" style="padding:10px;border-radius:  5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>">
 	<div class="col-md-2 col-sm-2">
 		<div style="height:45px; width:45px; background-color:#ffffff;border-radius:50%;color:#4b7d42;
 		margin-top:6px;padding:14px;padding-left:15px;"><b><?php echo $qk+1;?></b></div>
 	</div>
-	<div class="panel panel-success" style="border-radius: 5px; <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#dbdbdb;<?php } ?>">
+	<div class="panel panel-success" style="border-radius: 5px; <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>">
 
-      <div class="panel-body" style=" <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#dbdbdb;<?php } ?>" >
+      <div class="panel-body" style=" <?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>" >
       <span style="font-size: medium; font-family: 'tahamo';">
 		<?php echo $question['question'];?><br><br>
 					<?php 
 					$j=0;
 					foreach($options as $ok => $option){
 					    if($question['qid']==$option['qid']){
+					        if ($option['score']==1) {
+					            $options[$ok]['secenek']=$abc[$j];
+					            //print_r($options[$ok]);
+					            //exit;
+					        }
+// 					        print("<pre>");
+// 					        print_r($option);
+// 					        print("</pre>");
 					        echo $abc[$j]."-) ".strip_tags($option['q_option'])."<br>";
 					       $j++;
 					    }
 					}
+					        //exit();
 					$j=0;
 					?></span></div></div><br><p>
 		 <?php
@@ -499,20 +591,29 @@ foreach($questions as $qk => $question){
 			 
 			 ?>
 			 <input type="hidden"  name="question_type[]"  id="q_type<?php echo $qk;?>" value="1">
-			 	<div class="panel panel-success" style="border-radius: 5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
-      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
+			 	<div class="panel panel-success" style="border-radius: 5px;<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>">
+      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>" >
 			 
 			<span style="font-size: medium; font-family: 'tahamo';">
 			 <?php
 			$i=0;
-			$correct_options=array();
+			$correct_options=""; 
+			$secenek="";
+			$soru_bos=TRUE;
 			foreach($options as $ok => $option){
 				if($option['qid']==$question['qid']){
 					if($option['score'] >= 0.1){
-						$correct_options[]=$option['q_option'];
+						$correct_options=$option['q_option'];
+						$secenek=$option['secenek'];
 					}
 			?>
-			  <?php if(in_array($option['oid'],$save_ans)){   echo'<b>'.$this->lang->line('your_answer').'</b>: '.$abc[$i]."-) ".strip_tags($option['q_option']); } ?>
+			  <?php 
+			  if(in_array($option['oid'],$save_ans)) {
+			      echo'<b>Cevabınız</b>: '.$abc[$i];
+			      $soru_bos=false;
+			  }
+			//."-) ".strip_tags($option['q_option']); } 
+			?>
 			 
 			 
 			 <?php 
@@ -521,8 +622,11 @@ foreach($questions as $qk => $question){
 				$i=0;	
 					
 				}
-			}echo "<br>";
-			echo "<b>".$this->lang->line('correct_options').'</b>: '.strip_tags(implode(', ',array_map('trim',($correct_options))));
+			}
+			if ($soru_bos)
+			    echo "Boş Bırakılmış Soru!";
+			echo "<br>";
+			echo "<b>Doğru Cevap</b>: ".$secenek;
 			echo "</span></div></div>";
 		 }
 			
@@ -724,8 +828,8 @@ if(in_array($option['oid'],$save_ans)){   echo  trim($option['q_option']).', '; 
 		 }
 			
 		 ?>
-	<p>	<div class="panel panel-success" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>">
-      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#fdfbcf;<?php }else{ ?>background-color:#ffffff;<?php } ?>" >
+	<p>	<div class="panel panel-success" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>">
+      <div class="panel-body" style="<?php if($ind_score[$qk]=='1'){ ?>background-color:#abd39a;<?php }else if($ind_score[$qk]=='2'){ ?>background-color:#e29c9c;<?php }else if($ind_score[$qk]=='3'){ ?>background-color:#d9edf7;<?php }else{ ?>background-color:#d9edf7;<?php } ?>" >
 	<?php 
  if($question['description']!='') {
 				echo '<b>'.$this->lang->line('description').'</b>:';
@@ -887,8 +991,8 @@ if($this->config->item('google_chart') == true ){
         chart.draw(data, options);
       }
     </script>
+  <a name="top10"></a>
 		 <div id="chart_div" style="width: 800px; height: 500px;"></div>
-  
 
 <!-- google chart starts -->
 

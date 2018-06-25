@@ -335,8 +335,10 @@ function show_next_question_for_calis() {
 
 }
 
-function show_question_answer(ilgili_soru,dogrumu,qid,oid,radioId) {
-	var optElement="#"+radioId;
+function show_question_answer(ilgili_soru,dogrumu,qid,oid,radioId,dogruDiv) {
+	var buDivDogru="#"+dogruDiv;
+	var optElement="#answer_value"+radioId;
+	var optDivElement="#opt_div"+radioId;
 	var opContainerDiv="#op_con_"+ilgili_soru+" *";
 	if ($(optElement).is(':enabled')) {
 		$(opContainerDiv).css('cursor','not-allowed');
@@ -349,6 +351,9 @@ function show_question_answer(ilgili_soru,dogrumu,qid,oid,radioId) {
 	$(optElement).prop("checked", true);
 	//alert(optElement);
 	if (dogrumu==0) {
+		//console.log(this);
+		$(optDivElement).css('background-color', '#f2dede');
+		$(buDivDogru).css('background-color', '#dff0d8');
 		var yanlisAdet=parseInt($('#yanlisSoru').text());
 		var kalanAdet=parseInt($('#kalanSoru').text());
 		$('#yanlisSoru').text(yanlisAdet+1);
@@ -357,6 +362,7 @@ function show_question_answer(ilgili_soru,dogrumu,qid,oid,radioId) {
 		$(yanlis).css('display', 'block');
 		$(dogru).css('display', 'none');
 	} else {
+		$(optDivElement).css('background-color', '#dff0d8');
 		var dogruAdet=parseInt($('#dogruSoru').text());
 		var kalanAdet=parseInt($('#kalanSoru').text());
 		$('#dogruSoru').text(dogruAdet+1);

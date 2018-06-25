@@ -95,6 +95,10 @@ function open_quiz($limit='0'){
 		$data['title']=$this->lang->line('add_new').' '.$this->lang->line('quiz');
 		// fetching group list
 		$data['group_list']=$this->user_model->group_list();
+		// fetching kurum list
+		$data['kurum_list']=$this->user_model->kurum_list();
+		// fetching kadro list
+		$data['kadro_list']=$this->user_model->kadro_list(1);
 		$this->load->view('header',$data);
 		$this->load->view('new_quiz',$data);
 		$this->load->view('footer',$data);

@@ -7,7 +7,10 @@ Class Quiz_model extends CI_Model
 	  $logged_in=$this->session->userdata('logged_in');
 			if($logged_in['su']=='0'){
 			$gid=$logged_in['gid'];
-			$where="FIND_IN_SET('".$gid."', gids)";  
+			$kurum_id=$logged_in['kurum_id'];
+			$kadro_id=$logged_in['kadro_id'];
+			
+			$where="FIND_IN_SET('".$gid."', gids) and kadro_id=$kadro_id and kurum_id=$kurum_id";  
 			 $this->db->where($where);
 			}
 			
@@ -71,6 +74,8 @@ Class Quiz_model extends CI_Model
 	 'quiz_template'=>$this->input->post('quiz_template'),
 	 'with_login'=>$this->input->post('with_login'),
 	 'gids'=>implode(',',$this->input->post('gids')),
+     'kurum_id'=>$this->input->post('kurum_id'),
+     'kadro_id'=>$this->input->post('kadro_id'),
 	 'question_selection'=>$this->input->post('question_selection')
 	 );
 	 	$userdata['gen_certificate']=$this->input->post('gen_certificate'); 

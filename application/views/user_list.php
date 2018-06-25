@@ -18,7 +18,7 @@
 
   <div class="row">
  
-<div class="col-lg">
+<div class="col-md-12">
 <br> 
 			<?php 
 		if($this->session->flashdata('message')){
@@ -26,19 +26,22 @@
 		}
 		?>	
 		
-<table class="table table-bordered table-sm" 				
+<table class="table table-bordered" 				
 data-search="true"
 data-toggle="table"
 data-sort-stable="true"
+data-show-columns="true"
 data-show-export="true">
 <thead>
 <tr>
  <th data-sortable="true">#</th>
- <th data-sortable="true">Email</th>
+ <th data-sortable="true" data-width="1%">Email</th>
  <th data-sortable="true">Kyt.Trh</th>
 <th data-sortable="true"><?php echo $this->lang->line('first_name');?> <?php echo $this->lang->line('last_name');?></th>
 <th data-sortable="true">Kurum</th>
 <th data-sortable="true">Kadro</th>
+<th data-sortable="true">Telefon</th>
+<th data-sortable="true">Son.Öd.Trh</th>
 <th data-sortable="true">Şehir</th>
 <th data-sortable="true">Durum</th>
 <th data-sortable="true" ><?php echo $this->lang->line('send_notification');?> </th>
@@ -59,6 +62,11 @@ foreach($result as $key => $val){
     // returns Saturday, January 30 10 02:06:34
     $old_date_timestamp = strtotime($val['registered_date']);
     $new_date = date('d.m.Y', $old_date_timestamp);
+    $old_date_timestamp2 = strtotime($val['paid_date']);
+    if ($old_date_timestamp2>0)
+        $new_date2 = date('d.m.Y', $old_date_timestamp2);
+    else 
+        $new_date2 = "-";
 ?>
 <tr>
  <td><?php echo $val['uid'];?></td>
@@ -67,6 +75,8 @@ foreach($result as $key => $val){
 <td><?php echo $val['first_name'];?> <?php echo $val['last_name'];?></td>
 <td><?php echo $val['kurum_adi'];?></td>
 <td><?php echo $val['kadro_adi'];?></td>
+<td><?php echo $val['contact_no'];?></td>
+<td><?php echo $new_date2;?></td>
 <td><?php echo $val['il_adi'];?></td>
  <td><?php echo $this->lang->line($val['user_status']);?></td>
  <td><a href="<?php echo site_url('notification/add_new/'.$val['uid']);?>">Mesaj</a>,<a href="<?php echo site_url('sendsms/send_sms/'.$val['uid']);?>">SMS</a>,<a href="<?php echo site_url('notification/add_new/'.$val['uid']);?>">Mail</a></td>

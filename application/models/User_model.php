@@ -154,16 +154,15 @@ log_message('debug', 'query:'."select * from savsoft_payment where paid_date >='
  foreach($rev as $rg => $rv){
  if(strtolower($rv['payment_gateway']) != $this->config->item('default_gateway')){
         if(isset($revenue[$val])){
-         $revenue[$val]+=$rv['amount']/$this->config->item(strtolower($rv['payment_gateway']).'_conversion');
+            $revenue[$val]+=$rv['amount']/$this->config->item(strtolower($rv['payment_gateway']).'_conversion');
          }else{
-         
-         $revenue[$val]=$rv['amount']/$this->config->item(strtolower($rv['payment_gateway']).'_conversion');
+            $revenue[$val]=$rv['amount']/$this->config->item(strtolower($rv['payment_gateway']).'_conversion');
          }
    
   }else{
  
         if(isset($revenue[$val])){
-        $revenue[$val]+=$rv['amount'];
+            $revenue[$val]+=$rv['amount'];
         
         }else{
         $revenue[$val]=$rv['amount'];
@@ -297,9 +296,39 @@ return $revenue;
 		 $this -> db -> join('savsoft_kurum', 'savsoft_users.kurum_id=savsoft_kurum.kurum_id');
 		 $this -> db -> join('savsoft_kadro', 'savsoft_users.kadro_id=savsoft_kadro.kadro_id');
 		 $this -> db -> join('iller', 'savsoft_users.il=iller.il_id');
+		 $this -> db -> select('(SELECT max(p.paid_date) FROM savsoft_payment p WHERE p.uid = savsoft_users.uid) paid_date, savsoft_users.*, savsoft_group.group_name, savsoft_kurum.kurum_adi, savsoft_kadro.kadro_adi, iller.il_adi');
 		 $query=$this->db->get('savsoft_users');
 		return $query->result_array();
 		
+		
+		
+		
+/*		
+		$sql =
+		" SELECT (SELECT max(p.paid_date)".
+		"         FROM savsoft_payment p".
+		"         WHERE p.uid = u.uid)".
+		"           paid_date,".
+		"        u.*,".
+		"        g.group_name,".
+		"        krm.kurum_adi,".
+		"        kdr.kadro_adi,".
+		"        il.il_adi".
+		" FROM savsoft_users u,".
+		"      savsoft_group g,".
+		"      savsoft_kurum krm,".
+		"      savsoft_kadro kdr,".
+		"      iller il".
+		" WHERE     il.il_id = u.il".
+		"       AND g.gid = u.gid".
+		"       AND krm.kurum_id = u.kurum_id".
+		"       AND kdr.kadro_id = u.kadro_id".
+		" ORDER BY u.uid DESC;";
+		
+		$query = $this->db->query($sql);
+		
+		return $query->result_array();
+*/		
 	 
  }
  
@@ -471,16 +500,39 @@ $verilink=site_url('login/verify/'.$veri_code);
  
  
  
- function reset_password($toemail){
-$this->db->where("email",$toemail);
-$queryr=$this->db->get('savsoft_users');
-if($queryr->num_rows() != "1"){
-return false;
-}
-$new_password=rand('1111','9999');
+ function reset_password($ceptel){
 
+    $this->load->model("sms_model");
+    log_message("debug", "ceptel:".$ceptel);
+    $this->db->where("contact_no",$ceptel);
+    $queryr=$this->db->get('savsoft_users');
+    if($queryr->num_rows() == "1"){
+        $new_password=rand('11111','99999');
+        
+        $smsText = "Bakanliksinav.com geçici şifreniz:".$new_password;
+        
+        $result = $this->sms_model->send_sms($smsText, $ceptel);
+        if (substr($result, 0, 2) == "00") {
+            $this->session->set_flashdata('message', "Geçici Şifreniz Gönderilmiştir");
+            $user_detail=array(
+                'password'=>md5($new_password)
+            );
+            $this->db->where('contact_no', $ceptel);
+            $this->db->update('savsoft_users',$user_detail);
+            redirect('login/');
+        } else {
+            $this->session->set_flashdata('message', "<div class='alert alert-danger'> SMS Gönderilemedi, Lütfen site yönetimi ile görüşünüz. </div>");
+            redirect('login/forgot/');
+        }
+    } else {
+        $this->session->set_flashdata('message', "<div class='alert alert-danger'> Cep Telefonu Numaranız Bulunamadı, lütfen kontrol ediniz </div>");
+        redirect('login/forgot/');
+    }
+
+    
+
+/*
  $this->load->library('email');
-
  if($this->config->item('protocol')=="smtp"){
 			$config['protocol'] = 'smtp';
 			$config['smtp_host'] = $this->config->item('smtp_hostname');
@@ -507,17 +559,15 @@ $new_password=rand('1111','9999');
 			$this->email->from($fromemail, $fromname);
 			$this->email->subject($subject);
 			$this->email->message($message);
+			
 			if(!$this->email->send()){
 			 //print_r($this->email->print_debugger());
-			
-			}else{
-			$user_detail=array(
-			'password'=>md5($new_password)
-			);
-			$this->db->where('email', $toemail);
- 			$this->db->update('savsoft_users',$user_detail);
-			return true;
-			}
+			*/
+ 
+	//		}else{
+
+	//		return true;
+		//	}
 
 }
 
@@ -529,12 +579,12 @@ $new_password=rand('1111','9999');
 			
 		$userdata=array(
 		  'first_name'=>$this->input->post('first_name'),
-		'last_name'=>$this->input->post('last_name'),
-		'kurum_id'=>$this->input->post('kurum'),
-		'kadro_id'=>$this->input->post('kadro'),
-		'contact_no'=>$this->input->post('contact_no')	
+		'last_name'=>$this->input->post('last_name')
 		);
 		if($logged_in['su']=='1'){
+		    $userdata['kurum_id'] = $this->input->post('kurum');
+	        $userdata['kadro_id'] = $this->input->post('kadro');
+	        $userdata['contact_no'] = $this->input->post('contact_no');	
             $userdata['email'] = $this->input->post('email');
             $userdata['gid'] = $this->input->post('gid');
             $c = $this->input->post('subscription_expired');

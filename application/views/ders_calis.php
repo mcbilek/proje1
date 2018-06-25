@@ -131,6 +131,7 @@ foreach($questions as $qk => $question){
 		 // multiple single choice
 		 if($question['question_type']==$this->lang->line('multiple_choice_single_answer')){
 			 $dogruCevap="";
+			 $dogruCevapDiv="";
 			 			 			 $save_ans=array();
 			 foreach($saved_answers as $svk => $saved_answer){
 				 if($question['qid']==$saved_answer['qid']){
@@ -143,6 +144,17 @@ foreach($questions as $qk => $question){
 			 <input type="hidden"  name="question_type[]"  id="q_type<?php echo $qk;?>" value="1">
 			 <fieldset id="fields<?php echo $qk;?>">
 			 <?php
+			$count=0;
+			 foreach($options as $ok => $option){
+			     if($option['qid']==$question['qid']){
+			         if($option['score']==1) {
+			             $dogruCevapDiv="opt_div".$qk.'-'.$count;
+			         }
+			         $count+=1;
+			     } else {
+			         $count=0;
+			     }
+			 }
 			$i=0;
 			foreach($options as $ok => $option){
 			    $score=0;
@@ -155,7 +167,14 @@ foreach($questions as $qk => $question){
 				    }
 			?>
 			 
-		<div class="op"><div onClick="javascript:show_question_answer('<?php echo $qk;?>','<?php echo $score;?>','<?php echo $question['qid'];?>','<?php echo $option['oid'];?>','answer_value<?php echo $qk.'-'.$i;?>');" class="radio" style="border: 1px solid lightgrey; border-radius: 5px; padding: 5px 5px; cursor: pointer;margin-top: 0px;" >
+		<div class="op"><div id="opt_div<?php echo $qk.'-'.$i;?>" 
+		onClick="javascript:show_question_answer('<?php echo $qk;?>',
+		'<?php echo $score;?>',
+		'<?php echo $question['qid'];?>',
+		'<?php echo $option['oid'];?>',
+		'<?php echo $qk.'-'.$i;?>',
+		'<?php echo $dogruCevapDiv;?>'
+		);" class="radio" style="border: 1px solid lightgrey; border-radius: 5px; padding: 5px 5px; cursor: pointer;margin-top: 0px;" >
 		<label style="margin: 8;">
 		<input type="radio" name="answer[<?php echo $qk;?>][]"  id="answer_value<?php echo $qk.'-'.$i;?>" value="<?php echo $option['oid'];?>" >
 		<?php echo $abc[$i];?>)  <?php echo $option['q_option'];?> 

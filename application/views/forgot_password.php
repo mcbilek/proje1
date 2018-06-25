@@ -21,20 +21,18 @@
 		<?php 
 		if($this->session->flashdata('message')){
 			?>
-			<div class="alert alert-danger">
 			<?php echo $this->session->flashdata('message');?>
-			</div>
 		<?php	
 		}
-		?>				  
+		?>				  <br><br>
 			<div class="form-group">	 
-					<label for="inputEmail"  ><?php echo $this->lang->line('email_linked_account');?></label> 
-					<input type="email" id="inputEmail" name="email" class="form-control" placeholder="<?php echo $this->lang->line('email_address');?>" required autofocus>
+					<label for="inputEmail"  >Cep Telefon Numaranızı Giriniz</label> 
+					<input type="text" name="ceptel" value="" class="form-control input-medium bfh-phone" data-format="5dd ddddddd" placeholder="Cep Telefon Numaranızı Giriniz" required autofocus>
 			</div>
-			 
+			 <br>
 			<div class="form-group">	  
 					 
-					<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo $this->lang->line('send_new_password');?></button>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Geçici Şifre Gönder</button>
 			</div>
 <?php 
 if($this->config->item('user_registration')){

@@ -30,6 +30,35 @@
 					<label for="inputEmail"  ><?php echo $this->lang->line('description');?></label> 
 					<textarea   name="description"  class="form-control tinymce_cancel" ></textarea>
 			</div>
+						<div class="form-group">
+							<label>Sınavın Atanacağı Kurum</label> <p><select
+								class="form-control selectpicker"   name="kurum_id" id="kurum_id" title="Sınavın Atanacağı Kurum" required>
+					<?php
+					foreach ($kurum_list as $key => $val) {
+                        ?>
+                						
+                <option value="<?php echo $val['kurum_id'];?>">
+                <?php echo $val['kurum_adi'];?> </option>
+                						<?php
+                    }
+                    ?>
+					</select>
+						</div>
+
+						<div class="form-group">
+							<label>Sınavın Atanacağı Kadro</label> <select
+								class="form-control selectpicker" name="kadro_id" id="kadro_id" title="Sınavın Atanacağı Kadro" required>
+					<?php
+					foreach ($kadro_list as $key => $val) {
+                        ?>
+                						
+                <option value="<?php echo $val['kadro_id'];?>">
+                <?php echo $val['kadro_adi'];?> </option>
+                						<?php
+                    }
+                    ?>
+					</select>
+						</div>
 				<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('start_date');?></label> 
 					<input type="datetime-local" name="start_date"  value="" class="form-control" placeholder="<?php echo $this->lang->line('start_date');?>"   required >

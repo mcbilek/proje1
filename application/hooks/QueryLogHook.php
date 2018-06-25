@@ -6,7 +6,8 @@ class QueryLogHook
 
     function log_queries()
     {   
-        if ($config['log_threshold']>1) {
+  //      log_message("debug", "Query Basılıyor->:".$config['log_threshold']);
+  //      if ($config['log_threshold']>1) {
             $CI = & get_instance();
             $times = $CI->db->query_times;
             $dbs = array();
@@ -27,7 +28,7 @@ class QueryLogHook
             if (! write_file(APPPATH . "/logs/queries.log.txt", $output, 'a+')) {
                 log_message('debug', 'Unable to write query the file');
             }
-        }
+   //     }
     }
 }
 
