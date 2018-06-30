@@ -279,6 +279,10 @@ foreach(explode(",",$result['category_range']) as $ck => $cv){
 	$c_range[]=array($i,($i+($cv-1)));
 	$i+=$cv;
 }
+//print("<pre>");
+//print_r($c_range);
+//print_r($result['category_range']);
+//print("</pre>");
 $correct_incorrect_unattempted=explode(",",$result['score_individual']);
  
 $cia_cat=cia_cat($correct_incorrect_unattempted,$c_range);
@@ -467,7 +471,7 @@ if($result['camera_req']=='1'){
 					<table class="table table-bordered">
 					 <thead> <tr><th style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('category_name');?></th>
 					 <th  style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('score_obtained');?></th>
-					 <th  style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('time_spent');?></th>
+					 <th  style="background:#337ab7;color:#ffffff;">Süre</th>
 					  <th  style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('correct');?></th>
 					 <th  style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('incorrect');?></th>
 					 <th  style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('notattempted');?></th> 
@@ -478,7 +482,7 @@ if($result['camera_req']=='1'){
 					  $correct=0;
 					 $incorrect=0;
 					 $notattempted=0;
-					  foreach(explode(',',$result['categories']) as $vk => $category){ 
+					  foreach(explode('#',$result['categories']) as $vk => $category){
 					  
 					 if(isset($cia_cat[0][$vk])){ $no_C=$cia_cat[0][$vk]; $correct+=$cia_cat[0][$vk]; }else{ $no_C=0; } 
 					  if(isset($cia_cat[1][$vk])){ $no_iC=$cia_cat[1][$vk]; $incorrect+=$cia_cat[1][$vk]; }else{ $no_iC=0;  }
@@ -488,7 +492,7 @@ if($result['camera_req']=='1'){
 						</td>
 						
 						<td><?php echo (($no_C*$result['correct_score'])+($no_iC*$result['incorrect_score']));?></td>
-						<td><?php echo secintomin($cia_tim_cate[0][$vk]+$cia_tim_cate[1][$vk]+$cia_tim_cate[2][$vk]);?> Min.</td>
+						<td><?php echo secintomin($cia_tim_cate[0][$vk]+$cia_tim_cate[1][$vk]+$cia_tim_cate[2][$vk]);?> Dk.</td>
 						<td><?php echo $no_C;?></td>
 						<td><?php echo $no_iC;  ?></td>
 						<td><?php   if(isset($cia_cat[2][$vk])){ echo $cia_cat[2][$vk]; $notattempted+=$cia_cat[2][$vk]; }else{ echo '0';  } ?></td>
@@ -503,7 +507,7 @@ if($result['camera_req']=='1'){
 						 <th style="background:#337ab7;color:#ffffff;"><?php echo $this->lang->line('total');?></th>
 						 <th  style="background:#337ab7;color:#ffffff;"><?php echo $result['score_obtained'];?>
 						 </th>
-						 <th style="background:#337ab7;color:#ffffff;"><?php echo secintomin($result['total_time']);?> Min. <?php echo $this->lang->line('approx');?></th>
+						 <th style="background:#337ab7;color:#ffffff;"><?php echo secintomin($result['total_time']);?> Dk.(Ykşk)</th>
 						<th style="background:#337ab7;color:#ffffff;"><?php echo $correct;?></th>
 						<th style="background:#337ab7;color:#ffffff;"><?php echo $incorrect;?></th>
 						<th style="background:#337ab7;color:#ffffff;"><?php echo $notattempted;?></th> 

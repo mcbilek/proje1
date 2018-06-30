@@ -579,7 +579,7 @@ function open_quiz($limit='0'){
 		}
 		 // validate maximum attempts
 		$maximum_attempt=$this->quiz_model->count_result($quid,$uid);
-		if($data['quiz']['maximum_attempts'] <= $maximum_attempt){
+		if($data['quiz']['maximum_attempts']!=0 && $data['quiz']['maximum_attempts'] <= $maximum_attempt){
 		$this->session->set_flashdata('message', "<div class='alert alert-danger'>".$this->lang->line('reached_maximum_attempt')." </div>");
 		redirect('quiz/quiz_detail/'.$quid);
 		 }
