@@ -554,7 +554,9 @@ function open_quiz($limit='0'){
 		$data['quiz']=$this->quiz_model->get_quiz($quid);
 		// validate assigned group
 		if(!in_array($grp_id,explode(',',$data['quiz']['gids']))){
-		$this->session->set_flashdata('message', "<div class='alert alert-danger'>".$this->lang->line('quiz_not_assigned_to_your_group')." </div>");
+		    $link1=site_url('payment/upgradeGroup/3/5');
+		    $link = "<a href='$link1'>tıklayın</a>";
+		$this->session->set_flashdata('message', "<div class='alert alert-danger'> Bu sınav sadece özel üyelerimiz içindir, özel üye olmak için lütfen $link </div>");
 		redirect('quiz/quiz_detail/'.$quid);
 		 }
 		// validate start end date/time

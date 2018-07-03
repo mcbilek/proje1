@@ -10,7 +10,7 @@ Class Quiz_model extends CI_Model
 			$kurum_id=$logged_in['kurum_id'];
 			$kadro_id=$logged_in['kadro_id'];
 			
-			$where="FIND_IN_SET('".$gid."', gids) and kadro_id=$kadro_id and kurum_id=$kurum_id";  
+			$where="kadro_id=$kadro_id and kurum_id=$kurum_id";  
 			 $this->db->where($where);
 			}
 			
