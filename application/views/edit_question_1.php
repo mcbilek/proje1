@@ -63,11 +63,11 @@
 
 			<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('question');?></label> 
-					<textarea  name="question"  class="form-control"   ><?php echo $question['question'];?></textarea>
+					<textarea  name="question" rows="17" class="form-control"   ><?php echo $question['question'];?></textarea>
 			</div>
 			<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('description');?></label> 
-					<textarea  name="description"  class="form-control"><?php echo $question['description'];?></textarea>
+					<textarea  name="description"  rows="30" class="form-control"><?php echo $question['description'];?></textarea>
 			</div>
 		<?php 
 		foreach($options as $key => $val){

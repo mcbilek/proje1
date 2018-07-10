@@ -82,10 +82,11 @@ foreach($result as $key => $val){
  <td><a href="<?php echo site_url('notification/add_new/'.$val['uid']);?>">Mesaj</a>,<a href="<?php echo site_url('sendsms/send_sms/'.$val['uid']);?>">SMS</a>,<a href="<?php echo site_url('notification/add_new/'.$val['uid']);?>">Mail</a></td>
 <td>
  
-<a href="<?php echo site_url('user2/view_user/'.$val['uid']);?>"><i class="fa fa-eye" title="View Profile"></i></a>
+<a href="<?php echo site_url('user2/view_user/'.$val['uid']);?>"><i class="fa fa-eye" title="Profil Görüntüle"></i></a>
  
-<a href="<?php echo site_url('user/edit_user/'.$val['uid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
-<a href="javascript:remove_entry('user/remove_user/<?php echo $val['uid'];?>');"><img src="<?php echo base_url('images/cross.png');?>"></a>
+<a title="Düzenle" href="<?php echo site_url('user/edit_user/'.$val['uid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
+<a title="Sil" href="javascript:remove_entry('user/remove_user/<?php echo $val['uid'];?>');"><img src="<?php echo base_url('images/cross.png');?>"></a>
+<a href="<?php echo site_url('user/istatistik/'.$val['uid']);?>"><i class="fa fa-line-chart" title="Kullanıcı İstatistikleri"></i></a>
 
 </td>
 </tr>

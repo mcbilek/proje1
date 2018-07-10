@@ -293,7 +293,7 @@ foreach($questions as $qk => $question){
 
 			<div class="col-sm-2"
 				style="border: 1px solid #D8D8D8; height: 60px; text-align:center; padding-top:3px;">
-				<a class="btn btn-warning" href="<?php echo site_url('quiz/');?>"
+				<a class="btn btn-warning" href="<?php echo site_url('user/istatistik');?>"
 					style="margin-top: 2px;">Çalışmayı Bitir</a>
 			</div>
 			<div class="col-sm-10">

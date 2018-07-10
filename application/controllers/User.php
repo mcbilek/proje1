@@ -149,6 +149,36 @@ class User extends CI_Controller {
 			}
 		$this->load->view('footer',$data);
 	}
+	
+	/**
+	 * @param integer $uid
+	 * kiþisel bazda istatistikleri döner.
+	 */
+	public function istatistik($uid,$sifirla=0)
+	{
+        $logged_in = $this->session->userdata('logged_in');
+        if ($logged_in['su'] == '1') {
+            if (empty($uid))
+                $uid = $logged_in['uid'];
+            $data['user'] = $this->user_model->get_user($uid);
+        } else {
+            $uid = $logged_in['uid'];
+        }
+		
+        if ($sifirla) {
+            log_message("debug", "istatistikler sýfýrlanýyor, user_id:".$uid);
+            $this->user_model->istatistik_sifirla($uid);
+        }
+			
+			
+		$data['uid'] = $uid;
+        $data['title'] = "Bireysel istatistikler";
+        $data['result'] = $this->user_model->get_istatistik($uid);
+        
+        $this->load->view('header', $data);
+        $this->load->view('istatistikler', $data);
+        $this->load->view('footer', $data);
+    }
 
 		public function update_user($uid)
 	{

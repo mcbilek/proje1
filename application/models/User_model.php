@@ -752,7 +752,39 @@ $query=$this->db->get('savsoft_users');
  }
  
  
+ function get_istatistik(int $uid){
+     
+     
+     $sql =
+     " SELECT c.category_name,".
+     "        sum(r.dogru_mu) dogru,".
+     "        sum(if(r.dogru_mu = 0, 1, 0)) yanlis".
+     " FROM savsoft_result2 r,".
+     "      savsoft_category c,".
+     "      savsoft_category_kadro ck,".
+     "      savsoft_users u,".
+     "      savsoft_qbank qb".
+     " WHERE     c.cid = ck.kategori_id".
+     "       AND u.uid = r.uid".
+     "       AND qb.qid = r.soru_id".
+     "       AND qb.cid = c.cid".
+     "       AND u.kadro_id = ck.kadro_id".
+     "       AND u.kurum_id = ck.kurum_id".
+     "       AND r.uid = ?".
+     " GROUP BY c.category_name".
+     " ORDER BY c.category_name";
+     
+     
+     $query = $this->db->query($sql,$uid);
+     
+     return $query->result_array();
+     
+ }
  
+ function istatistik_sifirla(int $uid){
+     
+     $this->db->delete('savsoft_result2', array('uid' => $uid));
+ }
  
  
 

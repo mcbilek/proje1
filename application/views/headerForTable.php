@@ -133,6 +133,7 @@
 	
 
 	           <li><a href="<?php echo site_url('result');?>"><?php echo $this->lang->line('result');?></a></li>
+	           <li><a href="<?php echo site_url('user/istatistik');?>">İstatistiklerim</a></li>
 	           <li><a href="<?php echo site_url('mesajlar');?>">Mesajlar</a></li>
 			 
 			 <li><a href="<?php echo site_url('liveclass');?>"><?php echo $this->lang->line('live_classroom');?></a></li>
