@@ -139,12 +139,13 @@ $verilink=site_url('login/verify/'.$veri_code);
 foreach($months as $k => $val){
 $p1=date('Y',time()).'-'.$val.'-01';
 log_message('debug',$p1);
-$p2=date('Y',time()).'-'.$val.'-'.date('d',$p1);
+$p2=date('Y',time()).'-'.$months[$k+1].'-'.date('d',$p1);
+//$final = date("Y-m-d", strtotime("+1 month", $p2));
 log_message('debug',$p2);
-log_message('debug', 'query:'."select * from savsoft_payment where paid_date >='$p1' and paid_date <='$p2'   ");
+log_message('debug', 'query:'."select * from savsoft_payment where paid_date >='$p1' and paid_date <'$p2'   ");
 
  
- $query = $this->db->query("select * from savsoft_payment where paid_date >='$p1' and paid_date <='$p2'   ");
+ $query = $this->db->query("select * from savsoft_payment where paid_date >='$p1' and paid_date <'$p2'   ");
  
  $rev=$query->result_array();
  if($query->num_rows()==0){
@@ -174,7 +175,10 @@ log_message('debug', 'query:'."select * from savsoft_payment where paid_date >='
  
  }
   }
- 
+//   print("<pre>");
+//   print_r($revenue);
+//   print("</pre>");
+  
 return $revenue;
  }
  
