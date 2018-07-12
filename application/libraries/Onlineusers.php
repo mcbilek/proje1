@@ -28,7 +28,7 @@ class OnlineUsers
         $aryData = $this->data['useronline'];
         if (! $this->data)
             $this->data = array();
-        $timeout = time() - 120; // Removes expired data
+        $timeout = time() - 900; // Removes expired data
         foreach ($aryData as $key => $value) {
             if ($value['time'] <= $timeout) {
                 if ($value['username']) {
@@ -41,9 +41,10 @@ class OnlineUsers
             $CI = & get_instance();
             $aryData[$this->ip]['time'] = time();
             $aryData[$this->ip]['uri'] = $_SERVER['REQUEST_URI'];
-            $username = $CI->session->userdata('username');
-            $aryData[$this->ip]['username'] = $username;
-            if ($username) {
+            $uid = $CI->session->userdata('logged_in')['uid'];
+            log_message("debug", "online users, username:".$uid);
+            $aryData[$this->ip]['username'] = $uid;
+            if ($uid) {
                 $this->data['memonline'] ++;
             } else {
                 $this->data['guestonline'] ++;

@@ -54,6 +54,8 @@ class Dashboard extends CI_Controller {
 		$data['num_qbank']=$this->qbank_model->num_qbank();
 		$data['num_quiz']=$this->quiz_model->num_quiz();
 		$data['onlineusers']=$this->onlineusers->total_mems();
+	//	print_r($this->onlineusers->get_info());
+	//	exit();
 		
 			}
 			
