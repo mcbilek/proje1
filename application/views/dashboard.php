@@ -120,9 +120,9 @@
  <div class="panel panel" >
                         <div class="panel-heading"  style="background-color:#DB5949;text-align:center;">
                         
-    <div class="font-size-34" > <strong style="color:#ffffff;"><?php echo $inactive_users;?></strong>
+    <div class="font-size-34" > <strong style="color:#ffffff;"><?php echo $onlineusers;?></strong>
     <br>
-    <small class="font-weight-light text-muted" style="font-size:18px;color:#eeeeee;"><?php echo $this->lang->line('inactive');?> <?php echo $this->lang->line('users');?></small>
+    <small class="font-weight-light text-muted" style="font-size:18px;color:#eeeeee;">Online <?php echo $this->lang->line('users');?></small>
 
 </div>
 

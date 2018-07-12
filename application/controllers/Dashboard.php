@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller {
 	   $this->load->model("qbank_model");
 	   $this->load->model("quiz_model");
 	   $this->load->model("result_model");
+	   $this->load->library('onlineusers');
 	   $this->lang->load('basic', $this->config->item('language'));
 		// redirect if not loggedin
 		if(!$this->session->userdata('logged_in')){
@@ -42,17 +43,17 @@ class Dashboard extends CI_Controller {
 		$logged_in=$this->session->userdata('logged_in');
 			if($logged_in['su']=='1'){
 				
-		$data['result']=$this->user_model->user_list(0);
+		$data['result']=$this->user_model->user_list(30);
 		$data['active_users']=$this->user_model->status_users('Active');
-		$data['inactive_users']=$this->user_model->status_users('Inactive');
-		$data['payments']=$this->user_model->recent_payments(10);
+		//$data['inactive_users']=$this->user_model->status_users('Inactive');
+		$data['payments']=$this->user_model->recent_payments(12);
 		$data['revenue_months']=$this->user_model->revenue_months();
 				
 				
 		$data['num_users']=$this->user_model->num_users();
 		$data['num_qbank']=$this->qbank_model->num_qbank();
 		$data['num_quiz']=$this->quiz_model->num_quiz();
-		
+		$data['onlineusers']=$this->onlineusers->total_mems();
 		
 			}
 			

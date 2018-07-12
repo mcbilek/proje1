@@ -301,6 +301,7 @@ return $revenue;
 		 $this -> db -> join('savsoft_kadro', 'savsoft_users.kadro_id=savsoft_kadro.kadro_id');
 		 $this -> db -> join('iller', 'savsoft_users.il=iller.il_id');
 		 $this -> db -> select('(SELECT max(p.paid_date) FROM savsoft_payment p WHERE p.uid = savsoft_users.uid) paid_date, savsoft_users.*, savsoft_group.group_name, savsoft_kurum.kurum_adi, savsoft_kadro.kadro_adi, iller.il_adi');
+		 $this->db->limit($limit);
 		 $query=$this->db->get('savsoft_users');
 		return $query->result_array();
 		
