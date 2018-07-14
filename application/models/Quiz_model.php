@@ -1085,10 +1085,28 @@ if($this->config->item('allow_result_email')){
 //      }
      $uid=$logged_in['uid'];
      if($logged_in['su']=='0'){
-     $query=$this->db->query("select c.* from savsoft_users u, savsoft_category c, savsoft_category_kadro ck where u.uid=$uid 
-                              and u.kadro_id=ck.kadro_id and ck.kurum_id = u.kurum_id and c.cid=ck.kategori_id order by c.category_name asc");
+         $sql =
+         " SELECT c.*, count(q.qid) soru_adet".
+         " FROM savsoft_users u,".
+         "      savsoft_category c,".
+         "      savsoft_category_kadro ck,".
+         "      savsoft_qbank q".
+         " WHERE     u.uid = ?".
+         "       AND u.kadro_id = ck.kadro_id".
+         "       AND ck.kurum_id = u.kurum_id".
+         "       AND c.cid = ck.kategori_id".
+         "       AND q.cid = c.cid".
+         " GROUP BY c.cid".
+         " ORDER BY c.category_name ASC";
+         $query=$this->db->query($sql,$uid);
      } else {
-         $query=$this->db->query("select * from savsoft_category order by category_name asc");
+         $sql =
+         " SELECT c.*, count(q.qid) soru_adet".
+         " FROM savsoft_category c, savsoft_qbank q".
+         " WHERE c.cid = q.cid".
+         " GROUP BY c.cid".
+         " ORDER BY category_name ASC";
+         $query=$this->db->query($sql);
      }
 //      log_message("debug", "calisma_list size:".count($query->result_array()));
      return $query->result_array();

@@ -75,7 +75,9 @@
     if ($this->session->flashdata('message')) {
         echo $this->session->flashdata('message');
     }
-
+    
+    $logged_in=$this->session->userdata('logged_in');
+    
     function getfirstqn($cat_keys = '0', $category_range)
     {
         if ($cat_keys == 0) {
@@ -211,7 +213,17 @@ foreach($questions as $qk => $question){
 		</div>
 		</div>
 		<div class="panel-footer">
+		<?php 
+		if($logged_in['su']=='1'){
+		?>
+		<a class="btn btn-info" href="<?php echo site_url('qbank/edit_question_1/'.$question['qid']);?>">Soruyu Düzenle</a>
+		<?php 
+		} else {
+		    
+		?>
 		<button class="btn btn-info" data-toggle="modal" data-target="#HataModal" data-soru_id="<?php echo $question['qid'];?>">Hata Bildir</button>
+		<?php }
+		?>
 		</div>
 		</div>
 		

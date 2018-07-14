@@ -5,6 +5,8 @@ Class Qbank_model extends CI_Model
   function question_list($limit,$cid='0',$lid='0',$hepsi='0'){
 	 if($this->input->post('search')){
 		 $search=$this->input->post('search');
+		 $trans = get_html_translation_table(HTML_ENTITIES);
+		 $search = strtr($search, $trans);
 		 $this->db->or_where('savsoft_qbank.qid',$search);
 		 $this->db->or_like('savsoft_qbank.question',$search);
 		 $this->db->or_like('savsoft_qbank.description',$search);

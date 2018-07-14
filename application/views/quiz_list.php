@@ -197,6 +197,7 @@ foreach($calisma_result as $key => $val){
                         <div class="panel-heading">
                             <i class="fa fa-desktop"></i>
                             <h5><?php echo $val['category_name'];?></h5>
+                            Toplam Soru Sayısı:<strong><?php echo $val['soru_adet'];?></strong>
                         </div>
                         <div style="height: 30px;padding:0" class="panel-heading"><h4 style="padding-top: 6px">Kaynaklar</h4></div>
                         <?php
@@ -218,7 +219,9 @@ foreach($calisma_result as $key => $val){
     					<a title="Sil" href="<?php echo base_url('index.php/genel/kaynak_sil/')."/".$anan."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
     					<p>
                        <?php
-                       } echo "<br>";
+                      } else {
+                          echo "<br>";
+                      }
                                 }
                             }
                         }
@@ -239,14 +242,16 @@ foreach($calisma_result as $key => $val){
                                     $dersnotuvar=true;
                                     $i ++;
                                     $dosya_adi = $deger['dosya_adi'];
-                                    $baban = $deger['dosya_aciklama'];
+                                    $aciklama = $deger['dosya_aciklama'];
                                     echo $i . "-";
                        ?>
-    					<a target="_blank" href="<?php echo base_url("upload/$anan");?>"><?php echo $baban;?></a>
+    					<a target="_blank" href="<?php echo base_url("upload/$dosya_adi");?>"><?php echo $aciklama;?></a>
     					<?php if($logged_in['su']=='1') {?>
     					<a title="Sil" href="<?php echo base_url('index.php/genel/kaynak_sil/')."/".$dosya_adi."/".$kay_id;?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
     					<p>
                        <?php
+                       } else {
+                           echo "<br>";
                        }
                                 }
                             }
