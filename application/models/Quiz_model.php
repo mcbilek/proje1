@@ -1100,14 +1100,12 @@ if($this->config->item('allow_result_email')){
          " ORDER BY c.category_name ASC";
          $query=$this->db->query($sql,$uid);
      } else {
-	$sql = 
-	" SELECT c.*, count(q.qid) soru_adet".
-	" FROM savsoft_category c ".
-	" LEFT JOIN savsoft_qbank q ON c.cid = q.cid".
-	" GROUP BY c.cid".
-	" ORDER BY soru_adet, category_name ASC";
-
-
+         $sql =
+         " SELECT c.*, count(q.qid) soru_adet".
+         " FROM savsoft_category c, savsoft_qbank q".
+         " WHERE c.cid = q.cid".
+         " GROUP BY c.cid".
+         " ORDER BY category_name ASC";
          $query=$this->db->query($sql);
      }
 //      log_message("debug", "calisma_list size:".count($query->result_array()));
