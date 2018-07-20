@@ -65,7 +65,9 @@ echo "-";
     ?>
 </div>
 <div class="row">
-    <div class="col-md-6 text-center"><h4><strong><p class="bg-primary">* Ödeme bir defaya mahsustur ve sınav tarihine kadar geçerlidir.</p></strong><p class="text-danger">Kadronuza Ait Soru Sayıları</h4></p>
+    <div class="col-md-6 text-center"><h4><strong>
+    <p class="bg-primary">* Ödeme bir defaya mahsustur ve sınav tarihine kadar geçerlidir.</p></strong>
+    <p class="text-danger">Kadronuza Ait Soru Sayıları</h4></p>
       <table class="table table-bordered">
     <thead>
       <tr>

@@ -96,6 +96,14 @@
 					</select>
 						</div>
 					<div class="form-group">
+							<label>Cinsiyet</label> <p><select
+								class="form-control selectpicker"   name="cinsiyet" id="cinsiyet" title="Cinsiyet">
+                						
+                <option value="E">Erkek</option>
+                <option value="B">Bayan</option>
+					</select>
+						</div>
+					<div class="form-group">
 							<label>İl Seçiniz</label> 
 							<select class="form-control selectpicker" title="Şehrinizi Seçiniz" name="sehir" required >
     <option value="1">Adana</option>
@@ -181,6 +189,9 @@
     <option value="81">Düzce</option>
 </select>
 						</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="sozlesme" required><a href="https://www.bakanliksinav.com/gizlilik-politikasi/" target="_blank">Gizlilik Politikası</a>nı Okudum ve Kabul Ediyorum (üyelik ücretsizdir)</label>
+</div>
 						<div class="form-group" hidden>
 							<label><?php echo $this->lang->line('select_group');?></label> <select 
 								class="form-control" name="gid" id="gid">

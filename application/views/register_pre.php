@@ -44,7 +44,7 @@
 			<div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">	 
-					<label for="inputEmail"><?php echo $this->lang->line('contact_no');?> (SMS onayı için geçerli bir numara girmeye dikkat ediniz)</label> 
+					<label for="inputEmail"><?php echo $this->lang->line('contact_no');?> (SMS onayı için geçerli bir numara girmeye dikkat ediniz, sadece üyelik için gereklidir, herhangi bir ücret tahsilatı söz konusu değildir.)</label> 
 					<input type="text" name="contact_no" value="<?php echo $contact_no;?>" class="form-control input-medium bfh-phone" data-format="5dd ddddddd" placeholder="<?php echo $this->lang->line('contact_no');?>" required autofocus>
 			</div>
 
@@ -61,7 +61,7 @@
 					<input type="text" name="contact_no" class="form-control input-medium" value="<?php echo $contact_no;?>" disabled>
 			</div>
 			<div class="form-group">	 
-					<label for="inputEmail">SMS Onay Kodu</label> 
+					<label for="inputEmail">SMS Onay Kodu (Sadece üyelik teyidi için)</label> 
 					<input type="text" name="sms_onay_kodu" class="form-control input-medium" required autofocus>
 			</div>
 

@@ -429,6 +429,7 @@ return $revenue;
 		'first_name'=>$this->input->post('first_name'),
 		'last_name'=>$this->input->post('last_name'),
 		'contact_no'=>$this->session->telefon,
+		'cinsiyet'=>$this->input->post('cinsiyet'),
 		'gid'=>$this->input->post('gid'),
 		'kurum_id'=>$this->input->post('kurum_id'),
 		'kadro_id'=>$this->input->post('kadro_id'),
