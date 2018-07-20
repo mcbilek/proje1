@@ -785,6 +785,26 @@ $query=$this->db->get('savsoft_users');
      return $query->result_array();
      
  }
+ function soru_sayilari_bykadro($uid){
+     
+     $sql =
+     " SELECT c.*, count(q.qid) soru_adet".
+     " FROM savsoft_category c,".
+     "      savsoft_qbank q,".
+     "      savsoft_users u,".
+     "      savsoft_category_kadro ck".
+     " WHERE     q.cid = c.cid".
+     "       AND u.kadro_id = ck.kadro_id".
+     "       AND ck.kategori_id = c.cid".
+     "       AND u.uid = ?".
+     " GROUP BY c.cid".
+     " ORDER BY c.category_name";
+     
+     $query = $this->db->query($sql,$uid);
+     
+     return $query->result_array();
+     
+ }
  
  function istatistik_sifirla(int $uid){
      

@@ -65,8 +65,33 @@ echo "-";
     ?>
 </div>
 <div class="row">
-    <div class="col-md-6 text-center"><img class="img-responsive" src="<?php echo site_url('images/soru_sayisi.jpeg');?>"></div>
-    <div class="col-md-6 text-center"><h4>Özel Üyelik Avantajları</h4><img class="img-responsive" src="<?php echo site_url('images/ozel_avantaj.jpeg');?>"></div>
+    <div class="col-md-6 text-center"><h4><strong><p class="bg-primary">* Ödeme bir defaya mahsustur ve sınav tarihine kadar geçerlidir.</p></strong><p class="text-danger">Kadronuza Ait Soru Sayıları</h4></p>
+      <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Konu</th>
+        <th>Soru Sayısı</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php 
+    $toplam=0;
+    foreach($soru_sayilari as $key => $val){
+        $toplam=$toplam+$val['soru_adet'];
+    ?>
+      <tr>
+        <td><?php echo $val['category_name'];?></td>
+        <td><?php echo $val['soru_adet'];?></td>
+      </tr>
+      <?php }?>
+      <tr>
+        <td><strong>TOPLAM</strong></td>
+        <td><strong><?php echo $toplam;?></strong></td>
+      </tr>
+	</tbody>
+	</table>     
+    </div>
+    <div class="col-md-6 text-center"><h4><p class="bg-primary">Özel Üyelik Avantajları</p></h4><img class="img-responsive" src="<?php echo site_url('images/ozel_avantaj.jpeg');?>"></div>
 </div>
 
  
