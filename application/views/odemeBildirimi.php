@@ -112,7 +112,6 @@ if ($islemHazir!="1") {
 
 </div> 
 <div class="row">
-    <div class="col-md-6 text-center"><img class="img-responsive" src="<?php echo site_url('images/soru_sayisi.jpeg');?>"></div>
     <div class="col-md-6 text-center"><h4>Özel Üyelik Avantajları</h4><img class="img-responsive" src="<?php echo site_url('images/ozel_avantaj.jpeg');?>"></div>
 </div>
 
