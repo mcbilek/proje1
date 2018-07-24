@@ -15,7 +15,22 @@
     
 <div class="col-md-12">
 
-<div class="container"><h3>Ödeme Yöntemini Seçiniz </h3></div>
+			<div class="container">
+				<h3>Ödeme Yöntemini Seçiniz</h3>
+				<br>
+				<form method="post" data-toggle="validator"
+					action="<?php echo site_url('payment/indirimKodu');?>">
+					<div class="row">
+						<div class="col-sm-4">
+							<label for="indirimKodu">İndirim Kodu:</label> <input type="text"
+								name="indirimKodu" class="input input-sm" required>
+						</div>
+						<button class="btn btn-info" type="submit">Uygula</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
 <div id="exTab1" class="container">	
 <ul  class="nav nav-pills red">
 <li class="active"><a style="background-color:  #286090; color:  white;" href="#1a" data-toggle="tab">Kredi Kartı</a>

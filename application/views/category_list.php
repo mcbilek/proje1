@@ -13,39 +13,45 @@
 		}
 		?>	
 		<div id="message"></div>
+
+
+
+<table id="table" 
+	data-search="true"
+   data-toggle="table"
+   data-show-export="true"
+   data-show-columns="true">
+<thead>
+<tr>
+ <th data-sortable="true">Kategori Adı</th>
+ <th data-sortable="true">Aktif Mi</th>
+ <th data-valign="middle">İşlem</th>
+</tr>
+</thead>
+	<?php
+foreach ($category_list as $key => $val) {
+    if ($val['aktifmi']) {
+        $aktifPasif=0;
+    } else {
+        $aktifPasif=1;
+    }
+    ?>
+    <tr  style="padding: 4px;">
+    	<td style="padding: 4px;"><?php echo $val['category_name'];?></td>
+    	<td><?php if ($val['aktifmi']) echo "Evet"; else echo "Hayır"; ?></td>
+    	<td>
+    	<a href="<?php echo site_url('qbank/pre_remove_category/'.$val['cid']);?>" title="Kategoriyi Sil"><img src="<?php echo base_url('images/delete.png');?>"></a>
+    	<a href="<?php echo site_url('genel/kategori_aktifpasif/'.$val['cid'].'/'.$aktifPasif);?>" <?php if ($val['aktifmi']) echo 'title="Pasif Yap"';?>><img src="<?php if ($val['aktifmi']) echo base_url('images/cross.png'); else echo base_url('images/tick-icon.png'); ?>"></a>
+    	</td>
+	</tr>
+<?php
+
+}
+?>	
 		
 <form method="post" action="<?php echo site_url('qbank/insert_category/');?>">
 	
 <table class="table table-bordered">
-<tr>
- <th><?php echo $this->lang->line('category_name');?></th>
-<th><?php echo $this->lang->line('action');?> </th>
-</tr>
-<?php 
-if(count($category_list)==0){
-	?>
-<tr>
- <td colspan="3"><?php echo $this->lang->line('no_record_found');?></td>
-</tr>	
-	
-	
-	<?php
-}
-
-foreach($category_list as $key => $val){
-?>
-<tr>
- <td><input type="text"   class="form-control"  value="<?php echo $val['category_name'];?>" onBlur="updatecategory(this.value,'<?php echo $val['cid'];?>');" ></td>
-<td>
- 
-<a href="<?php echo site_url('qbank/pre_remove_category/'.$val['cid']);?>"><img src="<?php echo base_url('images/cross.png');?>"></a>
-
-</td>
-</tr>
-
-<?php 
-}
-?>
 <tr>
  <td>
  
@@ -100,7 +106,7 @@ foreach($category_list as $key => $val){
     foreach ($category_list as $key => $val) {
         ?>
 					
-					<?php echo '<option value="'.$val['cid'].'">'; ?><?php echo $val['category_name']."</option>";?>
+					<?php if ($val['aktifmi']) echo '<option value="'.$val['cid'].'">'; ?><?php if ($val['aktifmi']) echo $val['category_name']."</option>";?>
 					<?php
     }
     ?>

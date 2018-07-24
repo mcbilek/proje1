@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Genel extends CI_Controller {
-
+    var $logged_in=null;
 	 function __construct()
 	 {
 	   parent::__construct();
@@ -15,9 +15,9 @@ class Genel extends CI_Controller {
 		// redirect if not loggedin
 		if(!$this->session->userdata('logged_in')){
 			redirect('login');
-			
 		}
 		$logged_in=$this->session->userdata('logged_in');
+		$this->logged_in=$logged_in;
 		if($logged_in['base_url'] != base_url()){
 		$this->session->unset_userdata('logged_in');		
 		redirect('login');
@@ -37,6 +37,9 @@ class Genel extends CI_Controller {
 
 	public function index()
 	{
+	    if($logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
 	    redirect('dashboard');
 	}
 	
@@ -44,10 +47,13 @@ class Genel extends CI_Controller {
 	public function kurum_kardo_kategori()
 	{
 	    
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
 	    $data['limit']=$limit;
 	    $data['title']="Kurum/Kadro/Kategori Ayarları";
 	    $data['kurum_kadro_kat']=$this->genel_model->kurum_kardo_kategori();
-	    $data['kurum_list']=$this->genel_model->kurum_list();
+	    $data['kurum_list']=$this->genel_model->kurum_list(1);
 	    $data['kadro_list']=$this->genel_model->kadro_list();
 	    $data['kategori_list']=$this->genel_model->category_list();
 	    $data['ekli_kaynaklar']=$this->genel_model->ekli_kaynaklar();
@@ -57,7 +63,9 @@ class Genel extends CI_Controller {
 	}
 	public function kkk_sil()
 	{
-	    
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
         if ($this->genel_model->kkk_sil()) {
             $this->session->set_flashdata('message', "<div class='alert alert-success'>Kurum/Kadro/Kategori Eşleşmesi Başarıyla Silindi </div>");
         } else {
@@ -65,9 +73,37 @@ class Genel extends CI_Controller {
         }
         $this->kurum_kardo_kategori();
 	}
+	public function kategori_aktifpasif($cid,$yenidurum)
+	{
+	    log_message("debug", "kategori_aktifpasif su:".$this->logged_in['su']);
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
+	    $this->genel_model->kategori_aktifpasif($cid,$yenidurum);
+	    $this->category_list(0);
+	}
+	
+	public function category_list($aktifmi){
+	    
+	    $this->load->model("genel_model");
+	    // fetching group list
+	    $data['category_list']=$this->genel_model->category_list($aktifmi);
+	    $data['kurum_list']=$this->user_model->kurum_list();
+	    $data['kadro_list']=$this->user_model->kadro_list();
+	    $data['ekli_kaynaklar']=$this->genel_model->ekli_kaynaklar();
+	    $data['title']=$this->lang->line('category_list');
+	    $this->load->view('headerForTable',$data);
+	    $this->load->view('category_list',$data);
+	    $this->load->view('footer',$data);
+	    
+	}
 	
 	public function kkk_ekle()
 	{
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
 	    
 	    if ($this->genel_model->kkk_ekle()) {
 	        $this->session->set_flashdata('message', "<div class='alert alert-success'>Kurum/Kadro/Kategori Eşleşmesi Başarıyla Eklendi </div>");
@@ -83,6 +119,9 @@ class Genel extends CI_Controller {
 	//kaynak-ders notu yüklemek için kullanılıyor
 	public function do_upload()
 	{
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
 	    
 	  //  log_message("debug", "do_upload kaynakTur:".$_POST['kaynakTur']);
 	    $config['upload_path']          = './upload/';

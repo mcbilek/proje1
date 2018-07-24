@@ -15,10 +15,8 @@ Class Payment_model extends CI_Model
 		$query=$this->db->get('savsoft_payment');
 		return $query->result_array();
 		
-	 
- }
- 
- 
+  }
+  
  function get_payment_history($uid){
 	 
 	$this->db->where('uid',$uid);

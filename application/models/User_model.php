@@ -358,8 +358,11 @@ return $revenue;
      return $ret->uyelik_ucreti;
  }
  
- function kurum_list(){
+ function kurum_list($aktifler=1){
 	 $this->db->order_by('kurum_adi','asc');
+	 if ($aktifler==1) {
+	     $this->db->where('aktifmi',1);
+	 }
 	$query=$this->db->get('savsoft_kurum');
 		return $query->result_array();
  }

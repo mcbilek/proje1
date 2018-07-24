@@ -83,6 +83,46 @@ function subscription_expired($uid){
 	    $this->load->view('footer',$data);
 	}
 	
+	function indirimKodu(){
+				
+	    // redirect if not loggedin
+	    if(!$this->session->userdata('logged_in')){
+	        redirect('login');
+	        
+	    }
+	    $logged_in=$this->session->userdata('logged_in');
+	    if($logged_in['base_url'] != base_url()){
+	        $this->session->unset_userdata('logged_in');
+	        redirect('login');
+	    }
+	    
+	    //daha önce biri giriş yapmışsa session u silip logine yönlendiriyoruz
+	    log_message("debug", "tek_login_kontrolü yapılıyor.");
+	    if(!$this->user_model->tek_login_kontrol($logged_in)){
+	        log_message("debug", "tek_login_kontrolünden geçemedi.");
+	        $this->session->unset_userdata('logged_in');
+	        $this->session->set_flashdata('message', $this->lang->line('tek_login_mesaji'));
+	        redirect('login');
+	    }
+	    log_message("debug", "tek_login_kontrolü yapıldı.");
+	    
+	    $data['odemeTuru']=1;
+	    $indirimMiktari=$this->ozeluyelik_model->indirim_kodu_dogrula();
+	    $netindirim=$indirimMiktari[0]['miktar'];
+	    $ucret=$this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
+	    $data['ucret']=$ucret-$netindirim;
+	    $this->session->set_userdata('kodindirimi', $netindirim);
+	    $data['indirim_miktari']=$indirimMiktari[0]['miktar'];
+	    $data['title']="Özel Üyelik";
+	    $this->session->set_flashdata('message', "<div class='alert alert-info'>$netindirim TL indidim uygulanmıştır.</div>");
+	    
+	    // havale ile üyelik
+	    //$data['odemeBildirimi']=$this->ozelUyelik_model->payment_list($limit);
+	    $this->load->view('header',$data);
+	    $this->load->view('odemeBildirimi',$data);
+	    $this->load->view('footer',$data);
+	}
+	
 	
 	function odemeBildirimi($groupId=1,$odemeTuru=1){
 	    $logged_in=$this->session->userdata('logged_in');
@@ -141,6 +181,10 @@ function subscription_expired($uid){
 	    if ($this->input->post('adres')!="") {
 	    log_message("debug", "adres:".$this->input->post('adres'));
 	    $ucret = $this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
+	    log_message("debug", "indirim kodu net indirim:".$this->session->kodindirimi);
+	    if($this->session->kodindirimi>0) {
+	        $ucret=$ucret-$this->session->kodindirimi;
+	    }
 	    require_once('config_iyzico.php');
 	    
 	    # create request class

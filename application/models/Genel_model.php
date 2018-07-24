@@ -3,9 +3,12 @@
 class Genel_model extends CI_Model
 {
 
-    function category_list()
+    function category_list($aktifler=1)
     {
         $this->db->order_by('category_name', 'asc');
+        if ($aktifler==1) {
+            $this->db->where('aktifmi',1);
+        }
         $query = $this->db->get('savsoft_category');
         return $query->result_array();
     }
@@ -22,10 +25,19 @@ class Genel_model extends CI_Model
         return $query->result_array();
     }
     
-    function kurum_list(){
+    function kurum_list($aktifler=0){
         $this->db->order_by('kurum_adi','asc');
+        if ($aktifler==1) {
+            $this->db->where('aktifmi',1);
+        }
         $query=$this->db->get('savsoft_kurum');
         return $query->result_array();
+    }
+    
+    function kategori_aktifpasif($cid,$yenidurum){
+        $this->db->set('aktifmi', $yenidurum);
+        $this->db->where('cid', $cid);
+        $this->db->update('savsoft_category'); 
     }
     
     //Kurum/Kadro/Kategorileri çeken metod.
@@ -43,6 +55,7 @@ class Genel_model extends CI_Model
         " WHERE     ck.kurum_id = krm.kurum_id".
         "       AND ck.kadro_id = kdr.kadro_id".
         "       AND ck.kategori_id = c.cid".
+        "       AND krm.aktifmi=1".
         " ORDER BY krm.kurum_adi, kdr.kadro_adi, c.category_name";
         
         $query = $this->db->query($sql);
