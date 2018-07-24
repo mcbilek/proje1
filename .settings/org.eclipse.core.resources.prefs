@@ -8,6 +8,7 @@ encoding//application/controllers/Quiz.php=UTF-8
 encoding//application/controllers/Sendsms.php=UTF-8
 encoding//application/language/english/mahana_lang.php=UTF-8
 encoding//application/models/Genel_model.php=UTF-8
+encoding//application/models/Ozeluyelik_model.php=UTF-8
 encoding//application/models/Qbank_model.php=UTF-8
 encoding//application/models/User_model.php=UTF-8
 encoding//application/views/active_classes.php=UTF-8
