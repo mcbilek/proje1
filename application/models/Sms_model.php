@@ -42,7 +42,7 @@ Class Sms_model extends CI_Model
     {
         $msg=urlencode($msg);
         $telno = str_replace(' ', '', $telno);
-        $url="http://api.netgsm.com.tr/bulkhttppost.asp?usercode=$username&password=$pass&gsmno=$telno&message=$msg&msgheader=$header&startdate=$startdate&stopdate=$stopdate";
+        $url="http://api.netgsm.com.tr/bulkhttppost.asp?usercode=$username&password=$pass&gsmno=$telno&message=$msg&msgheader=$header&startdate=$startdate&stopdate=$stopdate&private=1";
         //echo $url;
         $ch = curl_init($url);
         curl_setopt($ch,CURLOPT_URL,$url);
