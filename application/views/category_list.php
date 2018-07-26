@@ -49,12 +49,12 @@ foreach ($category_list as $key => $val) {
 }
 ?>	
 		
-<form method="post" action="<?php echo site_url('qbank/insert_category/');?>">
 	
 <table class="table table-bordered">
 <tr>
  <td>
  
+<form method="post" action="<?php echo site_url('qbank/insert_category/');?>">
  <input type="text"   class="form-control"   name="category_name" value="" placeholder="<?php echo $this->lang->line('category_name');?>"  required ></td>
 <td>
 <button class="btn btn-default" type="submit"><?php echo $this->lang->line('add_new');?></button>

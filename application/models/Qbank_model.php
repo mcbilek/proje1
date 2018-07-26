@@ -2,7 +2,7 @@
 Class Qbank_model extends CI_Model
 {
  
-  function question_list($limit,$cid='0',$lid='0',$hepsi='0'){
+  function question_list($limit,$cid='0',$lid='0',$hepsi='0'){ 
 	 if($this->input->post('search')){
 		 $search=$this->input->post('search');
 		 $trans = get_html_translation_table(HTML_ENTITIES);
@@ -22,6 +22,7 @@ Class Qbank_model extends CI_Model
 	 if($hepsi=='1'){
 	     $this->db->where('savsoft_qbank.aktifmi',$hepsi);
 	 }
+	 $this->db->select('qid, question, savsoft_qbank.aktifmi,no_time_corrected,no_time_incorrected,no_time_unattempted,question_type,category_name,level_name,no_time_served');
 		 $this->db->join('savsoft_category','savsoft_category.cid=savsoft_qbank.cid');
 	 $this->db->join('savsoft_level','savsoft_level.lid=savsoft_qbank.lid');
 	 $this->db->limit($this->config->item('number_of_rows'),$limit);
@@ -229,6 +230,7 @@ Class Qbank_model extends CI_Model
 	 
 	 
 	 $userdata=array(
+	 'aktifmi'=>0,
 	 'question'=>$this->input->post('question'),
 	 'description'=>$this->input->post('description'),
 	 'question_type'=>$this->lang->line('long_answer'),

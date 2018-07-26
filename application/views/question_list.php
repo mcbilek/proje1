@@ -80,6 +80,8 @@ if(count($result)==0){
 	
 	<?php
 }
+//print("<pre>".print_r($result)."</pre>");
+//exit(); 
 foreach($result as $key => $val){
 ?>
 <tr>
@@ -140,7 +142,7 @@ if($val['question_type']==$this->lang->line('long_answer')){
 ?>
 <a href="<?php echo site_url('qbank/edit_question_'.$qn.'/'.$val['qid']);?>"><img src="<?php echo base_url('images/edit.png');?>" title="düzenle"></a>
 <a href="javascript:remove_entry('qbank/remove_question/<?php echo $val['qid'];?>');"><img src="<?php echo base_url('images/delete.png');?>" title="sil"></a>
-<a href="<?php echo site_url('qbank/soru_onay/'.$val['qid'])."/"; echo $val['aktifmi']=="1" ? "0" : "1";   ?>"><img src="<?php echo $val['aktifmi']=="1" ? base_url('images/cross.png').'" title="Onayı Kaldır"' : base_url('images/tick-icon.png').'" title="Onayla"'?>"></a>
+<a href="<?php echo site_url('qbank/soru_onay/'.$val['qid'])."/"; if ($val['aktifmi']=="1") echo "0"; else echo "1";   ?>"><img src="<?php echo $val['aktifmi']=="1" ? base_url('images/cross.png').'" title="Onayı Kaldır"' : base_url('images/tick-icon.png').'" title="Onayla"'?>"></a>
 
 </td>
 </tr>
