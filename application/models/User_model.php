@@ -295,7 +295,7 @@ return $revenue;
 
 	 }
 		$this->db->limit($this->config->item('number_of_rows'),$limit);
-		$this->db->order_by('savsoft_users.uid','desc');
+		$this->db->order_by('savsoft_users.registered_date','desc');
 		 $this -> db -> join('savsoft_group', 'savsoft_users.gid=savsoft_group.gid');
 		 $this -> db -> join('savsoft_kurum', 'savsoft_users.kurum_id=savsoft_kurum.kurum_id');
 		 $this -> db -> join('savsoft_kadro', 'savsoft_users.kadro_id=savsoft_kadro.kadro_id');
