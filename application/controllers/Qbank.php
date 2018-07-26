@@ -494,7 +494,7 @@ class Qbank extends CI_Controller {
 			}
 	
 				if($this->qbank_model->insert_category()){
-                $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('data_added_successfully')." </div>");
+                $this->session->set_flashdata('message', "<div class='alert alert-success'>Kategori Başarıyla Eklendi</div>");
 				}else{
 				 $this->session->set_flashdata('message', "<div class='alert alert-danger'>".$this->lang->line('error_to_add_data')." </div>");
 						
