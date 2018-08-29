@@ -145,7 +145,7 @@ $colorcode3=array(
                             <p><strong>Size Özel Otomatik Deneme</strong></p>
                         </div>
                         <ul class="list-group text-center">
-                            <li class="list-group-item" style="background-color: #ffdfdf;"><i class="fa fa-check"></i> <?php echo $this->lang->line('noq');?>:  100</li>
+                            <li class="list-group-item" style="background-color: #ffdfdf;"><i class="fa fa-check"></i> Soru dağılımı gerçek sınava göre otomatik ayarlanır.</li>
                             <li class="list-group-item" style="background-color: #ffdfdf;"><i class="fa fa-check"></i> Sistem size özel deneme sınavı oluşturur.</li>
                             </ul>
                         <div class="panel-footer" style="background-color:#f6b1b1;">
