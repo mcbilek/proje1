@@ -610,7 +610,90 @@ function save_answer_for_calis(qn,oid,dogrumu) {
 
 }
 
+
+function show_question_answer_oto_deneme(ilgili_soru,dogrumu,qid,oid,radioId,dogruDiv,otodeneme_id) {
+	var buDivDogru="#"+dogruDiv;
+	var optElement="#answer_value"+radioId;
+	var optDivElement="#opt_div"+radioId;
+	var opContainerDiv="#op_con_"+ilgili_soru+" *";
+	if ($(optElement).is(':enabled')) {
+	//	$(opContainerDiv).css('cursor','not-allowed');
+	//	fide_all_question();
+		qn = parseInt(ilgili_soru);
+	document.getElementById('fields'+ilgili_soru).disabled = true;
+	var did = "#cevap" + ilgili_soru;
+	var dogru = "#dogru" + ilgili_soru;
+	var yanlis = "#yanlis" + ilgili_soru;
+	$(optElement).prop("checked", true);
+	//alert(optElement);
+//	if (dogrumu==0) {
+//		//console.log(this);
+//		$(optDivElement).css('background-color', '#f2dede');
+//		$(buDivDogru).css('background-color', '#dff0d8');
+//		var yanlisAdet=parseInt($('#yanlisSoru').text());
+//		var kalanAdet=parseInt($('#kalanSoru').text());
+//		$('#yanlisSoru').text(yanlisAdet+1);
+//		$('#kalanSoru').text(kalanAdet-1);
+//		$(did).attr("class", "panel panel-danger question_container");
+//		$(yanlis).css('display', 'block');
+//		$(dogru).css('display', 'none');
+//	} else {
+//		$(optDivElement).css('background-color', '#dff0d8');
+//		var dogruAdet=parseInt($('#dogruSoru').text());
+//		var kalanAdet=parseInt($('#kalanSoru').text());
+//		$('#dogruSoru').text(dogruAdet+1);
+//		$('#kalanSoru').text(kalanAdet-1);
+//		$(dogru).css('display', 'block');
+//		$(yanlis).css('display', 'none');
+//	}
+//		$(did).css('display', 'block');
+	var kalanAdet=parseInt($('#kalanSoru').text());
+	$('#kalanSoru').text(kalanAdet-1);
+		save_answer_for_otodeneme(qid,oid,dogrumu,otodeneme_id);
+	}
+}
+
  
+function save_answer_for_otodeneme(qn,oid,dogrumu,denemeId) {
+	document.getElementById("noq").value = qn;
+	document.getElementById("oid").value = oid;
+	document.getElementById("dogrumu").value = dogrumu;
+	document.getElementById("oto_deneme_id").value = denemeId;
+	// signal 1
+	$('#save_answer_signal1').css('backgroundColor', '#00ff00');
+	setTimeout(function() {
+		$('#save_answer_signal1').css('backgroundColor', '#666666');
+	}, 5000);
+
+	var str = $("#quiz_form").serialize();
+	//console.log(str);
+	// var formData = {user_answer:str};
+	$.ajax({
+		type : "POST",
+		data : str,
+		url : base_url + "index.php/quiz/save_answer_for_otodeneme/",
+		success : function(data) {
+			// signal 1
+			$('#save_answer_signal2').css('backgroundColor', '#00ff00');
+			setTimeout(function() {
+				$('#save_answer_signal2').css('backgroundColor', '#666666');
+			}, 5000);
+
+		},
+		error : function(xhr, status, strErr) {
+			 alert(status);
+
+			// signal 1
+			$('#save_answer_signal2').css('backgroundColor', '#ff0000');
+			setTimeout(function() {
+				$('#save_answer_signal2').css('backgroundColor', '#666666');
+			}, 5500);
+
+		}
+	});
+
+}
+
 function setIndividual_time(cqn){
 	if(cqn==undefined || cqn == null ){
 		var cqn='0';

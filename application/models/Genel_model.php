@@ -82,7 +82,8 @@ class Genel_model extends CI_Model
         $userdata = array(
             'kurum_id' => $this->input->post('kurum_id'),
             'kadro_id' => $this->input->post('kadro_id'),
-            'kategori_id' => $this->input->post('kategori_id')
+            'kategori_id' => $this->input->post('kategori_id'),
+            'soru_adet' => $this->input->post('soru_sayisi')
         );
         
         if($this->db->insert('savsoft_category_kadro', $userdata)){

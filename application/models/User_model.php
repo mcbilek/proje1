@@ -789,6 +789,7 @@ $query=$this->db->get('savsoft_users');
      return $query->result_array();
      
  }
+ 
  function soru_sayilari_bykadro($uid){
      
      $sql =

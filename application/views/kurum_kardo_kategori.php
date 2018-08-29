@@ -23,6 +23,7 @@
  <th data-field="name" data-sortable="true">Kurum Adı</th>
  <th data-sortable="true">Kadro Adı </th>
  <th data-sortable="true">Kategori Adı</th>
+ <th data-sortable="true">Oto Deneme<br>Soru Ad.</th>
  <th data-valign="middle">İşlem</th>
 </tr>
 </thead>
@@ -34,6 +35,7 @@ foreach($kurum_kadro_kat as $key => $val){
  <td><?php echo $val['kurum_adi'];?></td>
   <td><?php echo $val['kadro_adi'];?></td>
   <td><?php echo $val['category_name'];?></td>
+  <td><?php echo $val['soru_adet'];?></td>
  <td ><form method="post" action="<?php echo site_url('genel/kkk_sil');?>" name="sil" style="margin-bottom: 0px;">
  <input type="hidden" name="kat_kadro_id" value="<?php echo $val['kat_kadro_id'];?>" >
  <button type="submit" class="btn btn-primary btn-rounded my-0 center-block " > Sil</button>
@@ -92,7 +94,12 @@ foreach($kurum_kadro_kat as $key => $val){
                 						<?php
     }
     ?>
-					</select><p>
+					</select>
+					<p>
+					<label for="inputEmail">Oto Deneme Soru Sayısı</label>
+					<input type="number" value="0" class="form-control" name="soru_sayisi" required>
+					<p>
+					
 					<button type="submit" class="btn btn-primary" > Kaydet</button>
 					</form>
 			</div>

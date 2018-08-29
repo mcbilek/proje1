@@ -133,6 +133,42 @@ $colorcode3=array(
 'info',
 '#edcbcb'
 );
+?>
+<!-- otomatik deneme -->
+<div class="col-md-4 text-center">
+<div class="panel panel-#edcbcb panel-pricing" style="border:  5px solid transparent; border-color: #a94442;">
+<div class="panel-heading" style="background-color:#f6b1b1;">
+<i class="fa fa-desktop"></i>
+<h3>Otomatik Deneme</h3>
+                        </div>
+                        <div class="panel-body text-center" style="background-color: #ffdfdf;">
+                            <p><strong>Size Özel Otomatik Deneme</strong></p>
+                        </div>
+                        <ul class="list-group text-center">
+                            <li class="list-group-item" style="background-color: #ffdfdf;"><i class="fa fa-check"></i> <?php echo $this->lang->line('noq');?>:  100</li>
+                            <li class="list-group-item" style="background-color: #ffdfdf;"><i class="fa fa-check"></i> Sistem size özel deneme sınavı oluşturur.</li>
+                            </ul>
+                        <div class="panel-footer" style="background-color:#f6b1b1;">
+                         
+						 
+<a href="<?php echo site_url('quiz/otomatik_deneme');?>" class="btn btn-danger">Sınav Oluştur</a>
+
+<?php 
+if($logged_in['su']=='1'){
+	?>
+			
+<a href="<?php echo site_url('quiz/edit_quiz/'.$val['quid']);?>"><img src="<?php echo base_url('images/edit.png');?>"></a>
+<a href="javascript:remove_entry('quiz/remove_quiz/<?php echo $val['quid'];?>');"><img src="<?php echo base_url('images/cross.png');?>"></a>
+<?php 
+}
+?>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /otomatik deneme --> 
+<?php
 foreach($result as $key => $val){
 ?>
 	  

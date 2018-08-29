@@ -75,6 +75,8 @@ class OnlineUsers
  // this function return the total number of online members
     function total_mems()
     {
+   //     $a=@$this->data['useronline'];
+   //     print ("<pre>".print_r($a)."</pre>");
         return @$this->data['memonline'];
     }
  // this function return the total number of online guest

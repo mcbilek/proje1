@@ -1,1 +1,1 @@
-a:3:{s:9:"memonline";i:1;s:10:"totalvisit";i:1;s:10:"useronline";a:1:{s:3:"::1";a:4:{s:4:"time";i:1531357077;s:3:"uri";s:16:"/sinav/dashboard";s:8:"username";s:2:"42";s:3:"bot";b:0;}}}
+a:4:{s:9:"memonline";i:1;s:10:"totalvisit";i:34;s:10:"useronline";a:1:{s:3:"::1";a:4:{s:4:"time";i:1535494798;s:3:"uri";s:36:"/sinav/quiz/oto_deneme_istatistik/24";s:8:"username";s:2:"14";s:3:"bot";b:0;}}s:11:"guestonline";i:0;}

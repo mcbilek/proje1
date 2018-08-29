@@ -732,6 +732,59 @@ function open_quiz($limit='0'){
        echo "true";
     }
     
+    public function oto_deneme_istatistik($oto_deneme_no) 
+    {
+        $logged_in = $this->session->userdata('logged_in');
+        if ($logged_in['su'] == '1') {
+            if (empty($uid))
+                $uid = $logged_in['uid'];
+                $data['user'] = $this->user_model->get_user($uid);
+        } else {
+            $uid = $logged_in['uid'];
+        }
+        
+        
+        $data['uid'] = $uid;
+        $data['title'] = "$oto_deneme_no nolu Otomatik Deneme Sonuçlarınız";
+     //   print_r($uid);
+     //   print_r($oto_deneme_no);
+      //  exit();
+        $data['result'] = $this->quiz_model->get_otodeneme_sonuclari($uid,$oto_deneme_no);
+        
+        $this->load->view('header', $data);
+        $this->load->view('otodeneme_sonuclar', $data);
+        $this->load->view('footer', $data);
+    }
+    
+    function save_answer_for_otodeneme(){
+        log_message("debug", "save_answer_for_otodeneme");
+            // redirect if not loggedin
+        if (! $this->session->userdata('logged_in')) {
+            if (! $this->session->userdata('logged_in_raw')) {
+                
+                redirect('login');
+            }
+        }
+        if (! $this->session->userdata('logged_in')) {
+            $logged_in = $this->session->userdata('logged_in_raw');
+        } else {
+            $logged_in = $this->session->userdata('logged_in');
+        }
+        if ($logged_in['base_url'] != base_url()) {
+            $this->session->unset_userdata('logged_in');
+            redirect('login');
+        }
+        
+        echo "<pre>";
+//         print_r($_POST);
+//         log_message("debug", print_r($_POST));
+        // insert user response and calculate scroe
+        $sonuc = $this->quiz_model->insert_answer_for_otodeneme();
+        log_message("debug", "save_answer_for_otodeneme sonuc:".$sonuc);
+//         echo $sonuc;
+       echo "true";
+    }
+    
     
  function set_ind_time(){
 		  // update questions time spent
@@ -900,6 +953,51 @@ if(isset($_FILES['webcam'])){
      $this->load->view('header',$data);
      
      $this->load->view('ders_calis',$data);
+     $this->load->view('footer',$data);
+     
+ }
+ function otomatik_deneme(){
+     // redirect if not loggedin
+     if(!$this->session->userdata('logged_in')){
+         if(!$this->session->userdata('logged_in_raw')){
+             redirect('login');
+         }
+     }
+     
+     if(!$this->session->userdata('logged_in')){
+         $logged_in=$this->session->userdata('logged_in_raw');
+     }else{
+         $logged_in=$this->session->userdata('logged_in');
+     }
+     if($logged_in['base_url'] != base_url()){
+         $this->session->unset_userdata('logged_in');
+         redirect('login');
+     }
+     
+     log_message("debug", "ders çalış grup id:".$logged_in['gid']);
+     if($logged_in['su']=='0' && $logged_in['gid']!=3){
+             $url=site_url('user/switch_group');
+             $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bu bölüm özel üyelirimiz içindir, lütfen <a href='$url'>Özel Üyeliğe</a> Geçiniz.</div>");
+             redirect('quiz');
+     }
+     // get questions
+     $data['questions']=$this->quiz_model->get_questions_oto_deneme();
+     $data['noq']=count($data['questions']);
+//   print_r($data['noq']);
+//   exit();
+     $qids="";
+     foreach($data['questions'] as $ck => $val){
+         $qids=$qids.$val['qid'].",";
+     }
+     // get options
+     if (count($data['questions'])>0)
+        $data['options']=$this->quiz_model->get_options(trim($qids,","));
+        $data['otodeneme_id']=$this->quiz_model->get_otodeneme_id();
+     //print_r($data['otodeneme_id']); exit();
+     $data['title']="Size Özel Otomatik Deneme Sınavı";
+     
+     $this->load->view('header',$data);
+     $this->load->view('otomatik_deneme',$data);
      $this->load->view('footer',$data);
      
  }

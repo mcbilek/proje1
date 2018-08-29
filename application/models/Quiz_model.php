@@ -939,7 +939,66 @@ if($this->config->item('allow_result_email')){
         );
         return $this->db->insert('savsoft_result2', $userdata);
     }
+    
+ function insert_answer_for_otodeneme(){
+        log_message("debug", "insert_answer_for_otodeneme" . $_POST);
+        $logged_in = $this->session->userdata('logged_in');
+        $uid = $logged_in['uid'];
+        
+        $userdata = array(
+            'otodeneme_id' => $_POST['oto_deneme_id'],
+            'uid' => $uid,
+            'soru_id' => $_POST['noq'],
+            'opt_id' => $_POST['oid'],
+            'dogru_mu' => $_POST['dogrumu']
+        );
+        return $this->db->insert('savsoft_result_otodeneme', $userdata);
+    }
+    
+    function get_otodeneme_sonuclari(int $uid,$oto_deneme_no){
+        
+        
+        $sql ="          SELECT c.category_name,".
+        "                 sum(r.dogru_mu) dogru,".
+        "                 sum(if(r.dogru_mu = 0, 1, 0)) yanlis".
+        "          FROM savsoft_result_otodeneme r,".
+        "               savsoft_category c,".
+        "               savsoft_category_kadro ck,".
+        "               savsoft_users u,".
+        "               savsoft_qbank qb".
+        "          WHERE     c.cid = ck.kategori_id".
+        "                AND u.uid = r.uid".
+        "                AND qb.qid = r.soru_id".
+        "                AND qb.cid = c.cid".
+        "                AND u.kadro_id = ck.kadro_id".
+        "                AND u.kurum_id = ck.kurum_id".
+        "                AND r.uid = ?".
+        "                AND r.otodeneme_id = ?".
+        "          GROUP BY c.category_name".
+        "          ORDER BY c.category_name";
+        
+        $params=array();
+        $params[0]=$uid;
+        $params[1]=$oto_deneme_no;
+        $query = $this->db->query($sql,$params);
+        
+        return $query->result_array();
+        
+    }
  
+    function get_otodeneme_id(){
+        log_message("debug", "get_otodeneme_id");
+        $logged_in = $this->session->userdata('logged_in');
+        $uid = $logged_in['uid'];
+        
+        $userdata = array(
+            'uid' => $uid
+        );
+        
+        $this->db->insert('otomatik_deneme', $userdata);
+        $insert_id = $this->db->insert_id();
+        return  $insert_id;
+    }
  
  
  function set_ind_time(){
@@ -1061,6 +1120,44 @@ if($this->config->item('allow_result_email')){
          //çözüldüyse rasgele çözdüğü sorulardan getiriyoruz.
          if ($query->num_rows()==0)
              $query=$this->db->query($sql2);
+     return $query->result_array();
+     
+     
+ }
+ function get_questions_oto_deneme(){
+     $logged_in=$this->session->userdata('logged_in');
+     $gid=$logged_in['gid'];
+     $uid=$logged_in['uid'];
+     $kadro_id=$logged_in['kadro_id'];
+     $kadroSql="select * from savsoft_category_kadro ck where ck.kadro_id=$kadro_id";
+     log_message("debug", "grup_id:".$gid);
+     log_message("debug", "uid:".$uid);
+     
+     $query=$this->db->query($kadroSql);
+     $kadro_soruArray=$query->result_array();
+     
+     $sql ="";
+
+     foreach ($kadro_soruArray as $key => $value) {
+         $catId=$value['kategori_id'];
+         $soru_adet=$value['soru_adet'];
+         $sql = $sql.
+         " (SELECT q.*,".
+         "        cat.category_name,".
+         "        lvl.level_name".
+         " FROM savsoft_qbank q, savsoft_category cat, savsoft_level lvl".
+         " WHERE q.cid = cat.cid AND lvl.lid = q.lid AND q.aktifmi = 1 and cat.cid=$catId".
+         " ORDER BY RAND()".
+         " limit $soru_adet)";
+         if ($key+1!=count($kadro_soruArray))
+                $sql = $sql." UNION ALL ";
+     }
+     
+  //   print_r($sql);
+  //   exit();
+     
+         //kategorilere ait deneme sınası soru sayılarına göre soruları çekiyoruz.
+             $query=$this->db->query($sql);
      return $query->result_array();
      
      
