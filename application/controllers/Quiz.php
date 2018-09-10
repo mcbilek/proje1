@@ -732,17 +732,69 @@ function open_quiz($limit='0'){
        echo "true";
     }
     
-    public function oto_deneme_istatistik($oto_deneme_no) 
+    
+    public function oto_deneme_bitir($oto_deneme_no)
     {
-        $logged_in = $this->session->userdata('logged_in');
-        if ($logged_in['su'] == '1') {
-            if (empty($uid))
-                $uid = $logged_in['uid'];
-                $data['user'] = $this->user_model->get_user($uid);
+        
+        // redirect if not loggedin
+        if (! $this->session->userdata('logged_in')) {
+            if (! $this->session->userdata('logged_in_raw')) {
+                
+                redirect('login');
+            }
+        }
+        if (! $this->session->userdata('logged_in')) {
+            $logged_in = $this->session->userdata('logged_in_raw');
         } else {
-            $uid = $logged_in['uid'];
+            $logged_in = $this->session->userdata('logged_in');
+        }
+        if ($logged_in['base_url'] != base_url()) {
+            $this->session->unset_userdata('logged_in');
+            redirect('login');
         }
         
+        $uid= $logged_in['uid'];
+        
+        
+        $sonucArray = $this->quiz_model->otodeneme_sonuc_update($uid,$oto_deneme_no);
+        
+        $data['result']=$sonucArray[0];
+        $data['toplamDogru']=$sonucArray[1];
+        $data['toplamYanlis']=$sonucArray[2];
+        
+        $data['uid'] = $uid;
+        $data['title'] = "$oto_deneme_no nolu Otomatik Deneme Sonuçlarınız";
+        //   print_r($uid);
+        //   print_r($oto_deneme_no);
+        //  exit();
+        // $data['result'] = $this->quiz_model->get_otodeneme_sonuclari($uid,$oto_deneme_no);
+        
+        $this->load->view('header', $data);
+        $this->load->view('otodeneme_sonuclar', $data);
+        $this->load->view('footer', $data);
+    }
+    
+    
+    public function oto_deneme_istatistik($oto_deneme_no) 
+    {
+        // redirect if not loggedin
+        if (! $this->session->userdata('logged_in')) {
+            if (! $this->session->userdata('logged_in_raw')) {
+                
+                redirect('login');
+            }
+        }
+        if (! $this->session->userdata('logged_in')) {
+            $logged_in = $this->session->userdata('logged_in_raw');
+        } else {
+            $logged_in = $this->session->userdata('logged_in');
+        }
+        if ($logged_in['base_url'] != base_url()) {
+            $this->session->unset_userdata('logged_in');
+            redirect('login');
+        }
+        
+        $uid= $logged_in['uid'];
         
         $data['uid'] = $uid;
         $data['title'] = "$oto_deneme_no nolu Otomatik Deneme Sonuçlarınız";
@@ -893,9 +945,14 @@ if(isset($_FILES['webcam'])){
 //          exit($this->lang->line('permission_denied'));
 //      }
      $this->load->model("qbank_model");
-     
+//     print_r($logged_in);
+//     exit();
      $data['title'] = $this->lang->line('ders_calis');
-     $data['category_list']=$this->qbank_model->category_list();
+     if ($logged_in['su'] == '1')
+        $data['category_list']=$this->qbank_model->category_list();
+     else
+        $data['category_list']=$this->qbank_model->get_my_category_list($logged_in['kadro_id']);
+         
      $this->load->view('header', $data);
      $this->load->view('ders_calis_pre', $data);
      $this->load->view('footer', $data);
@@ -980,8 +1037,9 @@ if(isset($_FILES['webcam'])){
              $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bu bölüm özel üyelirimiz içindir, lütfen <a href='$url'>Özel Üyeliğe</a> Geçiniz.</div>");
              redirect('quiz');
      }
+     $data['otodeneme_id']=$this->quiz_model->get_otodeneme_id();
      // get questions
-     $data['questions']=$this->quiz_model->get_questions_oto_deneme();
+     $data['questions']=$this->quiz_model->get_questions_oto_deneme($data['otodeneme_id']);
      $data['noq']=count($data['questions']);
 //   print_r($data['noq']);
 //   exit();
@@ -992,7 +1050,6 @@ if(isset($_FILES['webcam'])){
      // get options
      if (count($data['questions'])>0)
         $data['options']=$this->quiz_model->get_options(trim($qids,","));
-        $data['otodeneme_id']=$this->quiz_model->get_otodeneme_id();
      //print_r($data['otodeneme_id']); exit();
      $data['title']="Size Özel Otomatik Deneme Sınavı";
      

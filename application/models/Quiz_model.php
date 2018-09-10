@@ -945,6 +945,10 @@ if($this->config->item('allow_result_email')){
         $logged_in = $this->session->userdata('logged_in');
         $uid = $logged_in['uid'];
         
+        $this->db->where('uid',$uid);
+        $this->db->where('soru_id',$_POST['noq']);
+        $this->db->delete('savsoft_result_otodeneme');
+        
         $userdata = array(
             'otodeneme_id' => $_POST['oto_deneme_id'],
             'uid' => $uid,
@@ -998,6 +1002,32 @@ if($this->config->item('allow_result_email')){
         $this->db->insert('otomatik_deneme', $userdata);
         $insert_id = $this->db->insert_id();
         return  $insert_id;
+    }
+    
+    
+    function otodeneme_sonuc_update($uid,$oto_deneme_no){
+        log_message("debug", "otodeneme_sonuc_update");
+        
+        $sonuc = $this->get_otodeneme_sonuclari($uid,$oto_deneme_no);
+        $dogru=0;
+        $yanlis=0;
+        foreach($sonuc as $key => $val){
+            $dogru=$dogru+$val['dogru'];
+            $yanlis=$yanlis+$val['yanlis'];
+        }
+        $yuzde=round(100*$dogru/($yanlis+$dogru), 2);
+        
+        $userdata=array(
+            'basari_yuzdesi'=>$yuzde,
+            'toplam_cozulen'=>$dogru+$yanlis
+        );
+        $this->db->where('kayit_id',$oto_deneme_no);
+        $this->db->update('otomatik_deneme',$userdata);
+        
+        $sonucArray[0]=$sonuc;
+        $sonucArray[1]=$dogru;
+        $sonucArray[2]=$yanlis;
+        return  $sonucArray;
     }
  
  
@@ -1124,7 +1154,7 @@ if($this->config->item('allow_result_email')){
      
      
  }
- function get_questions_oto_deneme(){
+ function get_questions_oto_deneme($otodeneme_id){
      $logged_in=$this->session->userdata('logged_in');
      $gid=$logged_in['gid'];
      $uid=$logged_in['uid'];
@@ -1153,13 +1183,23 @@ if($this->config->item('allow_result_email')){
                 $sql = $sql." UNION ALL ";
      }
      
-  //   print_r($sql);
-  //   exit();
+  //  print_r($sql);
+  //  exit();
      
          //kategorilere ait deneme sınası soru sayılarına göre soruları çekiyoruz.
              $query=$this->db->query($sql);
-     return $query->result_array();
-     
+             $sonuc = $query->result_array();
+             
+    //soru sayısını update ediyoruz.
+    
+             $userdata=array(
+                 'soru_adet'=>count($sonuc)
+             );
+             
+             $this->db->where('kayit_id',$otodeneme_id);
+             $this->db->update('otomatik_deneme',$userdata);
+             
+     return $sonuc;
      
  }
  

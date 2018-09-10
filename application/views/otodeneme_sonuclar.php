@@ -38,9 +38,13 @@ if(count($result)==0){
 	
 	<?php
 }
+$dogru=0;
+$yanlis=0;
 
 foreach($result as $key => $val){
     $yuzde=round(100*$val['dogru']/($val['yanlis']+$val['dogru']), 2);
+    $dogru=$dogru+$val['dogru'];
+    $yanlis=$yanlis+$val['yanlis'];
 ?>
 <tr>
  <td> <?php echo $val['category_name'];?></td>
@@ -57,8 +61,14 @@ foreach($result as $key => $val){
 
 <?php 
 }
+$toplamYuzde=round(100*$dogru/($yanlis+$dogru), 2);
 ?>
- 
+<tr>
+ <td><strong>TOPLAM</strong></td>
+ <td><strong><?php echo $dogru;?></strong></td>
+ <td><strong><?php echo $yanlis;?></strong></td>
+ <td><strong><?php echo "%".$toplamYuzde;?></strong></td>
+</tr>
 </table>
  
 </div>

@@ -421,6 +421,19 @@ Class Qbank_model extends CI_Model
 	 
  }
  
+ //login olan kişiye ait aktif kategori listesini döner.
+ function get_my_category_list($kadro_id){
+     $sql =
+     " SELECT c.*".
+     " FROM savsoft_category c, savsoft_category_kadro ck".
+     " WHERE c.cid = ck.kategori_id AND c.aktifmi = 1 AND ck.kadro_id = ? order by c.category_name";
+     
+     $query=$this->db->query($sql,$kadro_id);
+     
+	 return $query->result_array();
+	 
+ }
+ 
  
  
  

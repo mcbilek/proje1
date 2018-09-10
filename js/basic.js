@@ -610,6 +610,7 @@ function save_answer_for_calis(qn,oid,dogrumu) {
 
 }
 
+var soruSayiKonrolArray = [];
 
 function show_question_answer_oto_deneme(ilgili_soru,dogrumu,qid,oid,radioId,dogruDiv,otodeneme_id) {
 	var buDivDogru="#"+dogruDiv;
@@ -620,7 +621,7 @@ function show_question_answer_oto_deneme(ilgili_soru,dogrumu,qid,oid,radioId,dog
 	//	$(opContainerDiv).css('cursor','not-allowed');
 	//	fide_all_question();
 		qn = parseInt(ilgili_soru);
-	document.getElementById('fields'+ilgili_soru).disabled = true;
+	// document.getElementById('fields'+ilgili_soru).disabled = true;
 	var did = "#cevap" + ilgili_soru;
 	var dogru = "#dogru" + ilgili_soru;
 	var yanlis = "#yanlis" + ilgili_soru;
@@ -648,7 +649,10 @@ function show_question_answer_oto_deneme(ilgili_soru,dogrumu,qid,oid,radioId,dog
 //	}
 //		$(did).css('display', 'block');
 	var kalanAdet=parseInt($('#kalanSoru').text());
-	$('#kalanSoru').text(kalanAdet-1);
+	if (!soruSayiKonrolArray.includes(qid)) {
+		soruSayiKonrolArray.push(qid);
+		$('#kalanSoru').text(kalanAdet-1);
+	}
 		save_answer_for_otodeneme(qid,oid,dogrumu,otodeneme_id);
 	}
 }

@@ -47,6 +47,12 @@ $query=$this->db->get('savsoft_quiz');
 return $query->result_array();	 
  }
  
+ function otodeneme_sonuc_list($uid){
+     $this->db->where('uid',$uid);
+     $this->db->order_by('kayit_id','desc');
+     $query=$this->db->get('otomatik_deneme');
+     return $query->result_array();
+ }
  
  function no_attempt($quid,$uid){
 	 

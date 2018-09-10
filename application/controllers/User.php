@@ -172,7 +172,7 @@ class User extends CI_Controller {
 			
 			
 		$data['uid'] = $uid;
-        $data['title'] = "Bireysel istatistikler";
+        $data['title'] = "Bireysel Soru Çözme istatistikleriniz";
         $data['result'] = $this->user_model->get_istatistik($uid);
         
         $this->load->view('header', $data);

@@ -352,4 +352,4 @@ $lang['smstitle']="SMS Gönderme";
 $lang['sms_message']="Gönderilecek SMS Mesajı";
 $lang['mesaj_tur']="Mesaj Türü";
 $lang['mesajlar_title']="Mesajlar";
-$lang['ders_calis']="Ders Çalışma Bölümü";
+$lang['ders_calis']="Karışık Veya Konu Bazlı Ders Çalışma";

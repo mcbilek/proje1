@@ -3,9 +3,9 @@
    <?php 
    $logged_in=$this->session->userdata('logged_in');
    if ($logged_in['su']=='1') {
-       echo "<h3>Bireysel İstatistikler:".$user['first_name']." ".$user['last_name']."</h3>";
+       echo "<h3>Bireysel Soru Çözme İstatistikleri:".$user['first_name']." ".$user['last_name']."</h3>";
    } else {
-       echo "<h3>Bireysel İstatistikleriniz</h3>";
+       echo "<h3>Bireysel Soru Çözme İstatistikleriniz</h3>";
    }
    ?>
 

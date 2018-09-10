@@ -22,7 +22,7 @@
 	<script src="<?php echo base_url('js/jquery.js');?>"></script>
 	
 	<!-- custom javascript -->
-	<script src="<?php echo base_url('js/basic.js?v=1.1');?>"></script>
+	<script src="<?php echo base_url('js/basic.js?v=1.3');?>"></script>
 		
 	<!-- bootstrap js -->
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js');?>"></script>
@@ -131,8 +131,13 @@
                 </ul>
               </li>
 	
-
-	           <li><a href="<?php echo site_url('result');?>"><?php echo $this->lang->line('result');?></a></li>
+     		  <li class="dropdown" <?php if($this->uri->segment(1)=='qbank'){ echo "class='active'"; } ?> >
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sonuçlar<span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+	           <li><a href="<?php echo site_url('result');?>"><?php echo "Deneme Sonuçları";?></a></li>
+	           <li><a href="<?php echo site_url('result/otodeneme_sonuclari');?>"><?php echo "Otomatik Deneme Sonuçları";?></a></li>
+              </ul>
+	           <li><a href="<?php echo site_url('quiz/pre_ders_calis');?>">Soru Çöz</a></li>
 	           <li><a href="<?php echo site_url('user/istatistik');?>">İstatistiklerim</a></li>
 	           <li><a href="<?php echo site_url('mesajlar');?>">Mesajlar</a></li>
 			 

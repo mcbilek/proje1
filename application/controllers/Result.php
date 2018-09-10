@@ -28,15 +28,15 @@ class Result extends CI_Controller {
 		redirect('login');
 		}
 		
-		//daha önce biri giriþ yapmýþsa session u silip logine yönlendiriyoruz
-		log_message("debug", "tek_login_kontrolü yapýlýyor.");
+		//daha ï¿½nce biri giriï¿½ yapmï¿½ï¿½sa session u silip logine yï¿½nlendiriyoruz
+		log_message("debug", "tek_login_kontrolï¿½ yapï¿½lï¿½yor.");
 		if(!$this->user_model->tek_login_kontrol($logged_in)){
-		    log_message("debug", "tek_login_kontrolünden geçemedi.");
+		    log_message("debug", "tek_login_kontrolï¿½nden geï¿½emedi.");
 		    $this->session->unset_userdata('logged_in');
 		    $this->session->set_flashdata('message', $this->lang->line('tek_login_mesaji'));
 		    redirect('login');
 		}
-		log_message("debug", "tek_login_kontrolü yapýldý.");
+		log_message("debug", "tek_login_kontrolï¿½ yapï¿½ldï¿½.");
 		
 			
 		$data['limit']=$limit;
@@ -53,6 +53,44 @@ class Result extends CI_Controller {
 		$this->load->view('headerForTable',$data);
 		$this->load->view('result_list',$data);
 		$this->load->view('footer',$data);
+	}
+	
+	public function otodeneme_sonuclari($limit='0',$status='0')
+	{
+	    
+	    if(!$this->session->userdata('logged_in')){
+	        redirect('login');
+	        
+	    }
+	    $logged_in=$this->session->userdata('logged_in');
+	    if($logged_in['base_url'] != base_url()){
+	        $this->session->unset_userdata('logged_in');
+	        redirect('login');
+	    }
+	    
+	    //daha ï¿½nce biri giriï¿½ yapmï¿½ï¿½sa session u silip logine yï¿½nlendiriyoruz
+	    log_message("debug", "tek_login_kontrolï¿½ yapï¿½lï¿½yor.");
+	    if(!$this->user_model->tek_login_kontrol($logged_in)){
+	        log_message("debug", "tek_login_kontrolï¿½nden geï¿½emedi.");
+	        $this->session->unset_userdata('logged_in');
+	        $this->session->set_flashdata('message', $this->lang->line('tek_login_mesaji'));
+	        redirect('login');
+	    }
+	    log_message("debug", "otodeneme_sonuclari->tek_login_kontrolï¿½ yapï¿½ldï¿½.");
+	    
+	    
+	    $data['limit']=$limit;
+	    $data['status']=$status;
+	    $data['title']="Otomatik Deneme SonuÃ§larÄ±nÄ±z";
+	    // fetching result list
+	    $data['result']=$this->result_model->otodeneme_sonuc_list($logged_in['uid']);
+	    // group list
+	   // $this->load->model("user_model");
+	   // $data['group_list']=$this->user_model->group_list();
+	    
+	    $this->load->view('headerForTable',$data);
+	    $this->load->view('result_list_otodeneme',$data);
+	    $this->load->view('footer',$data);
 	}
 	
 
