@@ -81,11 +81,11 @@
 			</div>
 				<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('correct_score');?></label> 
-					<input type="number" name="correct_score"  value="10" class="form-control" placeholder="<?php echo $this->lang->line('correct_score');?>"   required >
+					<input type="text" name="correct_score"  value="10" class="form-control" placeholder="<?php echo $this->lang->line('correct_score');?>"   required >
 			</div>
 				<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('incorrect_score');?></label> 
-					<input type="number" name="incorrect_score"  value="0" class="form-control" placeholder="<?php echo $this->lang->line('incorrect_score');?>"  required  >
+					<input type="text" name="incorrect_score"  value="0" class="form-control" placeholder="<?php echo $this->lang->line('incorrect_score');?>"  required  >
 			</div>
 				<div class="form-group">	 
 					<label for="inputEmail"  ><?php echo $this->lang->line('ip_address');?></label> 
