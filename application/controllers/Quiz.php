@@ -803,6 +803,30 @@ function open_quiz($limit='0'){
       //  exit();
         $data['result'] = $this->quiz_model->get_otodeneme_sonuclari($uid,$oto_deneme_no);
         
+        $qidsArray = array();
+        $dogruSorular=array();
+        $save_ans=array();
+        $sorular=$this->quiz_model->get_sorular_otodeneme($oto_deneme_no);
+        foreach ($sorular as $key => $soru) {
+            $qidsArray[]=$soru['soru_id'];
+            $save_ans[]=$soru['opt_id'];
+            if ($soru['dogru_mu']==1)
+                $dogruSorular[]=$soru['soru_id'];
+        }
+         $qids=implode(',',$qidsArray);
+//        log_message("debug", "quids:".$qids);
+
+//         print "<pre>";
+//         print_r($save_ans);
+//         print "</pre>";
+//         exit();
+        
+        $data['questions']=$this->quiz_model->get_questions($qids);
+        $data['options']=$this->quiz_model->get_options($qids);
+        $data['dogruSorular']=$dogruSorular;
+        $data['save_ans']=$save_ans;
+        
+        
         $this->load->view('header', $data);
         $this->load->view('otodeneme_sonuclar', $data);
         $this->load->view('footer', $data);

@@ -244,6 +244,62 @@ class Result extends CI_Controller {
 		
 	}
 	
+	function view_result_otodnm($otodeneme_id){
+	    
+	    if(!$this->session->userdata('logged_in')){
+	        if(!$this->session->userdata('logged_in_raw')){
+	            redirect('login');
+	        }
+	    }
+	    if(!$this->session->userdata('logged_in')){
+	        $logged_in=$this->session->userdata('logged_in_raw');
+	    }else{
+	        $logged_in=$this->session->userdata('logged_in');
+	    }
+	    if($logged_in['base_url'] != base_url()){
+	        $this->session->unset_userdata('logged_in');
+	        redirect('login');
+	    }
+	    
+	    $sorular=$this->quiz_model->get_sorular_otodeneme($otodeneme_id);
+
+	    $qids=implode(',',$sorular['soru_id']); 
+	    log_message("debug", "quids:".$qids);
+        
+	    $data['questions']=$this->quiz_model->get_questions($qids);
+	    $data['options']=$this->quiz_model->get_options($qids);
+	    
+	   // $data['result']=$this->result_model->get_result($rid);
+	  //  $data['attempt']=$this->result_model->no_attempt($data['result']['quid'],$data['result']['uid']);
+	  //  $data['title']=$this->lang->line('result_id').' '.$data['result']['rid'];
+// 	    if($data['result']['view_answer']=='1' || $logged_in['su']=='1'){
+// 	        $this->load->model("quiz_model");
+// 	        $data['saved_answers']=$this->quiz_model->saved_answers($rid);
+// 	        // 		print_r($data['options']);
+// 	        // 		exit();
+// 	    }
+	    
+	    
+	    
+// 	    $uid=$data['result']['uid'];
+// 	    $quid=$data['result']['quid'];
+// 	    $score=$data['result']['score_obtained'];
+// 	    $query=$this->db->query(" select * from savsoft_result where score_obtained > '$score' and quid ='$quid' group by score_obtained ");
+// 	    $data['rank']=$query->num_rows() + 1;
+// 	    $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  ");
+// 	    $data['last_rank']=$query->num_rows();
+// 	    $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  order by score_obtained desc limit 3 ");
+// 	    $data['toppers']=$query->result_array();
+// 	    $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  order by score_obtained asc limit 1 ");
+// 	    $data['looser']=$query->row_array();
+	    
+	    $this->load->view('header',$data);
+	    $this->load->view('otodeneme_sonuclar',$data);
+	    $this->load->view('footer',$data);
+	    
+	    
+	}
+	
 	
 	
 	function generate_certificate($rid){

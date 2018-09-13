@@ -201,6 +201,7 @@ $incorrect_i[]=$_POST['i_incorrect'][$ck];
  
  function get_options($qids){
 	 
+     log_message("debug", "get_options, qids:".$qids);
 	 
 	 $query=$this->db->query("select * from savsoft_options where qid in ($qids) order by FIELD(savsoft_options.qid,$qids)");
 	 return $query->result_array();
@@ -989,7 +990,8 @@ if($this->config->item('allow_result_email')){
         return $query->result_array();
         
     }
- 
+    
+    //insert sonrasý autoincrement alaný döner.
     function get_otodeneme_id(){
         log_message("debug", "get_otodeneme_id");
         $logged_in = $this->session->userdata('logged_in');
@@ -1004,6 +1006,19 @@ if($this->config->item('allow_result_email')){
         return  $insert_id;
     }
     
+    function get_sorular_otodeneme($otodeneme_id){
+        log_message("debug", "get_qids_otodeneme, otodnme_id:".$otodeneme_id);
+        
+        $sql =
+        " SELECT *".
+        " FROM savsoft_result_otodeneme".
+        " WHERE otodeneme_id = ?";
+        
+        $query = $this->db->query($sql,$otodeneme_id);
+        
+        return $query->result_array();
+        
+    }
     
     function otodeneme_sonuc_update($uid,$oto_deneme_no){
         log_message("debug", "otodeneme_sonuc_update");
