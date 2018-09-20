@@ -24,6 +24,13 @@ class Genel_model extends CI_Model
         $query=$this->db->get('savsoft_kadro');
         return $query->result_array();
     }
+    function kadro_list_by_kurum($kurum_id){
+        $this->db->order_by('kadro_adi','asc');
+        $this->db->where('bagli_kurum_id',intval($kurum_id));
+        $this->db->where('aktifmi',1);
+        $query=$this->db->get('savsoft_kadro');
+        return $query->result_array();
+    }
     
     function kurum_list($aktifler=0){
         $this->db->order_by('kurum_adi','asc');

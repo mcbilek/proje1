@@ -55,6 +55,22 @@ class Result extends CI_Controller {
 		$this->load->view('footer',$data);
 	}
 	
+	public function kadro_list($kurum_id)
+	{
+	    log_message("debug", "kadro_list($kurum_id) geldi");
+	    log_message("debug", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	    $this->load->model("genel_model");
+	    // fetching group list
+	    $kadro_list=$this->genel_model->kadro_list_by_kurum($_POST['kurum_id']);
+	//    echo count($kadro_list);
+	//    echo "<option value='5'>Deneme</option>";
+	    foreach ($kadro_list as $key => $val) {
+	        echo $val['kadro_id'];
+                echo "<option value=".$val['kadro_id'].">";
+                echo $val['kadro_adi']."</option>";
+                    }
+	}
+	
 	public function otodeneme_sonuclari($limit='0',$status='0')
 	{
 	    

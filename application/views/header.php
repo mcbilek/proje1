@@ -22,7 +22,7 @@
 	<script src="<?php echo base_url('js/jquery.js');?>"></script>
 	
 	<!-- custom javascript -->
-	<script src="<?php echo base_url('js/basic.js?v=1.3');?>"></script>
+	<script src="<?php echo base_url('js/basic.js?v=1.31');?>"></script>
 		
 	<!-- bootstrap js -->
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js');?>"></script>

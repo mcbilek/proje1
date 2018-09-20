@@ -1,4 +1,25 @@
-﻿<div class="row"  style="border-bottom:1px solid #dddddd;">
+﻿<script type="text/javascript">
+$(document).ready(function(){
+	$('#kurum_id').on('change',function(){
+		var kurum_Id=$(this).val();
+		console.log("kurumId:"+kurum_Id); 
+		console.log("base:"+base_url + "result/kadro_list/"); 
+		if (kurum_Id) {
+			$.ajax({
+				type:'POST',
+				url: base_url + "result/kadro_list",
+				data:'kurum_id='+kurum_Id,
+				success:function(html){
+					console.log(html);
+					$('#kadro_id').html(html);
+					}
+			});
+		}
+	});
+});
+</script>
+
+<div class="row"  style="border-bottom:1px solid #dddddd;">
 <div class="container"  >
 <div class="col-md-1">
 </div>
@@ -67,8 +88,8 @@
 
 			
 						<div class="form-group">
-							<label>Çalıştığınız Kurum</label> <p><select
-								class="form-control selectpicker"   name="kurum_id" id="kurum_id" title="Çalıştığınız Kurum" required>
+							<label>Çalıştığınız Kurum</label> <p>
+							<select class="form-control selectpicker"   name="kurum_id" id="kurum_id" title="Çalıştığınız Kurum" required>
 					<?php
 					foreach ($kurum_list as $key => $val) {
                         ?>
@@ -82,17 +103,9 @@
 						</div>
 
 						<div class="form-group">
-							<label>Geçmek İstediğiniz Kadro</label> <select
-								class="form-control selectpicker" name="kadro_id" id="kadro_id" title="Geçmek İstediğiniz Kadro" required>
-					<?php
-					foreach ($kadro_list as $key => $val) {
-                        ?>
-                						
-                <option value="<?php echo $val['kadro_id'];?>">
-                <?php echo $val['kadro_adi'];?> </option>
-                						<?php
-                    }
-                    ?>
+							<label>Geçmek İstediğiniz Kadro</label> 
+							<select class="form-control" name="kadro_id" id="kadro_id" title="Geçmek İstediğiniz Kadro" required>
+
 					</select>
 						</div>
 					<div class="form-group">

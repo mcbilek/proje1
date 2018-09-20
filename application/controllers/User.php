@@ -53,6 +53,7 @@ class User extends CI_Controller {
 		$this->load->view('footer',$data);
 	}
 	
+	
 	public function new_user()
 	{
 		

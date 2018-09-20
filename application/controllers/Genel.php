@@ -114,8 +114,6 @@ class Genel extends CI_Controller {
 	}
 	
 	
-	
-	
 	//kaynak-ders notu yüklemek için kullanılıyor
 	public function do_upload()
 	{
