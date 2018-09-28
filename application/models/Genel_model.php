@@ -78,7 +78,8 @@ class Genel_model extends CI_Model
         if ($kadro_id!="-1") {
             $this->db->set('kadro_adi', $kadroAdi);
             $this->db->set('uyelik_ucreti', $ucret);
-            $this->db->set('bagli_kurum_id', $bagliKurumId);
+            if ($bagliKurumId>0)
+                $this->db->set('bagli_kurum_id', $bagliKurumId);
             $this->db->where('kadro_id', $kadro_id);
             $this->db->update('savsoft_kadro');
         } else {
