@@ -53,7 +53,8 @@ class Genel extends CI_Controller {
 	    $data['limit']=$limit;
 	    $data['title']="Kurum/Kadro/Kategori Ayarları";
 	    $data['kurum_kadro_kat']=$this->genel_model->kurum_kardo_kategori();
-	    $data['kurum_list']=$this->genel_model->kurum_list(1);
+	    $data['kurum_kadro']=$this->genel_model->kurum_kardo();
+	    $data['kurum_list']=$this->genel_model->kurum_list(0);
 	    $data['kadro_list']=$this->genel_model->kadro_list();
 	    $data['kategori_list']=$this->genel_model->category_list();
 	    $data['ekli_kaynaklar']=$this->genel_model->ekli_kaynaklar();
@@ -113,6 +114,45 @@ class Genel extends CI_Controller {
 	    $this->kurum_kardo_kategori();
 	}
 	
+	public function kurum_aktifpasif()
+	{
+	    log_message("debug", "kurum_aktifpasif yenidurum:".$_POST['yenidurum']);
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
+	    $this->genel_model->kurum_aktifpasif($_POST['kurum_id'],$_POST['yenidurum']);
+	    $this->kurum_kardo_kategori();
+	}
+	public function kurum_ekle_guncelle()
+	{
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    log_message("debug", "kurumIdYeniKurum:". $this->input->post('kurumIdYeniKurum').",kurumAdı:".$this->input->post('kurumAdiYeniKurum'));
+	    $this->genel_model->kurum_ekle_guncelle($_POST['kurumIdYeniKurum'],$_POST['kurumAdiYeniKurum']);
+	    $this->kurum_kardo_kategori();
+	}
+	public function kadro_ekle_guncelle()
+	{
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    log_message("debug", "kadroIdYeniKadro:". $this->input->post('kadroIdYeniKadro').",kadroAdiYeniKadro:".$this->input->post('kadroAdiYeniKadro'));
+	    log_message("debug", "ucretYeniKadro:". $this->input->post('ucretYeniKadro').",bagliKurumId:".$this->input->post('bagliKurumId'));
+	    $this->genel_model->kadro_ekle_guncelle($_POST['kadroIdYeniKadro'],$_POST['kadroAdiYeniKadro'],$_POST['ucretYeniKadro'],$_POST['bagliKurumId']);
+	    $this->kurum_kardo_kategori();
+	}
+	public function kadro_aktifpasif()
+	{
+	    log_message("debug", "kadro_aktifpasif yenidurum:".$_POST['yenidurum']);
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
+	    $this->genel_model->kadro_aktifpasif($_POST['kadro_id'],$_POST['yenidurum']);
+	    $this->kurum_kardo_kategori();
+	}
 	
 	//kaynak-ders notu yüklemek için kullanılıyor
 	public function do_upload()

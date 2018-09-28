@@ -47,6 +47,62 @@ class Genel_model extends CI_Model
         $this->db->update('savsoft_category'); 
     }
     
+    
+    function kurum_aktifpasif($kurum_id,$yenidurum){
+        $this->db->set('aktifmi', $yenidurum);
+        $this->db->where('kurum_id', $kurum_id);
+        $this->db->update('savsoft_kurum');
+    }
+    
+    function kurum_ekle_guncelle($kurum_id,$kurumAdi){
+        if ($kurum_id!="-1") {
+            $this->db->set('kurum_adi', $kurumAdi);
+            $this->db->where('kurum_id', $kurum_id);
+            $this->db->update('savsoft_kurum');
+        } else {
+            $userdata = array(
+                'kurum_adi' => $kurumAdi,
+                'kac_sikli' => 5,
+                'aktifmi' => 1,
+            );
+            
+            if($this->db->insert('savsoft_kurum', $userdata)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+            
+    }
+    function kadro_ekle_guncelle($kadro_id,$kadroAdi,$ucret,$bagliKurumId){
+        if ($kadro_id!="-1") {
+            $this->db->set('kadro_adi', $kadroAdi);
+            $this->db->set('uyelik_ucreti', $ucret);
+            $this->db->set('bagli_kurum_id', $bagliKurumId);
+            $this->db->where('kadro_id', $kadro_id);
+            $this->db->update('savsoft_kadro');
+        } else {
+            $userdata = array(
+                'kadro_adi' => $kadroAdi,
+                'uyelik_ucreti' => $ucret,
+                'aktifmi' => 1,
+                'bagli_kurum_id'=>$bagliKurumId
+            );
+            
+            if($this->db->insert('savsoft_kadro', $userdata)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+            
+    }
+    function kadro_aktifpasif($kadro_id,$yenidurum){
+        $this->db->set('aktifmi', $yenidurum);
+        $this->db->where('kadro_id', $kadro_id);
+        $this->db->update('savsoft_kadro');
+    }
+    
     //Kurum/Kadro/Kategorileri çeken metod.
     function kurum_kardo_kategori(){
         
@@ -64,6 +120,19 @@ class Genel_model extends CI_Model
         "       AND ck.kategori_id = c.cid".
         "       AND krm.aktifmi=1".
         " ORDER BY krm.kurum_adi, kdr.kadro_adi, c.category_name";
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    
+    //Kuruma bağlı Kadrolaro çeken metod.
+    function kurum_kardo(){
+        
+        $sql =
+        " SELECT *".
+        " FROM savsoft_kurum krm, savsoft_kadro kdr".
+        " WHERE krm.kurum_id = kdr.bagli_kurum_id".
+        " ORDER BY krm.kurum_adi, kdr.kadro_adi";
         
         $query = $this->db->query($sql);
         return $query->result_array();
