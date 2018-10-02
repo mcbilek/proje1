@@ -11,6 +11,7 @@ class Login extends CI_Controller {
 	   $this->load->model("user_model");
 	    $this->load->model("quiz_model");
 	    $this->load->model("sms_model");
+	    $this->load->model("genel_model");
 	   $this->lang->load('basic', $this->config->item('language'));
 		if($this->db->database ==''){
 		redirect('install');	
@@ -208,7 +209,8 @@ class Login extends CI_Controller {
 			if($user['price'] > '0'){
 				
 				// user assigned to paid group now validate expiry date.
-				if($user['subscription_expired'] <= time()){
+			    $kadro = $this->genel_model->kadro_bilgileri($user['kadro_id']);
+			    if($user['subscription_expired'] <= time() || strtotime($kadro[0]['uyelik_bitis'])<=time()){
 					// eubscription expired, redirect to payment page
 					
 					redirect('payment_gateway/subscription_expired/'.$user['uid']);
