@@ -133,6 +133,25 @@ class Genel extends CI_Controller {
 	    $this->genel_model->kurum_ekle_guncelle($_POST['kurumIdYeniKurum'],$_POST['kurumAdiYeniKurum']);
 	    $this->kurum_kardo_kategori();
 	}
+	
+	public function kurum_sil($kurumId)
+	{
+	    log_message("debug", "kurum_sil kadroId:".$kurumId);
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    $adet = $this->genel_model->is_kurum_kullanilmis($kurumId);
+	    log_message("debug", "$kurumId adet:".$adet);
+	    if ($adet>0) {
+	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bazı üyelerin kurumu halen bu kurum şeklinde seçili olduğu için bu kurum silinemez!</div>");
+	        redirect('genel/kurum_kardo_kategori/');
+	    }
+	    
+	    $this->genel_model->kurum_sil($kurumId);
+	    $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('removed_successfully')." </div>");
+	    redirect('genel/kurum_kardo_kategori/');
+	}
+	
 	public function kadro_ekle_guncelle()
 	{
 	    if($this->logged_in['su']!='1'){
@@ -140,7 +159,8 @@ class Genel extends CI_Controller {
 	    }
 	    log_message("debug", "kadroIdYeniKadro:". $this->input->post('kadroIdYeniKadro').",kadroAdiYeniKadro:".$this->input->post('kadroAdiYeniKadro'));
 	    log_message("debug", "ucretYeniKadro:". $this->input->post('ucretYeniKadro').",bagliKurumId:".$this->input->post('bagliKurumId'));
-	    $this->genel_model->kadro_ekle_guncelle($_POST['kadroIdYeniKadro'],$_POST['kadroAdiYeniKadro'],$_POST['ucretYeniKadro'],$_POST['bagliKurumId']);
+	    log_message("debug", "üyelik bitiş tarihi:". $this->input->post('uyelik_bitis_tarihi'));
+	    $this->genel_model->kadro_ekle_guncelle($_POST['kadroIdYeniKadro'],$_POST['kadroAdiYeniKadro'],$_POST['ucretYeniKadro'],$this->input->post('bagliKurumId'),$this->input->post('uyelik_bitis_tarihi'));
 	    $this->kurum_kardo_kategori();
 	}
 	public function kadro_aktifpasif()
@@ -152,6 +172,30 @@ class Genel extends CI_Controller {
 	    
 	    $this->genel_model->kadro_aktifpasif($_POST['kadro_id'],$_POST['yenidurum']);
 	    $this->kurum_kardo_kategori();
+	}
+	public function kadro_sil($kadroId)
+	{
+	    log_message("debug", "kadro_sil kadroId:".$kadroId);
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+// 	    $sonuc = $this->genel_model->kadro_bilgileri($kadroId);
+// 	    print_r($sonuc);
+// 	    echo "<br>hobala:".strtotime($sonuc[0]['uyelik_bitis']);
+// 	    $sonuc2 = $this->user_model->update_user_for_odeme(3,1);
+// 	    echo "<br>".$sonuc2;
+// 	    exit();
+	    $adet = $this->genel_model->is_kadro_kullanilmis($kadroId);
+	    log_message("debug", "kadro_sil adet:".$adet);
+	    
+	    if ($adet>0) {
+	        $this->session->set_flashdata('message', "<div class='alert alert-danger'>Bazı üyelerin kadrosu halen bu kadro şeklinde seçili olduğu için bu kadro silinemez!</div>");
+	        redirect('genel/kurum_kardo_kategori/');
+	    }
+	    
+	    $this->genel_model->kadro_sil($kadroId);
+	    $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('removed_successfully')." </div>");
+	    redirect('genel/kurum_kardo_kategori/');
 	}
 	
 	//kaynak-ders notu yüklemek için kullanılıyor

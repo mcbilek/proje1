@@ -24,6 +24,13 @@ class Genel_model extends CI_Model
         $query=$this->db->get('savsoft_kadro');
         return $query->result_array();
     }
+    
+    function kadro_bilgileri($kadro_id){
+        $this->db->where('kadro_id',$kadro_id);
+        $query=$this->db->get('savsoft_kadro');
+        return $query->result_array();
+    }
+    
     function kadro_list_by_kurum($kurum_id){
         $this->db->order_by('kadro_adi','asc');
         $this->db->where('bagli_kurum_id',intval($kurum_id));
@@ -54,6 +61,11 @@ class Genel_model extends CI_Model
         $this->db->update('savsoft_kurum');
     }
     
+    function kurum_sil($kurumId){
+        $this->db->where('kurum_id', $kurumId);
+        $this->db->delete('savsoft_kurum');
+    }
+    
     function kurum_ekle_guncelle($kurum_id,$kurumAdi){
         if ($kurum_id!="-1") {
             $this->db->set('kurum_adi', $kurumAdi);
@@ -74,10 +86,11 @@ class Genel_model extends CI_Model
         }
             
     }
-    function kadro_ekle_guncelle($kadro_id,$kadroAdi,$ucret,$bagliKurumId){
+    function kadro_ekle_guncelle($kadro_id,$kadroAdi,$ucret,$bagliKurumId,$uyelikBitisTarihi){
         if ($kadro_id!="-1") {
             $this->db->set('kadro_adi', $kadroAdi);
             $this->db->set('uyelik_ucreti', $ucret);
+            $this->db->set('uyelik_bitis', $uyelikBitisTarihi);
             if ($bagliKurumId>0)
                 $this->db->set('bagli_kurum_id', $bagliKurumId);
             $this->db->where('kadro_id', $kadro_id);
@@ -87,7 +100,8 @@ class Genel_model extends CI_Model
                 'kadro_adi' => $kadroAdi,
                 'uyelik_ucreti' => $ucret,
                 'aktifmi' => 1,
-                'bagli_kurum_id'=>$bagliKurumId
+                'bagli_kurum_id'=>$bagliKurumId,
+                'uyelik_bitis'=>$uyelikBitisTarihi
             );
             
             if($this->db->insert('savsoft_kadro', $userdata)){
@@ -102,6 +116,25 @@ class Genel_model extends CI_Model
         $this->db->set('aktifmi', $yenidurum);
         $this->db->where('kadro_id', $kadro_id);
         $this->db->update('savsoft_kadro');
+    }
+    function kadro_sil($kadroId){
+        $this->db->where('kadro_id', $kadroId);
+        $this->db->delete('savsoft_kadro');
+    }
+    function is_kadro_kullanilmis($kadroId){
+        
+        $sql = "select count(*) adet FROM savsoft_users where kadro_id=?";
+        $query = $this->db->query($sql,$kadroId);
+        $ret = $query->row();
+        return $ret->adet;
+    }
+    
+    function is_kurum_kullanilmis($kurumId){
+        
+        $sql = "select count(*) adet FROM savsoft_users where kurum_id=?";
+        $query = $this->db->query($sql,$kurumId);
+        $ret = $query->row();
+        return $ret->adet;
     }
     
     //Kurum/Kadro/Kategorileri çeken metod.
@@ -130,7 +163,7 @@ class Genel_model extends CI_Model
     function kurum_kardo(){
         
         $sql =
-        " SELECT *".
+        " SELECT krm.kurum_id, krm.kurum_adi, kdr.*".
         " FROM savsoft_kurum krm, savsoft_kadro kdr".
         " WHERE krm.kurum_id = kdr.bagli_kurum_id".
         " ORDER BY krm.kurum_adi, kdr.kadro_adi";

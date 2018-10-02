@@ -623,11 +623,14 @@ $verilink=site_url('login/verify/'.$veri_code);
 	 
  }
  function update_user_for_odeme($gid,$sure){
+     $this->load->model("genel_model");
         $logged_in = $this->session->userdata('logged_in');
-        //
+        //süreyi kullanıcının kadrosuna ait üyelik bitiş tarihinden alıyoruz.
+        $kadro= $this->genel_model->kadro_bilgileri($logged_in['kadro_id']);
+        log_message("debug", "kadroya ait üyelik bitiş tarihi:".$kadro[0]['uyelik_bitis'].", kadro_id:".$kadro[0]['kadro_id']);
         $userdata = array(
             'gid' => $gid,
-            'subscription_expired' => $sure
+            'subscription_expired' => strtotime($kadro[0]['uyelik_bitis'])
         );
         
         $this->db->where('uid', $logged_in['uid']);
