@@ -210,11 +210,11 @@ class Login extends CI_Controller {
 				
 				// user assigned to paid group now validate expiry date.
 			    $kadro = $this->genel_model->kadro_bilgileri($user['kadro_id']);
-			    if($user['subscription_expired'] <= time() || strtotime($kadro[0]['uyelik_bitis'])<=time()){
+			    if(strtotime($kadro[0]['uyelik_bitis'])<=time()){
 					// eubscription expired, redirect to payment page
 					
 					redirect('payment_gateway/subscription_expired/'.$user['uid']);
-					
+					 
 				}
 				
 			}
