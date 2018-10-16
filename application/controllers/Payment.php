@@ -211,14 +211,14 @@ function subscription_expired($uid){
 	    $buyer->setRegistrationDate($logged_in['registered_date']);
 	    $buyer->setRegistrationAddress($this->input->post('adres'));
 	    $buyer->setIp($this->input->ip_address());
-	    $buyer->setCity($this->iller[$logged_in['il']]);
+	    $buyer->setCity($this->input->post('adres'));
 	    $buyer->setCountry("Turkey");
 	  //  $buyer->setZipCode("34732");
 	    $request->setBuyer($buyer);
 	    
 	    $shippingAddress = new \Iyzipay\Model\Address();
 	    $shippingAddress->setContactName($logged_in['first_name']." ".$logged_in['last_name']);
-	    $shippingAddress->setCity($this->iller[$logged_in['il']]);
+	    $shippingAddress->setCity($this->input->post('adres'));
 	    $shippingAddress->setCountry("Turkey");
 	    $shippingAddress->setAddress($this->input->post('adres'));
 	  //  $shippingAddress->setZipCode("34742");

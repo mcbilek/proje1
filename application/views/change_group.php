@@ -16,6 +16,7 @@ $colorcode=array(
 );
     foreach($group_list as $k => $val){
         if ($logged_in['gid']!=3) {
+            if ($val['group_name']!='Ücretsiz') {
    ?>
 	                <!-- item -->
                 <div class="col-md-6 text-center">
@@ -54,6 +55,7 @@ echo "-";
 	  
 	  
 	  <?php 
+            }
         }
 	  if($cc >= 4){
 	  $cc=0;

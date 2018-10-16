@@ -9,6 +9,16 @@
 		if($this->session->flashdata('message')){
 			echo $this->session->flashdata('message');	
 		}
+		$logged_in=$this->session->userdata('logged_in');
+		$iller = array('Girilmedi','Adana', 'Adıyaman', 'Afyon', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin',
+		    'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale',
+		    'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir',
+		    'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkari', 'Hatay', 'Isparta', 'Mersin', 'İstanbul', 'İzmir',
+		    'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya',
+		    'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya',
+		    'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak',
+		    'Van', 'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kırıkkale', 'Batman', 'Şırnak',
+		    'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce');
 		?>	   
 
   <div class="row">
@@ -22,10 +32,12 @@
 					action="<?php echo site_url('payment/indirimKodu');?>">
 					<div class="row">
 						<div class="col-sm-4">
-							<label for="indirimKodu">İndirim Kodu:</label> <input type="text"
-								name="indirimKodu" class="input input-sm" required>
+						<div class="input-group">
+							<label for="indirimKodu">İndirim Kodu: </label> 
+							<input type="text" name="indirimKodu" class="input input-sm" required>
+						    <span class="input-group-btn"><button class="btn btn-info" type="submit">Uygula</button></span>
 						</div>
-						<button class="btn btn-info" type="submit">Uygula</button>
+						</div>
 					</div>
 				</form>
 
@@ -51,8 +63,6 @@
 if ($islemHazir!="1") {
 ?>
  Ücret: <strong><?php echo $ucret;?>,00 ₺</strong><br>
- *Kredi kartı ile ödeme işlemlerinde adres girilmesi zorunludur.
- <br><br>
 <div class="form-group">
 	<form method="post" action="<?php echo site_url('payment/krediKarti');?>"
 	name="formKart">
@@ -60,10 +70,11 @@ if ($islemHazir!="1") {
 	<!-- <label>Tc Kimlik Numaranız: </label> <input type="number" name="tcKimlik" class="form-control" required><br> -->
 	
 	
-	<label>Adresiniz: </label><input type="text" name="adres" class="form-control" required ><br>
-					<input type="submit" value="Ödeme İşlemine Geç" class="btn btn-info">
+	<!-- <label>Adresiniz: </label> --> <input type="hidden" name="adres" class="form-control" value="<?php if ($iller[$logged_in['il']]!='') echo $iller[$logged_in['il']]; else echo "Girilmedi";?>" required ><br>
+					<input type="submit" value="Ödeme İşlemine Geç" class="btn btn-info btn-lg">
 							</form>
-
+<br>
+ *Kredi kartı ile ödeme işlemi, tamamen güvenli olarak kartınıza ait hiç bir bilgi bizim sistemimizde tutulmadan doğrudan ilgili bankanın sistemine girilerek gerçekleştirilir.
 						</div><br><br>
     			<?php 
 } else {
@@ -97,7 +108,7 @@ if ($islemHazir!="1") {
 					
 	<label>Havale Yapan Kişi: </label><input type="text" name="gonderen" id="gonderen" class="form-control" required>
 	<label>Havale Açıklaması: </label><input type="text" name="aciklama" id="aciklama" class="form-control" ><br>
-					<input type="submit" value="Ödeme Bildirimi Yap" class="btn">
+					<input type="submit" value="Ödeme Bildirimi Yap" class="btn btn-info btn-md">
 							</form>
 						</div><br><br>
 
