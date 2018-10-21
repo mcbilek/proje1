@@ -325,6 +325,7 @@ class User extends CI_Controller {
 		$data['group_list']=$this->user_model->group_list();
 		$data['soru_sayilari']=$this->user_model->soru_sayilari_bykadro($logged_in['uid']);
 		$data['uyelik_ucreti']=$this->user_model->ozel_uyelik_ucreti($logged_in['kadro_id']);
+		$this->user_model->ozel_uyelik_tiklandi();
 		$this->load->view('header',$data);
 		$this->load->view('change_group',$data);
 		$this->load->view('footer',$data);

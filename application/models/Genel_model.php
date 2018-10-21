@@ -357,5 +357,30 @@ class Genel_model extends CI_Model
         );
         return $this->db->insert('savsoft_category_kaynak', $userdata);
     }
+    
+    
+    function ozeluyelik_istekleri()
+    {
+        $sql =
+        " SELECT o.tarih_saat, u.*".
+        " FROM savsoft_users u, ozeluyelik_tiklama o".
+        " WHERE u.uid = o.uid".
+        " ORDER BY o.tarih_saat DESC".
+        " LIMIT 100";
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    
+    function ozeluyelik_tiklama_sil(){
+        log_message("debug", "ozeluyelik_tiklama_sil metoduna geldi.");
+        $this->db->where('1','1');
+        if($this->db->delete('ozeluyelik_tiklama')){
+            log_message("debug", "ozeluyelik_tiklama tablosu silindi.");
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

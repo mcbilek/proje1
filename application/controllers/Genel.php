@@ -165,6 +165,11 @@ class Genel extends CI_Controller {
 	}
 	public function kadro_aktifpasif()
 	{
+	    $logged_in=$this->session->userdata('logged_in');
+	    if($logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
 	    log_message("debug", "kadro_aktifpasif yenidurum:".$_POST['yenidurum']);
 	    if($this->logged_in['su']!='1'){
 	        exit($this->lang->line('permission_denied'));
@@ -278,6 +283,33 @@ class Genel extends CI_Controller {
 	    redirect($yonlendir);
 	    
 	    
+	}
+	
+	public function ozeluyelik_istekleri(){
+	    
+	    $logged_in=$this->session->userdata('logged_in');
+	    if($logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    
+	    $result = $this->genel_model->ozeluyelik_istekleri();
+	    log_message("debug", "result size:".count($result));
+	    $data['result']=$result;
+	    $data['title']="Özel üyelik bölümüne giren kişiler (son 100)";
+	    $this->load->view('headerForTable',$data);
+	    $this->load->view('ozeluyelik_istekleri',$data);
+	    $this->load->view('footer',$data);
+	    
+	}
+	
+	public function ozeluyelik_tiklama_sil()
+	{
+	    if($this->logged_in['su']!='1'){
+	        exit($this->lang->line('permission_denied'));
+	    }
+	    $adet = $this->genel_model->ozeluyelik_tiklama_sil();
+	    $this->session->set_flashdata('message', "<div class='alert alert-success'>".$this->lang->line('removed_successfully')." </div>");
+	    redirect('genel/ozeluyelik_istekleri/');
 	}
 	
 	

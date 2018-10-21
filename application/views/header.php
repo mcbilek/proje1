@@ -127,6 +127,13 @@
 	           <li><a href="<?php echo site_url('quiz/pre_ders_calis');?>">Soru Çöz</a></li>
 	           <li><a href="<?php echo site_url('user/istatistik');?>">İstatistiklerim</a></li>
 	           <li><a href="<?php echo site_url('mesajlar');?>">Mesajlar</a></li>
+	           			<?php  
+				if($logged_in['su']==1){
+				    ?>
+	           <li><a href="<?php echo site_url('genel/ozeluyelik_istekleri');?>">Özelüyelik Denemeleri</a></li>
+	           <?php
+				}
+				    ?>
 			 
 			 <li><a href="<?php echo site_url('liveclass');?>"><?php echo $this->lang->line('live_classroom');?></a></li>
 			<?php  

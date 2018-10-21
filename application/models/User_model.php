@@ -358,6 +358,25 @@ return $revenue;
      return $ret->uyelik_ucreti;
  }
  
+ function ozel_uyelik_tiklandi(){
+     $logged_in=$this->session->userdata('logged_in');
+     $userdata=array(
+         'uid'=>$logged_in['uid']
+     );
+     
+     if($this->db->insert('ozeluyelik_tiklama',$userdata)){
+         return true;
+     }else{
+         return false;
+     }
+     
+     $query = $this->db->query("select * from savsoft_kadro where kadro_id =$kadro_id");
+     $ret = $query->row();
+     return $ret->uyelik_ucreti;
+ }
+ 
+ 
+ 
  function kurum_list($aktifler=1){
 	 $this->db->order_by('kurum_adi','asc');
 	 if ($aktifler==1) {
