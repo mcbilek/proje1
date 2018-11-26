@@ -17,6 +17,7 @@ class Result extends CI_Controller {
 
 	public function index($limit='0',$status='0')
 	{
+	    log_message("debug", "Result.php index() e geldi.");
 		
 	 	if(!$this->session->userdata('logged_in')){
 			redirect('login');
@@ -46,10 +47,11 @@ class Result extends CI_Controller {
 		$data['result']=$this->result_model->result_list($limit,$status);
 		// fetching quiz list
 		$data['quiz_list']=$this->result_model->quiz_list();
+//		log_message("debug", "deneme yazdı?.");
 		// group list
 		 $this->load->model("user_model");
 		$data['group_list']=$this->user_model->group_list();
-		
+//		echo "deneme";
 		$this->load->view('headerForTable',$data);
 		$this->load->view('result_list',$data);
 		$this->load->view('footer',$data);
@@ -239,13 +241,13 @@ class Result extends CI_Controller {
 	  $uid=$data['result']['uid'];
 	  $quid=$data['result']['quid'];
 	  $score=$data['result']['score_obtained'];
-	  $query=$this->db->query(" select * from savsoft_result where score_obtained > '$score' and quid ='$quid' group by score_obtained ");
+	  $query=$this->db->query(" select * from savsoft_result where score_obtained > '$score' and quid ='$quid'  ");
 	  $data['rank']=$query->num_rows() + 1;
-	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  ");
+	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  ");
 	  $data['last_rank']=$query->num_rows();
-	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  order by score_obtained desc limit 3 ");
+	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  order by score_obtained desc limit 3 ");
 	  $data['toppers']=$query->result_array();
-	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  group by score_obtained  order by score_obtained asc limit 1 ");
+	  $query=$this->db->query(" select * from savsoft_result where quid ='$quid'  order by score_obtained asc limit 1 ");
 	  $data['looser']=$query->row_array();
 	
 		$this->load->view('header',$data);

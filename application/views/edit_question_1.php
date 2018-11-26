@@ -42,6 +42,19 @@
 					?>
 					</select>
 			</div>
+			<div class="form-group">	 
+					<label   >2. Kategori</label> 
+					<select class="form-control" name="cid2">
+					<?php 
+					foreach($category_list as $key => $val){
+						?>
+						
+						<option value="<?php echo $val['cid'];?>"  <?php if($question['cid2']==$val['cid']){ echo 'selected'; } ?> ><?php echo $val['category_name'];?></option>
+						<?php 
+					}
+					?>
+					</select>
+			</div>
 			
 			
 			<div class="form-group">	 
